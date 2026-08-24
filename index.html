@@ -1,0 +1,1926 @@
+<title>奇門遁甲六碼占卜</title>
+<style>
+:root{
+  --bg:#eef3ee;
+  --bg-elev:#ffffff;
+  --ink:#17241f;
+  --ink-soft:#5b7269;
+  --line:rgba(23,36,31,0.12);
+  --accent:#1f7a5c;
+  --accent-soft:rgba(31,122,92,0.12);
+  --blue:#2f6690;
+  --blue-soft:rgba(47,102,144,0.14);
+  --good:#2f8f5b;
+  --good-soft:rgba(47,143,91,0.12);
+  --warn:#a8752c;
+  --warn-soft:rgba(168,117,44,0.12);
+  --shadow:0 1px 2px rgba(15,30,25,0.06),0 8px 24px -12px rgba(15,30,25,0.18);
+  --radius:14px;
+  --serif:'Noto Serif TC','Songti TC','PMingLiU',serif;
+  --sans:'Noto Sans TC',-apple-system,BlinkMacSystemFont,'PingFang TC','Microsoft JhengHei',sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0d1815;
+    --bg-elev:#132420;
+    --ink:#dfece6;
+    --ink-soft:#7fa39a;
+    --line:rgba(223,236,230,0.1);
+    --accent:#4fbd93;
+    --accent-soft:rgba(79,189,147,0.16);
+    --blue:#6fb3e0;
+    --blue-soft:rgba(111,179,224,0.16);
+    --good:#5cd1a0;
+    --good-soft:rgba(92,209,160,0.14);
+    --warn:#d9a556;
+    --warn-soft:rgba(217,165,86,0.14);
+    --shadow:0 1px 2px rgba(0,0,0,0.3),0 12px 32px -16px rgba(0,0,0,0.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1815;
+  --bg-elev:#132420;
+  --ink:#dfece6;
+  --ink-soft:#7fa39a;
+  --line:rgba(223,236,230,0.1);
+  --accent:#4fbd93;
+  --accent-soft:rgba(79,189,147,0.16);
+  --blue:#6fb3e0;
+  --blue-soft:rgba(111,179,224,0.16);
+  --good:#5cd1a0;
+  --good-soft:rgba(92,209,160,0.14);
+  --warn:#d9a556;
+  --warn-soft:rgba(217,165,86,0.14);
+  --shadow:0 1px 2px rgba(0,0,0,0.3),0 12px 32px -16px rgba(0,0,0,0.6);
+}
+:root[data-theme="light"]{
+  --bg:#eef3ee;
+  --bg-elev:#ffffff;
+  --ink:#17241f;
+  --ink-soft:#5b7269;
+  --line:rgba(23,36,31,0.12);
+  --accent:#1f7a5c;
+  --accent-soft:rgba(31,122,92,0.12);
+  --blue:#2f6690;
+  --blue-soft:rgba(47,102,144,0.14);
+  --good:#2f8f5b;
+  --good-soft:rgba(47,143,91,0.12);
+  --warn:#a8752c;
+  --warn-soft:rgba(168,117,44,0.12);
+  --shadow:0 1px 2px rgba(15,30,25,0.06),0 8px 24px -12px rgba(15,30,25,0.18);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, var(--blue-soft), transparent),
+    var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding:32px 20px 80px;
+}
+
+.tabbar{
+  display:flex;
+  gap:20px;
+  margin-bottom:28px;
+  border-bottom:1px solid var(--line);
+}
+.tab-btn{
+  appearance:none;
+  border:none;
+  background:none;
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:15px;
+  color:var(--ink-soft);
+  padding:10px 2px 12px;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  transition:color .15s, border-color .15s;
+}
+.tab-btn.active{color:var(--ink);border-bottom-color:var(--accent);}
+.tab-btn:hover{color:var(--ink);}
+.tab-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.masthead{
+  text-align:center;
+  margin-bottom:28px;
+}
+.masthead .eyebrow{
+  font-size:12px;
+  letter-spacing:0.16em;
+  color:var(--blue);
+  text-transform:uppercase;
+  font-weight:600;
+}
+.masthead h1{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(28px,6vw,38px);
+  margin:6px 0 4px;
+  text-wrap:balance;
+  letter-spacing:0.02em;
+}
+.masthead p{
+  color:var(--ink-soft);
+  font-size:14px;
+  margin:0;
+}
+
+.input-card{
+  background:var(--bg-elev);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:20px;
+}
+.input-card label{
+  font-size:12px;
+  color:var(--ink-soft);
+  display:block;
+  margin-bottom:6px;
+  letter-spacing:0.04em;
+}
+.input-card .field{flex:1;min-width:0;}
+#codeInput{
+  width:100%;
+  font-family:var(--sans);
+  font-variant-numeric:tabular-nums;
+  font-size:22px;
+  letter-spacing:0.18em;
+  font-weight:600;
+  border:none;
+  background:transparent;
+  color:var(--ink);
+  outline:none;
+  padding:2px 0;
+}
+#codeInput::placeholder{color:var(--ink-soft);opacity:0.5;letter-spacing:0.18em;}
+.digit-hint{
+  display:flex;
+  gap:4px;
+  margin-top:6px;
+}
+.digit-hint span{
+  width:14px;height:3px;border-radius:2px;background:var(--line);
+}
+.digit-hint span.filled{background:var(--blue);}
+#randomBtn{
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink-soft);
+  width:44px;height:44px;
+  border-radius:10px;
+  font-size:18px;
+  cursor:pointer;
+  flex:none;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .15s, color .15s;
+}
+#randomBtn:hover{border-color:var(--blue);color:var(--blue);}
+#randomBtn:focus-visible, #codeInput:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+.empty-state{
+  text-align:center;
+  color:var(--ink-soft);
+  font-size:14px;
+  padding:60px 20px;
+  border:1px dashed var(--line);
+  border-radius:var(--radius);
+}
+
+#result{display:none;}
+#result.show{display:block;}
+
+.score-band{
+  background:var(--bg-elev);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:22px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:16px;
+}
+.ring-wrap{position:relative;width:84px;height:84px;flex:none;}
+.ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg);}
+.ring-wrap circle{fill:none;stroke-width:8;}
+.ring-track{stroke:var(--line);}
+.ring-value{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .6s ease;}
+.ring-num{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:22px;
+  font-variant-numeric:tabular-nums;
+}
+.score-copy{flex:1;min-width:0;}
+.score-copy .label{font-size:12px;color:var(--ink-soft);letter-spacing:0.06em;margin-bottom:4px;}
+.score-copy .verdict{font-family:var(--serif);font-weight:700;font-size:19px;margin-bottom:6px;}
+.score-breakdown{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{
+  font-size:11.5px;
+  padding:3px 9px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+}
+.chip.hit{
+  background:var(--good-soft);
+  border-color:transparent;
+  color:var(--good);
+  font-weight:600;
+}
+
+.hazard-band{
+  border-radius:var(--radius);
+  padding:14px 18px;
+  margin-bottom:20px;
+  font-size:13.5px;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  border:1px solid transparent;
+}
+.hazard-band.clear{
+  background:var(--good-soft);
+  color:var(--good);
+}
+.hazard-band.hit{
+  background:var(--warn-soft);
+  color:var(--warn);
+}
+.hazard-band .icon{flex:none;font-size:16px;line-height:1.3;}
+.hazard-band .body b{display:block;margin-bottom:2px;}
+.hazard-band .body span{opacity:0.85;}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+@media (max-width:480px){
+  .grid{grid-template-columns:1fr;}
+}
+.card{
+  background:var(--bg-elev);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.combo-card{margin-top:12px;}
+.card summary{
+  list-style:none;
+  cursor:pointer;
+  padding:16px 18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.card summary::-webkit-details-marker{display:none;}
+.card .tag{
+  font-size:11px;
+  color:var(--blue);
+  letter-spacing:0.08em;
+  font-weight:700;
+  flex:none;
+  width:52px;
+}
+.card .headline{flex:1;min-width:0;}
+.card .headline .val{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:17px;
+  display:flex;align-items:center;gap:7px;
+}
+.card .headline .digit{
+  font-size:11px;
+  color:var(--ink-soft);
+  font-weight:400;
+  font-variant-numeric:tabular-nums;
+}
+.card .chev{
+  color:var(--ink-soft);
+  font-size:12px;
+  transition:transform .2s;
+  flex:none;
+}
+.card[open] .chev{transform:rotate(90deg);}
+.card .badge-mini{
+  font-size:10.5px;
+  padding:2px 7px;
+  border-radius:999px;
+  background:var(--warn-soft);
+  color:var(--warn);
+  font-weight:600;
+  flex:none;
+}
+.card .desc{
+  padding:0 18px 18px;
+  color:var(--ink-soft);
+  font-size:13.5px;
+  line-height:1.75;
+  white-space:pre-line;
+  border-top:1px solid var(--line);
+  margin-top:0;
+  padding-top:14px;
+}
+
+.legend-note{
+  margin-top:24px;
+  font-size:12px;
+  color:var(--ink-soft);
+  line-height:1.7;
+  border-top:1px solid var(--line);
+  padding-top:16px;
+}
+
+.history-section{margin-top:28px;}
+.history-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+.history-head h2{
+  font-family:var(--serif);
+  font-size:15px;
+  font-weight:700;
+  margin:0;
+}
+.history-clear{
+  border:none;
+  background:none;
+  color:var(--ink-soft);
+  font-size:12px;
+  cursor:pointer;
+  padding:2px 0;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.history-clear:hover{color:var(--warn);}
+.history-empty{
+  color:var(--ink-soft);
+  font-size:13px;
+  padding:18px;
+  text-align:center;
+  border:1px dashed var(--line);
+  border-radius:var(--radius);
+}
+.history-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.history-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  text-align:left;
+  background:var(--bg-elev);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px 14px;
+  cursor:pointer;
+  font-family:inherit;
+  color:inherit;
+}
+.history-row:hover{border-color:var(--accent);}
+.history-row:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.history-dot{
+  width:8px;height:8px;border-radius:50%;flex:none;
+}
+.history-code{
+  font-variant-numeric:tabular-nums;
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:0.06em;
+  flex:none;
+}
+.history-mid{
+  flex:1;min-width:0;
+  font-size:12px;
+  color:var(--ink-soft);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.history-time{
+  flex:none;
+  font-size:11.5px;
+  color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;
+}
+
+/* 手機號碼分頁 */
+.phone-input-card{
+  background:var(--bg-elev);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:20px;
+  margin-bottom:20px;
+}
+.phone-input-card label{
+  font-size:12px;
+  color:var(--ink-soft);
+  display:block;
+  margin-bottom:8px;
+  letter-spacing:0.04em;
+}
+#phoneInput{
+  width:100%;
+  min-height:96px;
+  resize:vertical;
+  font-family:var(--sans);
+  font-variant-numeric:tabular-nums;
+  font-size:15px;
+  line-height:1.7;
+  letter-spacing:0.04em;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px 12px;
+  background:var(--bg);
+  color:var(--ink);
+  outline:none;
+}
+#phoneInput:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+#hanziInput, #surnameInput, #givenInput{
+  width:100%;
+  font-family:var(--sans);
+  font-size:15px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 12px;
+  background:var(--bg);
+  color:var(--ink);
+  outline:none;
+}
+#hanziInput:focus-visible, #surnameInput:focus-visible, #givenInput:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+.name-input-row{display:flex;gap:10px;}
+.name-input-row #surnameInput{flex:1;}
+.name-input-row #givenInput{flex:2;}
+.name-extra-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  margin-top:12px;
+  font-size:12px;
+  color:var(--ink-soft);
+}
+.name-extra-row label{display:flex;flex-direction:column;gap:4px;}
+.name-extra-row select{
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:6px 8px;
+  background:var(--bg-elev);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:13px;
+}
+.phone-input-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
+  gap:10px;
+}
+.phone-hint{font-size:11.5px;color:var(--ink-soft);}
+.analyze-btn{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  padding:9px 20px;
+  font-size:13.5px;
+  font-weight:700;
+  cursor:pointer;
+  flex:none;
+  font-family:var(--sans);
+  transition:opacity .15s;
+}
+.analyze-btn:hover{opacity:0.88;}
+.analyze-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+.candidate-list{display:flex;flex-direction:column;gap:12px;}
+.candidate{
+  background:var(--bg-elev);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.candidate summary{
+  list-style:none;
+  cursor:pointer;
+  padding:16px 18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.candidate summary::-webkit-details-marker{display:none;}
+.candidate .rank{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:13px;
+  color:var(--ink-soft);
+  width:20px;
+  flex:none;
+  text-align:center;
+}
+.candidate .cnum{
+  font-variant-numeric:tabular-nums;
+  font-weight:700;
+  font-size:16px;
+  flex:1;
+  min-width:0;
+  letter-spacing:0.02em;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.candidate .cscore{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:18px;
+  color:var(--accent);
+  flex:none;
+  font-variant-numeric:tabular-nums;
+}
+.candidate .cbadges{display:flex;gap:6px;flex:none;flex-wrap:wrap;justify-content:flex-end;}
+.candidate .chev{color:var(--ink-soft);font-size:12px;flex:none;transition:transform .2s;}
+.candidate[open] .chev{transform:rotate(90deg);}
+.candidate .cbody{border-top:1px solid var(--line);padding:16px 18px;}
+.candidate .csection-label{
+  font-size:11px;color:var(--ink-soft);letter-spacing:0.08em;margin-bottom:8px;
+}
+.ling-badge{
+  font-size:10.5px;padding:3px 9px;border-radius:999px;font-weight:600;flex:none;white-space:nowrap;
+}
+.ling-badge.good{background:var(--good-soft);color:var(--good);}
+.ling-badge.warn{background:var(--warn-soft);color:var(--warn);}
+.ling-badge.mixed{background:var(--blue-soft);color:var(--blue);}
+.hazard-mini{
+  font-size:10.5px;padding:3px 9px;border-radius:999px;background:var(--warn-soft);color:var(--warn);font-weight:600;flex:none;white-space:nowrap;
+}
+.ling-line{
+  display:flex;align-items:baseline;gap:8px;margin-bottom:16px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;
+}
+.ling-line b{font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:700;}
+.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px;margin-bottom:16px;}
+@media (max-width:480px){.mini-grid{grid-template-columns:repeat(2,1fr);}}
+.mini-chip{border:1px solid var(--line);border-radius:10px;padding:8px 10px;}
+.mini-chip .mk{font-size:10px;color:var(--blue);letter-spacing:0.06em;margin-bottom:2px;}
+.mini-chip .mv{font-family:var(--serif);font-weight:700;font-size:14px;}
+
+.pair-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.pair-chip{
+  font-size:11px;font-variant-numeric:tabular-nums;font-weight:600;
+  padding:4px 9px;border-radius:8px;white-space:nowrap;
+}
+.pair-chip.good{background:var(--good-soft);color:var(--good);}
+.pair-chip.warn{background:var(--warn-soft);color:var(--warn);}
+.pair-chip.mixed{background:var(--blue-soft);color:var(--blue);}
+</style>
+
+<div class="wrap">
+  <div class="tabbar" role="tablist">
+    <button class="tab-btn active" data-tab="divination" type="button" role="tab" aria-selected="true">奇門遁甲占卜</button>
+    <button class="tab-btn" data-tab="phone" type="button" role="tab" aria-selected="false">手機號碼</button>
+    <button class="tab-btn" data-tab="hanzi" type="button" role="tab" aria-selected="false">數字易經</button>
+    <button class="tab-btn" data-tab="name" type="button" role="tab" aria-selected="false">姓名學</button>
+    <button class="tab-btn" data-tab="idcard" type="button" role="tab" aria-selected="false">身分證歷程</button>
+  </div>
+
+  <section id="panel-divination" class="tab-panel active">
+    <div class="masthead">
+      <div class="eyebrow">奇門遁甲 · 測數起局</div>
+      <h1>六碼占卜</h1>
+      <p>輸入任意六位數字（如當下想到的數字），起出宮位、八神、九星、八門、天干、地干</p>
+    </div>
+
+    <div class="input-card">
+      <div class="field">
+        <label for="codeInput">測數六碼</label>
+        <input id="codeInput" inputmode="numeric" maxlength="6" placeholder="輸入六位數字" autocomplete="off" />
+        <div class="digit-hint" id="digitHint"></div>
+      </div>
+      <button id="randomBtn" type="button" title="隨機一組" aria-label="隨機一組">⟳</button>
+    </div>
+
+    <div class="empty-state" id="emptyState">輸入六位數字後，結果會顯示在這裡</div>
+
+    <div id="result">
+      <div class="score-band">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 84 84">
+            <circle class="ring-track" cx="42" cy="42" r="36"></circle>
+            <circle class="ring-value" id="ringValue" cx="42" cy="42" r="36" stroke-dasharray="226" stroke-dashoffset="226"></circle>
+          </svg>
+          <div class="ring-num" id="scoreNum">0</div>
+        </div>
+        <div class="score-copy">
+          <div class="label">綜合分數</div>
+          <div class="verdict" id="verdict">—</div>
+          <div class="score-breakdown" id="breakdown"></div>
+        </div>
+      </div>
+
+      <div class="hazard-band" id="hazardBand">
+        <div class="icon" id="hazardIcon">✓</div>
+        <div class="body">
+          <b id="hazardTitle">未犯門迫、擊刑</b>
+          <span id="hazardDetail">本局門與干皆未落入該宮的忌配組合</span>
+        </div>
+      </div>
+
+      <div class="grid" id="cardGrid"></div>
+
+      <details class="card combo-card" id="ganComboCard">
+        <summary>
+          <span class="tag">組合</span>
+          <span class="headline">
+            <span class="val" id="comboName">—</span>
+            <span class="digit" id="comboSub"></span>
+          </span>
+          <span class="chev">›</span>
+        </summary>
+        <div class="desc" id="comboDesc"></div>
+      </details>
+
+      <div class="legend-note">
+        分數規則：八神為六合／太陰／九天／值符 +20，九星為天心／天輔／天任 +20，八門為開／休／生 +40，天干、地干為乙丙丁戊各 +10，滿分 100。門迫、擊刑僅作提示，不計入分數。天干地干組合格局取自「陽盤奇門遁甲格局全表」，僅供參考，不影響分數。
+      </div>
+    </div>
+
+    <div class="history-section" id="historySection">
+      <div class="history-head">
+        <h2>歷史紀錄</h2>
+        <button class="history-clear" id="historyClearBtn" type="button">清除紀錄</button>
+      </div>
+      <div class="history-empty" id="historyEmpty">尚無查詢紀錄，起局後會自動記錄在這裡</div>
+      <div class="history-list" id="historyList"></div>
+    </div>
+  </section>
+
+  <section id="panel-phone" class="tab-panel">
+    <div class="masthead">
+      <div class="eyebrow">手機號碼 · 選號檢驗</div>
+      <h1>號碼分析</h1>
+      <p>貼上一組或多組候選手機號碼，依奇門單宮分數排序，並附靈動格局（皇極八十一數）參考</p>
+    </div>
+
+    <div class="phone-input-card">
+      <label for="phoneInput">候選手機號碼（一行一組）</label>
+      <textarea id="phoneInput" placeholder="0912345678&#10;0987654321&#10;0955123456"></textarea>
+      <div class="phone-input-actions">
+        <span class="phone-hint" id="phoneHint">尚未輸入</span>
+        <button class="analyze-btn" id="analyzeBtn" type="button">分析排序</button>
+      </div>
+    </div>
+
+    <div class="empty-state" id="phoneEmptyState">貼上候選號碼並按「分析排序」，結果會顯示在這裡</div>
+
+    <div class="candidate-list" id="candidateList"></div>
+
+    <div class="legend-note" id="phoneLegendNote" style="display:none;">
+      排序依奇門單宮分數（取號碼末六碼）由高到低。靈動格局（皇極八十一數）與數字易經八星（兩兩配對）皆取完整號碼計算，僅供參考、不影響排序。八星配對規則：0、5 不單獨配對，遇 0 視為隱性（標記「隱」，可能拖長時間或降低察覺度）、遇 5 視為顯性放大（標記「顯」）；號碼開頭或結尾若為 0 或 5，則與唯一相鄰數字合看為伏位。
+    </div>
+
+    <div class="csection-label" style="margin-top:28px;">雙人配對（夫妻宮）</div>
+    <div class="phone-input-card">
+      <div class="name-input-row">
+        <input id="pairAInput" type="text" placeholder="甲方號碼（例如：0912345678）" autocomplete="off" />
+        <input id="pairBInput" type="text" placeholder="乙方號碼（例如：0987654321）" autocomplete="off" />
+      </div>
+      <div class="phone-input-actions">
+        <span class="phone-hint" id="pairHint">尚未輸入</span>
+        <button class="analyze-btn" id="pairAnalyzeBtn" type="button">比對</button>
+      </div>
+    </div>
+
+    <div class="empty-state" id="pairEmptyState">輸入兩組號碼並按「比對」，結果會顯示在這裡</div>
+
+    <div id="pairResult" style="display:none;">
+      <div class="mini-grid" id="pairSummary" style="grid-template-columns:repeat(2,1fr);"></div>
+      <div class="ling-line" id="pairElementLine"></div>
+      <div class="ling-line" id="pairHeshiLine"></div>
+      <div class="ling-line" id="pairStarLine"></div>
+      <div class="legend-note">
+        宮位相生相剋：比較兩人末六碼「宮位」的五行（相生最佳、同五行為比肩尚可、相剋最忌）。合十格：比較兩人「決定宮位的那一碼」加起來是否等於10（合十為佳）。門迫直配：把兩人宮位定位數字直接配成一組兩碼，查數字易經八星，最忌配出五鬼或延年。這是林博資料「夫妻宮深論」的簡化實作，只取得到明確算法的三個判斷點，僅供參考。
+      </div>
+    </div>
+
+    <div class="history-section" id="phoneHistorySection">
+      <div class="history-head">
+        <h2>歷史紀錄</h2>
+        <button class="history-clear" id="phoneHistoryClearBtn" type="button">清除紀錄</button>
+      </div>
+      <div class="history-empty" id="phoneHistoryEmpty">尚無查詢紀錄</div>
+      <div class="history-list" id="phoneHistoryList"></div>
+    </div>
+  </section>
+
+  <section id="panel-hanzi" class="tab-panel">
+    <div class="masthead">
+      <div class="eyebrow">數字易經 · 萬用轉換</div>
+      <h1>文字轉數字</h1>
+      <p>輸入姓名、文字、數字或英文字母，自動換算成數字後，用兩兩配對的數字易經八星來看</p>
+    </div>
+
+    <div class="phone-input-card">
+      <label for="hanziInput">輸入內容</label>
+      <input id="hanziInput" type="text" placeholder="例如：王小明、0912345678、ABC" autocomplete="off" />
+      <div class="phone-input-actions">
+        <span class="phone-hint" id="hanziHint">尚未輸入</span>
+        <button class="analyze-btn" id="hanziAnalyzeBtn" type="button">轉換</button>
+      </div>
+    </div>
+
+    <div class="empty-state" id="hanziEmptyState">輸入內容並按「轉換」，結果會顯示在這裡</div>
+
+    <div id="hanziResult" style="display:none;">
+      <div class="csection-label">轉換過程</div>
+      <div class="pair-row" id="tokenRow"></div>
+
+      <div class="ling-line"><b id="hanziDigits"></b><span>依序兩兩配對</span></div>
+
+      <div class="csection-label">數字易經八星（兩兩配對）</div>
+      <div class="pair-row" id="hanziPairRow"></div>
+
+      <div class="legend-note">
+        英文字母採字母序（A=01、B=02…Z=26，跟身分證換算同一套）；中文字採 Unicode／教育部標準筆畫數。少數部首（如氵、扌、忄）在傳統姓名學裡有時會以本字（水、手、心）的筆畫數計算，跟這裡的字面筆畫可能會差一畫左右，僅供參考。無法辨識的符號會被跳過、不計入配對。
+      </div>
+    </div>
+  </section>
+
+  <section id="panel-name" class="tab-panel">
+    <div class="masthead">
+      <div class="eyebrow">姓名學 · 五格剖象</div>
+      <h1>姓名筆畫五格</h1>
+      <p>輸入姓與名，換算天格、人格、地格、外格、總格，可選填日主看十神對照</p>
+    </div>
+
+    <div class="phone-input-card">
+      <label>輸入姓名</label>
+      <div class="name-input-row">
+        <input id="surnameInput" type="text" placeholder="姓（例如：林）" autocomplete="off" />
+        <input id="givenInput" type="text" placeholder="名（例如：印家）" autocomplete="off" />
+      </div>
+      <div class="name-extra-row">
+        <label>日主（選填，需自己已知八字日主）
+          <select id="dayMasterSelect">
+            <option value="">不填</option>
+            <option>甲</option><option>乙</option><option>丙</option><option>丁</option><option>戊</option>
+            <option>己</option><option>庚</option><option>辛</option><option>壬</option><option>癸</option>
+          </select>
+        </label>
+        <label>六親對照
+          <select id="genderSelect">
+            <option value="male">男命</option>
+            <option value="female">女命</option>
+          </select>
+        </label>
+      </div>
+      <div class="phone-input-actions">
+        <span class="phone-hint" id="nameHint">尚未輸入</span>
+        <button class="analyze-btn" id="nameAnalyzeBtn" type="button">計算五格</button>
+      </div>
+    </div>
+
+    <div class="empty-state" id="nameEmptyState">輸入姓名並按「計算五格」，結果會顯示在這裡</div>
+
+    <div id="nameResult" style="display:none;">
+      <div class="csection-label">筆畫拆解</div>
+      <div class="pair-row" id="nameTokenRow"></div>
+
+      <div class="csection-label">五格總覽</div>
+      <div class="mini-grid" id="nameGridSummary" style="grid-template-columns:repeat(5,1fr);"></div>
+
+      <div class="csection-label" style="margin-top:16px;">詳細依據（點開看六親宮位、十神）</div>
+      <div class="grid" id="nameCardGrid"></div>
+
+      <div class="legend-note">
+        天格：單姓為姓的筆畫+1、複姓為兩字筆畫合計。人格：姓最後一字＋名第一字。地格：單名為名的筆畫+1、複名為所有字筆畫合計。總格：全名筆畫合計。外格：總格−人格+1。各格取尾數對應天干五行（見左方筆畫拆解）。十神需先選填日主才會顯示，沒填就只看五格本身。<br>
+        筆畫數採 Unicode／教育部標準字面筆畫，跟傳統康熙姓名學的筆畫數，在少數字（例如「印」，兩者相差一畫）上可能有一畫落差，建議跟你原本熟悉的筆畫表對一下再採用。
+      </div>
+    </div>
+  </section>
+
+  <section id="panel-idcard" class="tab-panel">
+    <div class="masthead">
+      <div class="eyebrow">身分證 · 生命歷程</div>
+      <h1>身分證命格演算</h1>
+      <p>輸入身分證號（1個字母＋9個數字），拆成10個階段，看各階段的命格傾向</p>
+    </div>
+
+    <div class="phone-input-card">
+      <label for="idcardInput">身分證號</label>
+      <input id="idcardInput" type="text" placeholder="例如：L123464910" autocomplete="off" maxlength="10" />
+      <div class="phone-input-actions">
+        <span class="phone-hint" id="idcardHint">尚未輸入</span>
+        <button class="analyze-btn" id="idcardAnalyzeBtn" type="button">計算歷程</button>
+      </div>
+    </div>
+
+    <div class="empty-state" id="idcardEmptyState">輸入身分證號並按「計算歷程」，結果會顯示在這裡</div>
+
+    <div id="idcardResult" style="display:none;">
+      <div class="ling-line"><b id="idcardMostLabel"></b><span id="idcardMostSub"></span></div>
+
+      <div class="csection-label">十個階段</div>
+      <div class="candidate-list" id="idcardStageList"></div>
+
+      <div class="legend-note">
+        字母採字母序換算成2位數（A=01…Z=26），跟9個數字連起來共11個數字，取相鄰重疊兩碼、頭尾各用一次，共10段。第1段（頭兩碼）依林博的算法屬「父母保護期」，書中對這段究竟是0~8歲還是1~10歲寫法不一致，這裡不強行判定年齡、只標階段順序。第2~9段大致對應8–13、13–18…到43–48歲，每段5年；第10段（48歲以後）書中沒有明確的結束年齡，這裡也不編造終點。命格判讀依「哪種命格最多、該現象最明顯」的原則，只統計第2~10段（保護期不計入）。
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const DIGITS = ['1','2','3','4','5','6','7','8','9','0'];
+
+const PALACE = ['坎宮（水）','坤宮（土）','震宮（木）','巽宮（木）','坤宮（土）','乾宮（金）','兑宮（金）','艮宮（土）','離宮（火）','坤宮（土）'];
+const SHEN   = ['值符','騰蛇','太陰','六合','白虎','玄武','九地','九天','值符','騰蛇'];
+const STAR   = ['天蓬星','天芮星','天沖星','天輔星','天芮星','天心星','天柱星','天任星','天英星','天芮星'];
+const DOOR   = ['休門','死門','傷門','杜門','死門','開門','驚門','生門','景門','死門'];
+const GAN    = ['值符(甲)','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+
+const PALACE_DESC = {
+  '坎宮（水）':'卦名：坎為水（坎中滿）｜五行：水｜方位：北方\n人體：腎臟、膀胱、泌尿系統、生殖系統、血液、內分泌系統、耳、肛門\n\n生活領域：障礙、阻饒、桃花感情、生育、疾病\n艱難、險阻、陷阱、迷失方向、多情、想法多、情緒、困擾',
+  '坤宮（土）':'卦名：坤為地（坤六斷）｜五行：土｜方位：西南方\n人體：腹、右肩、脾、胃、肌肉、女性生殖器\n\n生活領域：婚姻家庭、房子、土地、婦科、腸胃\n穩定、平順、慢、遲鈍、涉及許多人和許多事、事多、牽扯、拖拉、付出',
+  '震宮（木）':'卦名：震為雷（震仰盂）｜五行：木｜方位：東方\n人體：肝膽、左脅\n\n生活領域：工作事業、創新、動力、車禍、肢體衝突\n意想不到、突然的、急促的、貴人比較多、競爭力、衝動',
+  '巽宮（木）':'卦名：巽為風（巽下斷）｜五行：木｜方位：東南方\n人體：股、肱、膽、氣管、神經、左肩、練功之元氣\n\n生活領域：感情、桃花、神經系統、睡眠、敏感、靈異、財運\n自由活動，說話漂浮、迷茫、沒有方向、像風一樣抓不住、捉摸不定、輕浮',
+  '乾宮（金）':'卦名：乾為天（乾三連）｜五行：金｜方位：西北方\n人體：頭、右腿、肺、骨骼、男性生殖器官\n\n生活領域：財運、資金、薪水、官貴、升遷、事業格局\n剛健的性質、積極進取、居高臨下、高級貴族、財富、多變、高人一等',
+  '兑宮（金）':'卦名：兌為澤（兌上缺）｜五行：金｜方位：西方\n人體：口、舌、牙齒、咽喉、肺、右肋、肛門\n\n生活領域：口角吵架、官司訴訟、交際、社交、財運\n表示喜悅和言詞、缺陷、口舌、不完美',
+  '艮宮（土）':'卦名：艮為山（艮覆盤）｜五行：土｜方位：東北方\n人體：鼻、背、手指、關節、左腿、腳趾、乳房、脾、胃、結腸\n\n生活領域：財富、土地不動產、生產、子嗣\n困難障礙、靜止安定的狀況、事物的發展不夠快，在等待、停滯不前',
+  '離宮（火）':'卦名：離為火（離中虛）｜五行：火｜方位：南方\n人體：眼、頭部、心臟、小腸\n\n生活領域：功名、名聲、離開、離職、分離、桃花\n躁動、情緒來得快去得快、虎頭蛇尾、光明、熱情、喜歡打扮、沒耐心、漂亮、中年婦女'
+};
+
+const SHEN_DESC = {
+  '值符':'屬性：土，大吉\n本質：眾神之首，所到之處，所有邪惡都會消散\n吉神貴人，名貴的、知名的、有組織能力的、頭、高尚的、領導力。',
+  '騰蛇':'屬性：火，兇\n本質：虛詐之神，虛弱、容易消耗能量、性情非常固執\n區區盤旋的地方、纏繞、纏著、順、死皮賴臉的、奸臣',
+  '太陰':'屬性：金，吉\n本質：陰佑之神，帶來吉祥如意的好事，但性格偏好隱密和晦暗的事物，喜歡安靜，不喜歡動亂\n陰私的事、升官的時後遇到太陰好事、恩佑、貴人提拔。',
+  '六合':'屬性：木，吉\n本質：護衛之神，性格溫和，喜歡擔任婚姻介紹人，搓和婚事\n人緣好，交際好。合作、心細、精心、親近。',
+  '白虎':'又稱：勾陳（陽遁時的別名）\n屬性：乾金，大兇\n本質：凶惡之神，性格好鬥喜歡戰爭，兇猛毛無顧忌，疾病死亡，交通阻塞、引發恐慌、怪異現象\n凶神，脾氣大。有技術手段、過人之處、強硬的公檢法。',
+  '玄武':'又稱：朱雀（陽遁時的別名，掌文明、言語、文書；運勢好時反主升職調令的好消息）\n屬性：水，兇\n本質：奸盜之神，性格陰謀詭計，從事偷盜、逃亡不法行為，運勢好升值調令，運勢不好，口舌、混亂\n煞氣僅次於白虎，暗的氣場，自己破財。包裝、忽悠、不老實的。',
+  '九地':'屬性：土，半吉半兇\n本質：監牢之神，性格柔和、謙虛順從，有時也掌握生死大權\n穩定、出事的時後地平線掉坑',
+  '九天':'屬性：乾金，吉\n本質：威悍之神，萬物之父，輕格剛強好動、吉象可主動出擊，實現計劃\n吉神當官的。高、在上、出事的時後從上面摔下來，論婚姻不易成。'
+};
+
+const STAR_DESC = {
+  '天蓬星':'智商星｜五行：水，大凶星\n膽大、好色、智慧、燙髮、貪婪、聰明、敢冒險\n人物：殺人犯、搶劫犯、大盜、大貪污犯、黑社會大佬、大企業商人',
+  '天芮星':'健商星｜五行：土，大凶星\n疾病、學習、授道結交、良師益友\n人物：母親、婦女、大眾、下層民眾、學生、孕婦',
+  '天沖星':'敏商星｜五行：木，小吉星\n易怒、不加思考、直來直去、執行力、行動力、冒失、意想不到、做事堅決迅速\n人物：武士、恐怖襲擊者、報復者、警察、運動員',
+  '天輔星':'德商星｜五行：水，大吉星\n與文化教育相關、輔助、輔佐軍師(德商)，高雅有文化的\n人物：老師、班主任、考試院、文化程度、文化詩人',
+  '天心星':'五行：金，大吉星\n聰明、能幹、領導才能、心思細膩、能屈能伸、樂善好施\n人物：高人、醫生、商人、領導、主席、首相',
+  '天柱星':'逆商星｜五行：金，小吉星\n喜殺好戰、破壞損壞、頂天立地、能言善辯\n人物：軍警、教師、律師、演員、外交官',
+  '天任星':'志商星｜五行：土，小吉星\n任勞任怨、慈愛善良、固執、作事情慢、樂於助人、沒有靈活性、需要忍耐\n人物：財務總監、老實人',
+  '天英星':'情商星｜五行：火，中平之星\n花、美麗、英雄、愛炫耀、性燥易爆、吸引眼球、有個性、有光明、文明、美好的一面、過頭有血光之災\n人物：名人、公關、時裝設計師、IT技術'
+};
+
+const DOOR_DESC = {
+  '休門':'中吉\n對應人事物：休息、度假、婚戀\n宜休息聚會、經商、嫁娶、婚姻家庭運好',
+  '死門':'最凶\n對應人事物：痛苦、死亡、受阻\n安靜、不喘氣、與生門相反、死板、死心眼，與疾病死亡有關',
+  '傷門':'大兇\n對應人事物：受傷、討債、銷售\n遇災受難、與意外傷災有關、收款討債效果很好、宜於打獵、捕抓到賊',
+  '杜門':'小兇\n對應人事物：賭塞、躲藏、技術\n躲避、藏身、技術、遮蓋、隱藏、學習',
+  '開門':'大吉\n對應人事物：開基立業、一生事業官運\n四通八達、宜遠行、見貴、求財、擺飾吉祥亨通',
+  '驚門':'中兇\n對應人事物：壓力、擔心、口舌\n吃驚、心驚肉跳、讓人吃驚、意外、官非訴訟有關、宜尋求走失、追捕逃亡',
+  '生門':'最吉\n對應人事物：產業田宅、生財之源、一生財運\n發展、生財支援、生機',
+  '景門':'小吉\n懂景、謀劃、用人\n廣告、包裝、火性的東西、策劃、宜遊戲競賽'
+};
+
+const GAN_DESC = {
+  '值符(甲)':'三奇六儀：天福\n領導、負責人、掌控；勁健性直、形體方長、有萌動的作用\n性格自負高傲、不平易近人、對世故很生疏\n\n有名望的、重要的、高貴的、第一的、木質性東西\n天時：春天、風、月亮\n地理：名人居所、高大的建築物、辦公室\n人物：領導、貴人、長官、棟樑\n身體：頭部、指甲、肝膽\n動物：帶殼的動物，如烏龜、螃蟹、穿山甲、龍蝦、螺類等\n植物：大樹、帶殼帶核的植物，如瓜子、栗子、松子、核桃、花生等\n靜物：金玉珠寶、帽子、古董等\n顏色：綠色\n感覺：酸脹\n味道：酸',
+  '乙':'三奇六儀：天德\n機會、希望；得力助手、文官；情人\n濕潤紆曲、體質柔造作、依附世情，正好和甲相反\n\n有希望、但波折、轉機、彎曲、曲折、柔弱、藝術\n天時：春天、風、月亮\n地理：花園、草地、漂亮的建築物\n人物：女人、妻子、藝人、作家、醫生、中醫\n身體：手、足、肩\n動物：蚯蚓、蛇、龍、蠶、鳥類\n植物：花草、小樹、中草藥、藤蔓細嫩植物、黃瓜\n靜物：藝術品、葫蘆、油畫、桌椅、裝飾物、門窗、管道、麵條等\n顏色：綠色、青色、蒼色\n感覺：酸脹\n味道：澀',
+  '丙':'三奇六儀：天威\n機會、希望；得力助手、武官；情人\n謙簡性烈，形體突現，就像人腳上的踝骨和上身的肚子\n性格很主觀、剛愎自用、惹不得，難接近、但從不巴結討好\n\n有希望、但有混亂、光明、圓狀、權威\n天時：太陽、晴朗、炎熱、夏季\n地理：廚房、化工廠、明亮場所\n人物：有權之人、電廠工作者、脾氣暴躁之人、情人（男性第三者）\n身體：眼睛、嘴唇、血液、小腸、炎症部位\n動物：牛、螞蟻、驢\n植物：帶柄的果實、櫻桃、西瓜、南瓜、蘋果、梨子\n靜物：燈、灶、發光發熱之物、變壓器、煙囪、加油站\n顏色：大紅色、紫色\n感覺：熱、燙、癢\n味道：苦辣',
+  '丁':'三奇六儀：玉女\n機會、希望；得力助手、負責後勤保障供應；情人\n柔順媚人、形體秀美飄灑；相處投契、關係可以搞得很密切\n\n希望（直達）、尖銳、頂尖、突出\n天時：星星、晴天、中午、夏季\n地理：路口、屋簷屋口、屋頂\n人物：說話帶刺的人、表現突出的人、技術一流的人、情人、妓女、歌星\n身體：眼睛、心臟血液、男性生殖器官\n動物：叮咬人的動物，如蚊子、跳蚤、牛虻、馬蜂、蜜蜂等；帶刺帶牙的動物，如刺蝟、蛇、野豬等\n植物：帶刺的植物或果實，如玫瑰、仙人掌、松樹、石榴、板栗、棗樹\n靜物：發光體、弱熱體、牙簽、釘子、注射器、票據、文章、香火、證件、打火機、子彈、手機等電子產品、學校、圖書館\n顏色：紅色、紫色、粉色、血清色\n感覺：熱、燙\n味道：辣、香濃味、燒烤味',
+  '戊':'三奇六儀：天武\n錢（現金）；急躁剛強正直、不輕易與人同流合污\n體質澀而不光滑、深而不淺顯；性格固執而不順從、不可強制\n\n資本資金、錢財、金融、中誠、中正\n天時：雲彩、陰天\n地理：土地、顧問機構、牆壁、墳土、庭院\n人物：會計、金融機構、出納、銀行職員、中介人、務農者\n身體：鼻子、胸、乳房、臀部、脾胃、腹部\n動物：牛、熊貓、企鵝、駱駝\n植物：葉子寬厚肥或土生的肉質多的果實，如向日葵、南瓜、地瓜、土豆、山藥、芭蕉等\n靜物：陶瓷品、土質品、磚瓦、水泥製品\n顏色：黃色、明黃、棕色、咖啡色\n感覺：沈重\n味道：甜、甜中帶澀',
+  '己':'三奇六儀：明堂\n陷阱、慾望、想法、黑暗的詭計、私慾；博大寬厚坦率真誠\n體質沉穩而靜；性格不固執、寬宏大量\n\n策劃、慾望、創意、吝嗇、有主意、想法多、思考問題\n天時：烏雲、星雲、陰天、四季\n地理：溝、坑、下水道、濕地、低窪地、陽台\n人物：策劃人、愛吃零食的人、握手抱拳的人、睿智的人\n身體：嘴、肚臍、肛門、小腿、腸、脾\n動物：捲曲身子的動物，如蝸牛；休眠的動物，如蛇、熊、貓、狗等\n植物：捲曲沒有展開的植物、含苞待放的花蕾，如菊花、含羞草、圓白菜、植物的芽\n靜物：土製陶瓷工藝品、捲曲狀物，如繩索、線團、垃圾等\n顏色：黃色、黑黃、土黃、黃綠色\n感覺：沈重\n味道：甜',
+  '庚':'三奇六儀：子獄\n阻隔、障礙、傷害、戰鬥、災難、血光、煞氣、敵人\n剛勁尖銳性急、形質簡單明快；只可尋找時機以柔感化、不能來硬的\n性格果斷固執，只能人屈它，它決不屈於人\n\n阻隔、阻礙、凶惡打鬥、技術過硬\n天時：雷電、秋天、傍晚\n地理：道路、關卡、大型機械\n人物：本領高強之人、黑社會、軍警、凶殘之人\n身體：骨骼、肩背、肺、大腸、皮毛\n動物：凶殘或有毒性的動物，如老虎、獅子、狼、豹子、毒蛇等\n植物：植物的幹、根、果殼等\n靜物：石頭、石製品、門窗、骨類、刀槍、器械、汽車、金屬製品\n顏色：白色、銀色\n感覺：疼痛\n味道：辛辣',
+  '辛':'三奇六儀：天庭\n錯誤、測什麼就什麼有錯誤、辦錯事、問題、罪人；也主改革創新\n鋒芒銳利、體性沉靜；性格叛逆、不甘現狀\n\n錯誤、問題、創新、更新、叛逆、變革\n天時：雷電、星星、秋天、傍晚\n地理：道路、門窗、石塊、手錶廠、首飾廠、工藝品廠等\n人物：革命者、宗教徒、犯法者、罪人\n身體：牙、骨、肺、皮毛、濕疹、粉刺、痘痘\n動物：動物的卵或胚胎、寄生在人或動物身上的生物或病毒\n植物：顆粒狀的植物，如大豆、高粱、玉米；小型花朵，如茉莉、米蘭花等\n靜物：小型金屬品、飾品、藝術品，如戒指、項鍊、手鐲、鑰匙、螺絲、佛珠、手錶、金銀珠寶、保險櫃等\n顏色：白色、銀白色\n感覺：疼痛\n味道：苦辣',
+  '壬':'三奇六儀：天牢\n流動、風險、動、天羅、迷惘（情緒被困）、沒有安全感\n質潤而沒有節制，體性圓活流轉；性格柔而陰險\n\n孕育、流動、變化、智慧、迷茫\n天時：雨天、冬天\n地理：江河湖海、道路、人流、車站碼頭、機場\n人物：海員、航海者、旅遊者、養殖者、孕婦\n身體：髮、眼、動脈、心臟、膀胱、小腿\n動物：水中之物，如魚蝦等\n植物：海帶、海草、荷花\n靜物：窗簾、燈罩、水池、自來水、水管、消防用品\n顏色：黑色、藍色、鐵灰色\n感覺：脹痛\n味道：鹹',
+  '癸':'三奇六儀：天網\n困（地綱）、迷惘（情緒被困）、沒有安全感、網絡；又主女性的生殖器官、主性事\n質重而性陰，形質沉重下溺；性格憨直，只曉得排難解紛而分不清好人壞人\n\n管制約束、艱苦困難、流動、變化、性、淫\n天時：雨天、冬天、深夜\n地理：濕地、池塘、水塔、地溝、地下水、污水\n人物：菜農、囚犯、被困之人\n身體：足、私處、眼球、痣、靜脈、腎臟、精液、口水、眼淚、鼻涕、汗液\n動物：水鳥、鴨、鵝、鶴\n植物：喜歡水的植物，如水仙、水果、蔬菜、水稻\n靜物：酒、醋、茶、飲品、湯、鹽、水具、鞋子、液體、油漆\n顏色：黑色、灰色、紅黑色、淺藍色\n感覺：脹痛\n味道：鹹'
+};
+
+const GAN_COMBO = {"乙":{"戊":["利陰害陽","門逢兇迫財破人傷；乙加戊得開門為地遁"],"乙":["日奇伏吟","不宜謁貴求名，只可循分守身"],"丙":["奇儀順遂","吉事遷官進職；喪事夫妻離別"],"丁":["奇儀相佐","文書事吉，百事皆可為"],"己":["日奇入墓","乙落墳墓之中故兇"],"庚":["日奇被刑","爭訟敗產，夫妻懷私"],"辛":["青龍逃走","奴僕拐帶，六畜皆傷"],"壬":["日奇入地","尊卑悖亂，官訟長短"],"癸":["華蓋逢星","遁跡修道、隱匿藏形、避災避難為吉"]},"丙":{"戊":["飛鳥跌穴","謀為百事吉順洞徹"],"乙":["日月并行","公謀私為皆吉"],"丙":["月奇悖師","文書逼迫、破耗遺失"],"丁":["月奇朱雀","朱紫文書吉祥；得生門為天遁"],"己":["大悖入刑","囚人刑杖、文書不行；吉門得吉兇門轉兇"],"庚":["火入金鄉","門戶破敗、盜賊耗失"],"辛":["找事就成","病人不兇"],"壬":["火入天羅","為客不利、長短頗多"],"癸":["華蓋悖師","陰人害事、災禍頻生"]},"丁":{"戊":["青龍轉光","朱紫升遷、凡人威昌"],"乙":["人遁吉格","朱紫加官進爵、凡人婚姻財喜"],"丙":["星隨月轉","朱紫越級高升；凡人樂中生悲"],"丁":["奇入太陰","文書即至、喜事遂心"],"己":["火入勾陳","奸私仇冤、事因女人"],"庚":["文書阻隔","行人必歸"],"辛":["朱雀入獄","罪人出獄、官人入獄"],"壬":["五神互合","朱紫思詔、訟獄公平"],"癸":["朱雀投江","文書口舌俱消、音信沉溺"]},"戊":{"戊":["伏吟","凡事閉塞阻滯、靜守為吉"],"乙":["青龍合靈","門吉事吉、門喪事兇"],"丙":["青龍反首","動作大吉；若逢迫墓擊刑吉事成兇"],"丁":["青龍耀明","謁貴求名吉祥；值墓迫惹是招非"],"己":["朱紫入獄","公私皆不利"],"庚":["值符飛宮","吉事不吉、喪事更兇"],"辛":["青龍折足","吉門尚可謀為；逢兇門主招災失財足疾"],"壬":["青龍入天牢","凡陰陽皆不吉祥"],"癸":["青龍華蓋","吉格都吉招福；門兇多乖"]},"己":{"戊":["犬遇青龍","門吉謀望遂意、上人見喜；門兇枉勞心機"],"乙":["墓神不明","地戶蓬星宜遁跡隱形為利"],"丙":["火悖地戶","陽人冤冤相害、陰人必致淫污"],"丁":["朱雀入墓","文狀詞訟、先曲後直"],"己":["地戶逢鬼","病者必死、百事不遂"],"庚":["利格反名","詞訟先動者不利、陰星有謀害之情"],"辛":["游魂入墓","大人鬼魂、小人家先為祟"],"壬":["地網高張","狡童佚女、奸情傷殺"],"癸":["地刑玄武","男女病危、詞訟有囚獄之災"]},"庚":{"戊":["太白天乙伏宮","百事不可謀為，兇"],"乙":["太白蓬星","退吉進兇"],"丙":["太白入熒","占賊必為、為客進利、為主破財"],"丁":["亭亭之格","因私暱起官司、門吉有救"],"己":["刑格","官司被重刑"],"庚":["伏吟（戰格）","庚力倍增、大凶、官災橫禍"],"辛":["白虎干格","遠得必兇、車折馬死"],"壬":["上格","遠得失迷道路、男女音信難通"],"癸":["大格","行人至、官司止；生產母子俱傷大兇"]},"辛":{"戊":["困龍被傷","官司破敗屈抑；守分吉、妄動禍殃"],"乙":["白虎猖狂","人亡家敗、遠得多殃、車船俱傷"],"丙":["干合悖師","熒惑泛起、占事必因財致訟"],"丁":["獄神得奇","經商獲倍利、囚人逢赦宥"],"己":["入獄自刑","奴僕背主、訟訴難伸"],"庚":["白虎出力","刀刃相接、主客相殘；遜讓稍可、強攻血濺"],"辛":["伏吟天庭","公廢私就、訟獄自罹罪名"],"壬":["兇蛇入獄","兩男爭女、訟獄不息、先動失理"],"癸":["天牢華蓋","日月失明、誤入天網、動止乖張"]},"壬":{"戊":["小蛇化龍","男人發達、女產嬰童"],"乙":["小蛇日奇","女子柔順、占孕生子、祿馬光華"],"丙":["水蛇入火","官災刑禁、絡繹不絕"],"丁":["干合蛇刑","文書牽連、男吉女兇"],"己":["干合蛇刑","大禍將至、順守斯吉、詞訟理屈"],"庚":["太白擒蛇","刑獄公平、立剖邪正"],"辛":["騰蛇相纏","縱得奇門變不能安、被人欺瞞"],"壬":["伏吟","—"],"癸":["幼女奸淫","家有丑聲、門吉星兇反禍福隆"]},"癸":{"戊":["天乙會合","吉格，財喜婚姻、吉人贊助；門兇迫制反禍官非"],"乙":["華蓋蓬星","朱紫祿位、凡人平安"],"丙":["華蓋悖師","貴賤逢之、上人見喜"],"丁":["騰蛇夭矯","文書官司、火焚莫逃"],"己":["華蓋地戶","男女音信皆阻、躲災避難為吉"],"庚":["太白入網","以暴爭訟力平"],"辛":["網蓋天牢","占病占訟、死罪莫逃"],"壬":["復見騰蛇","嫁娶重婚、後嫁無子、不保年華"],"癸":["天網四張","行人失伴、病訟皆傷"]}};
+
+// 四害：門迫(x2)、擊刑(x3)，依測數六碼第一碼對應宮位查
+const HAZARD = [
+  { door:['生門','死門'], gan:[] },
+  { door:['杜門','傷門'], gan:['己','符','癸'] },
+  { door:['驚門','開門'], gan:['戊'] },
+  { door:['驚門','開門'], gan:['壬','癸','辛'] },
+  { door:['杜門','傷門'], gan:['己','符','癸'] },
+  { door:['景門'],        gan:['乙','丙','戊'] },
+  { door:['景門'],        gan:[] },
+  { door:['杜門','傷門'], gan:['庚','丁','己'] },
+  { door:['休門'],        gan:['辛'] },
+  { door:['杜門','傷門'], gan:['己','符','癸'] }
+];
+
+const FIELDS = [
+  { key:'palace', tag:'宮位', title:'宮位', desc:PALACE_DESC, note:'所處的環境、處境、做事的平台、空間方位、能否發揮' },
+  { key:'shen',   tag:'八神', title:'八神', desc:SHEN_DESC,   note:null },
+  { key:'star',   tag:'九星', title:'九星', desc:STAR_DESC,   note:'個性、運勢好壞、工作事業有沒有發展性' },
+  { key:'gan1',   tag:'天干', title:'天干', desc:GAN_DESC,    note:'外在的行為' },
+  { key:'gan2',   tag:'地干', title:'地干', desc:GAN_DESC,    note:'內在的行爲' },
+  { key:'door',   tag:'八門', title:'八門', desc:DOOR_DESC,   note:'有無門路、心態、做事的風格' }
+];
+
+// 皇極八十一數（靈動格局），index 0 = 數字1
+const LINGDONG = [
+  ['大吉','大展鴻圖、可獲成功'],['凶','一盛一衰、勞而無功'],['大吉','蒸蒸日上、百事順遂'],['凶','坎坷前途、苦難折磨'],
+  ['大吉','生意欣榮、名利雙收'],['吉','天降幸運、可成大功'],['吉','和氣致祥、必獲成功'],['吉','貫徹志望、成功可期'],
+  ['凶','獨營無力、財利無望'],['凶','空費心力、徒勞無功'],['大吉','穩健著實、必得人望'],['凶','薄弱無力、謀事難成'],
+  ['大吉','天賦吉運、能得人望'],['凶','是成是敗、惟賴堅毅'],['大吉','大事成就、一定興隆'],['大吉','成就大業、名利雙收'],
+  ['吉','有貴人助、可得成功'],['吉','順利昌隆、百事亨通'],['凶','內外不合、障礙重重'],['凶','歷盡艱難、焦心憂勞'],
+  ['大吉','專心經營、善用智慧'],['凶','懷才不遇、事不如意'],['大吉','名顯四方、終成大業'],['大吉','須賴自力、能奏大功'],
+  ['吉','天時地利、再得人格'],['凶','波瀾起伏、凌駕萬難'],['凶帶吉','一盛一衰、可守成功'],['凶','成敗共存、進退兩難'],
+  ['大吉','青雲直上、才略奏功'],['凶','吉凶參半、得失相伴'],['大吉','名利雙收、大業成就'],['吉','池中之龍、成功可望'],
+  ['大吉','智慧慎始、必可昌隆'],['凶','災難不絕、難望成功'],['吉','中吉之數、進退保守'],['凶','波瀾重疊、常陷窮困'],
+  ['吉','逢凶化吉、風調雨順'],['凶帶吉','名雖可得、利則難獲'],['最大吉','光明坦途、指日可待'],['吉帶凶','一盛一衰、浮沉不定'],
+  ['大吉','天賦吉運、前途無限'],['吉帶凶','事業不專、十九不成'],['吉帶凶','忍耐自重、轉凶為吉'],['凶','事難遂願、貪功好進'],
+  ['吉','綠葉發枝、一舉成名'],['凶','坎坷不平、艱難重重'],['大吉','有貴人助、可成大業'],['大吉','名利俱全、繁榮富貴'],
+  ['凶','遇吉則吉、遇凶則凶'],['吉帶凶','吉凶互見、一成一敗'],['吉帶凶','一盛一衰、浮沉不常'],['大吉','雨過天青、即獲成功'],
+  ['吉帶凶','盛衰參半、先吉後凶'],['凶','雖傾全力、難望成功'],['吉帶凶','外觀隆昌、內隱禍患'],['凶','事與願違、終難成功'],
+  ['吉','努力經營、時來運轉'],['凶帶吉','浮沉多端、始凶終吉'],['凶','遇事猶疑、難望成事'],['凶','心迷意亂、難定方針'],
+  ['吉帶凶','雲遮半月、百隱風波'],['凶','煩悶懊惱、事事難展'],['大吉','萬物化育、繁榮之象'],['凶','十九不成、徒勞無功'],
+  ['吉','吉運自來、能享盛名'],['凶','內外不和、信用缺乏'],['大吉','事事如意、富貴自來'],['大吉','不失先機、可望成功'],
+  ['凶','動搖不安、常陷逆境'],['凶','慘澹經營、難免貧困'],['吉帶凶','吉凶參半、惟賴勇氣'],['凶','得而復失、難以安順'],
+  ['吉','安樂自來、自然吉祥'],['凶','如無智謀、難望成功'],['吉帶凶','吉中帶凶、進不如守'],['凶','此數大凶、破產之象'],
+  ['吉帶凶','先苦後甘、不致失敗'],['吉帶凶','有得有失、華而不實'],['凶','前途無光、希望不大'],['吉帶凶','得而復失、枉費心機'],
+  ['大吉','最極之數、能得成功']
+];
+
+function lingLevelClass(lv) {
+  if (lv.indexOf('凶') === -1) return 'good';
+  if (lv === '凶') return 'warn';
+  return 'mixed';
+}
+
+// 數字易經八星（兩兩配對）－ 大遊年歌對照的 32 組代表數＋反序同星
+const BAXING_CODES = {
+  '天醫': ['13','68','94','72'],
+  '生氣': ['14','67','93','28'],
+  '延年': ['19','87','43','62'],
+  '絕命': ['12','69','84','73'],
+  '禍害': ['17','98','64','23'],
+  '五鬼': ['18','97','36','24'],
+  '六煞': ['16','47','38','92']
+};
+const STAR_LEVEL = {
+  '生氣':'good','延年':'good','天醫':'good','伏位':'good',
+  '絕命':'warn','禍害':'warn','五鬼':'warn','六煞':'warn'
+};
+const PAIR_STAR = {};
+Object.entries(BAXING_CODES).forEach(([star, codes]) => {
+  codes.forEach(code => {
+    PAIR_STAR[code] = star;
+    PAIR_STAR[code[1] + code[0]] = star;
+  });
+});
+for (let d = 1; d <= 9; d++) { if (d !== 5) PAIR_STAR['' + d + d] = '伏位'; }
+
+function lookupStar(a, b) {
+  return PAIR_STAR[a + b] || null;
+}
+
+// 能量級數（1級最強、4級最弱），依代表數組原始順序取級數
+const PAIR_ENERGY_LEVEL = {};
+Object.values(BAXING_CODES).forEach(codes => {
+  codes.forEach((code, i) => {
+    const lvl = i + 1;
+    PAIR_ENERGY_LEVEL[code] = lvl;
+    PAIR_ENERGY_LEVEL[code[1] + code[0]] = lvl;
+  });
+});
+// 伏位級數：11/22=1級、99/88=2級、77/66=3級、44/33=4級
+[['1','2'], ['9','8'], ['7','6'], ['4','3']].forEach((pair, i) => {
+  pair.forEach(d => { PAIR_ENERGY_LEVEL[d + d] = i + 1; });
+});
+
+function pairEnergyLevel(code) {
+  return PAIR_ENERGY_LEVEL[code] || null;
+}
+
+// 依「0為隱性、5為顯性、首末逢0/5併作伏位」規則，將完整號碼拆成兩兩配對
+function baxingPairs(digits) {
+  const n = digits.length;
+  const pairs = [];
+  if (n < 2) return pairs;
+
+  let start = 0, end = n - 1;
+  let leadBoundary = null, trailBoundary = null;
+
+  if (digits[0] === '0' || digits[0] === '5') {
+    leadBoundary = { boundary:true, pos:'lead', edgeDigit: digits[0], coreDigit: digits[1], star:'伏位' };
+    start = 1;
+  }
+  if ((digits[n-1] === '0' || digits[n-1] === '5') && !(start === 1 && n === 2)) {
+    trailBoundary = { boundary:true, pos:'trail', edgeDigit: digits[n-1], coreDigit: digits[n-2], star:'伏位' };
+    end = n - 2;
+  }
+  if (leadBoundary) pairs.push(leadBoundary);
+
+  let prevCoreIdx = null;
+  let mods = { zero:0, five:0 };
+  for (let i = start; i <= end; i++) {
+    const d = digits[i];
+    if (d === '0' || d === '5') {
+      if (d === '0') mods.zero++; else mods.five++;
+      continue;
+    }
+    if (prevCoreIdx !== null) {
+      const a = digits[prevCoreIdx], b = d;
+      pairs.push({ boundary:false, a, b, star: a === b ? '伏位' : lookupStar(a, b), mods });
+    }
+    prevCoreIdx = i;
+    mods = { zero:0, five:0 };
+  }
+  if (trailBoundary) pairs.push(trailBoundary);
+
+  // 伏位（同數疊）本身沒有自己的星，承接前一組配對的星與能量級數；
+  // 若伏位是整串的第一組（前面沒有東西可承接），才維持「伏位」本身
+  let lastStar = null, lastLevel = null;
+  pairs.forEach(p => {
+    const ownCode = p.boundary ? (p.coreDigit + p.coreDigit) : (p.a + p.b);
+    const ownLevel = pairEnergyLevel(ownCode);
+    if (p.star === '伏位' && lastStar !== null) {
+      p.displayStar = lastStar;
+      p.displayLevel = lastLevel;
+      p.inherited = true;
+    } else {
+      p.displayStar = p.star;
+      p.displayLevel = ownLevel;
+    }
+    lastStar = p.displayStar;
+    lastLevel = p.displayLevel;
+  });
+
+  return pairs;
+}
+
+function pairLabel(p) {
+  const lvl = p.displayLevel;
+  if (p.boundary) {
+    const shown = p.pos === 'lead' ? `${p.edgeDigit}${p.coreDigit}` : `${p.coreDigit}${p.edgeDigit}`;
+    const doubled = p.coreDigit + p.coreDigit;
+    let label = `${shown}→${doubled} ${p.displayStar}${lvl ? '・' + lvl + '級' : ''}`;
+    if (p.inherited) label += '・伏位延續';
+    return label;
+  }
+  let label = `${p.a}${p.b} ${p.displayStar}`;
+  if (lvl) label += `・${lvl}級`;
+  if (p.inherited) label += '・伏位延續';
+  const notes = [];
+  if (p.mods.zero) notes.push('隱' + (p.mods.zero > 1 ? p.mods.zero : ''));
+  if (p.mods.five) notes.push('顯' + (p.mods.five > 1 ? p.mods.five : ''));
+  if (notes.length) label += '・' + notes.join('');
+  return label;
+}
+
+function lingdong(digitsStr) {
+  const n = Number(digitsStr);
+  const q = n / 80;
+  const frac = q - Math.floor(q);
+  let v = Math.round(frac * 80);
+  if (v <= 0) v = 81;
+  if (v > 81) v = 81;
+  return v;
+}
+
+// 值符(甲) 在四害表的擊刑欄位裡是以「符」表示，須視為同一個干
+function ganMatches(val, list) {
+  return list.includes(val) || (val === '值符(甲)' && list.includes('符'));
+}
+
+function verdictFor(score) {
+  if (score >= 80) return '大吉之局';
+  if (score >= 60) return '中吉之局';
+  if (score >= 40) return '平局，吉凶參半';
+  return '偏弱之局，宜謹慎';
+}
+
+function computeReading(code) {
+  const idx = [...code].map(d => DIGITS.indexOf(d));
+  const [pI, sI, stI, dI, g1I, g2I] = idx;
+
+  const palace = PALACE[pI];
+  const shen = SHEN[sI];
+  const star = STAR[stI];
+  const door = DOOR[dI];
+  const gan1 = GAN[g1I];
+  const gan2 = GAN[g2I];
+
+  const rules = [
+    { label:'八神吉神 +20', hit: ['六合','太陰','九天','值符'].includes(shen), pts:20 },
+    { label:'九星吉星 +20', hit: ['天心星','天輔星','天任星'].includes(star), pts:20 },
+    { label:'八門吉門 +40', hit: ['開門','休門','生門'].includes(door), pts:40 },
+    { label:'天干乙丙丁戊 +10', hit: ['乙','丙','丁','戊'].includes(gan1), pts:10 },
+    { label:'地干乙丙丁戊 +10', hit: ['乙','丙','丁','戊'].includes(gan2), pts:10 },
+  ];
+  let score = 0;
+  rules.forEach(r => { if (r.hit) score += r.pts; });
+
+  const hz = HAZARD[pI];
+  const doorHit = hz.door.includes(door);
+  const ganHit = ganMatches(gan1, hz.gan) || ganMatches(gan2, hz.gan);
+  const hazardHit = doorHit || ganHit;
+
+  return { code, pI, palace, shen, star, door, gan1, gan2, rules, score, doorHit, ganHit, hazardHit };
+}
+
+const HISTORY_MAX = 30;
+
+function relativeTime(ts) {
+  const diff = Date.now() - ts;
+  const min = Math.floor(diff / 60000);
+  if (min < 1) return '剛剛';
+  if (min < 60) return `${min} 分鐘前`;
+  const hr = Math.floor(min / 60);
+  if (hr < 24) return `${hr} 小時前`;
+  const d = new Date(ts);
+  const today = new Date();
+  const sameYear = d.getFullYear() === today.getFullYear();
+  return sameYear
+    ? `${d.getMonth() + 1}/${d.getDate()}`
+    : `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+}
+
+/* ---------- 分頁切換 ---------- */
+const tabBtns = [...document.querySelectorAll('.tab-btn')];
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  tabBtns.forEach(b => {
+    const isActive = b.dataset.tab === name;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+}
+tabBtns.forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+
+/* ---------- 奇門遁甲占卜分頁 ---------- */
+const codeInput = document.getElementById('codeInput');
+const digitHint = document.getElementById('digitHint');
+const emptyState = document.getElementById('emptyState');
+const result = document.getElementById('result');
+const cardGrid = document.getElementById('cardGrid');
+const comboName = document.getElementById('comboName');
+const comboSub = document.getElementById('comboSub');
+const comboDesc = document.getElementById('comboDesc');
+const ringValue = document.getElementById('ringValue');
+const scoreNum = document.getElementById('scoreNum');
+const verdictEl = document.getElementById('verdict');
+const breakdown = document.getElementById('breakdown');
+const hazardBand = document.getElementById('hazardBand');
+const hazardIcon = document.getElementById('hazardIcon');
+const hazardTitle = document.getElementById('hazardTitle');
+const hazardDetail = document.getElementById('hazardDetail');
+const historyEmpty = document.getElementById('historyEmpty');
+const historyList = document.getElementById('historyList');
+const historyClearBtn = document.getElementById('historyClearBtn');
+
+const HISTORY_KEY = 'qimen_history_v1';
+
+function loadHistory() {
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+function saveHistory(list) {
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); } catch (e) {}
+}
+function recordHistoryEntry(entry) {
+  const list = loadHistory();
+  if (list[0] && list[0].code === entry.code) list[0] = entry;
+  else list.unshift(entry);
+  saveHistory(list.slice(0, HISTORY_MAX));
+  renderHistoryList();
+}
+function renderHistoryList() {
+  const list = loadHistory();
+  historyEmpty.style.display = list.length ? 'none' : 'block';
+  historyList.innerHTML = '';
+  list.forEach(entry => {
+    const dotColor = entry.hazardHit ? 'var(--warn)' : (entry.score >= 60 ? 'var(--good)' : 'var(--blue)');
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'history-row';
+    row.innerHTML = `
+      <span class="history-dot" style="background:${dotColor}"></span>
+      <span class="history-code">${entry.code}</span>
+      <span class="history-mid">${entry.palace} · ${entry.verdict}${entry.hazardHit ? '・犯忌' : ''}</span>
+      <span class="history-time">${relativeTime(entry.ts)}</span>
+    `;
+    row.addEventListener('click', () => {
+      codeInput.value = entry.code;
+      updateHint(6);
+      render(entry.code, false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    historyList.appendChild(row);
+  });
+}
+historyClearBtn.addEventListener('click', () => {
+  if (!loadHistory().length) return;
+  if (confirm('確定要清除所有查詢紀錄嗎？')) { saveHistory([]); renderHistoryList(); }
+});
+
+for (let i = 0; i < 6; i++) {
+  const s = document.createElement('span');
+  digitHint.appendChild(s);
+}
+function updateHint(len) {
+  [...digitHint.children].forEach((s, i) => s.classList.toggle('filled', i < len));
+}
+
+function render(code, recordHistory = true) {
+  const r = computeReading(code);
+
+  const circumference = 226;
+  ringValue.style.strokeDashoffset = circumference - (circumference * r.score / 100);
+  scoreNum.textContent = r.score;
+  verdictEl.textContent = verdictFor(r.score);
+  breakdown.innerHTML = r.rules.map(rule =>
+    `<span class="chip${rule.hit ? ' hit' : ''}">${rule.hit ? '✓ ' : ''}${rule.label}</span>`
+  ).join('');
+
+  hazardBand.classList.toggle('hit', r.hazardHit);
+  hazardBand.classList.toggle('clear', !r.hazardHit);
+  hazardIcon.textContent = r.hazardHit ? '⚠' : '✓';
+  if (r.hazardHit) {
+    const parts = [];
+    if (r.doorHit) parts.push(`八門「${r.door}」犯本宮門迫`);
+    if (r.ganHit) parts.push(`天干／地干犯本宮擊刑`);
+    hazardTitle.textContent = '犯門迫或擊刑';
+    hazardDetail.textContent = parts.join('、') + '，此局需留意化解';
+  } else {
+    hazardTitle.textContent = '未犯門迫、擊刑';
+    hazardDetail.textContent = '本局門與干皆未落入' + r.palace + '的忌配組合';
+  }
+
+  const openKeys = new Set([...cardGrid.querySelectorAll('details[open]')].map(d => d.dataset.key));
+  cardGrid.innerHTML = '';
+  FIELDS.forEach(f => {
+    const val = r[f.key];
+    const digitPos = { palace:1, shen:2, star:3, door:4, gan1:5, gan2:6 }[f.key];
+    const isDoorHazard = f.key === 'door' && r.doorHit;
+    const isGanHazard = (f.key === 'gan1' || f.key === 'gan2') && r.ganHit;
+    const details = document.createElement('details');
+    details.dataset.key = f.key;
+    details.className = 'card';
+    if (openKeys.has(f.key)) details.open = true;
+    details.innerHTML = `
+      <summary>
+        <span class="tag">${f.tag}</span>
+        <span class="headline">
+          <span class="val">${val}</span>
+          <span class="digit">第${digitPos}碼 · ${code[digitPos-1]}</span>
+        </span>
+        ${(isDoorHazard || isGanHazard) ? '<span class="badge-mini">犯忌</span>' : ''}
+        <span class="chev">›</span>
+      </summary>
+      <div class="desc">${(f.note ? `<b>${f.title}：${f.note}</b>\n\n` : '') + f.desc[val]}</div>
+    `;
+    cardGrid.appendChild(details);
+  });
+
+  const combo = GAN_COMBO[r.gan1] && GAN_COMBO[r.gan1][r.gan2];
+  comboSub.textContent = `天干${r.gan1} + 地干${r.gan2}`;
+  if (combo) {
+    comboName.textContent = combo[0];
+    comboDesc.textContent = combo[1];
+  } else {
+    comboName.textContent = '（此組合不列於格局表）';
+    comboDesc.textContent = '「值符(甲)」是甲隱藏後的顯示名稱，六甲遁本身不會直接出現在陽盤奇門格局表中，所以只要天干或地干抽到甲，就沒有對應的格局可查，這不是錯誤，是這張表原本就沒收錄甲。';
+  }
+
+  emptyState.style.display = 'none';
+  result.classList.add('show');
+
+  if (recordHistory) {
+    recordHistoryEntry({ code, ts: Date.now(), score: r.score, verdict: verdictFor(r.score), palace: r.palace, hazardHit: r.hazardHit });
+  }
+}
+
+codeInput.addEventListener('input', () => {
+  const clean = codeInput.value.replace(/[^0-9]/g, '').slice(0, 6);
+  if (clean !== codeInput.value) codeInput.value = clean;
+  updateHint(clean.length);
+  if (clean.length === 6) {
+    render(clean);
+  } else {
+    result.classList.remove('show');
+    emptyState.style.display = 'block';
+  }
+});
+
+document.getElementById('randomBtn').addEventListener('click', () => {
+  let code = '';
+  for (let i = 0; i < 6; i++) code += Math.floor(Math.random() * 10);
+  codeInput.value = code;
+  updateHint(6);
+  render(code);
+  codeInput.focus();
+});
+
+/* ---------- 手機號碼分頁 ---------- */
+const phoneInput = document.getElementById('phoneInput');
+const phoneHint = document.getElementById('phoneHint');
+const analyzeBtn = document.getElementById('analyzeBtn');
+const phoneEmptyState = document.getElementById('phoneEmptyState');
+const candidateList = document.getElementById('candidateList');
+const phoneLegendNote = document.getElementById('phoneLegendNote');
+const phoneHistoryEmpty = document.getElementById('phoneHistoryEmpty');
+const phoneHistoryList = document.getElementById('phoneHistoryList');
+const phoneHistoryClearBtn = document.getElementById('phoneHistoryClearBtn');
+
+const PHONE_HISTORY_KEY = 'qimen_phone_history_v1';
+
+function loadPhoneHistory() {
+  try {
+    const raw = localStorage.getItem(PHONE_HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+function savePhoneHistory(list) {
+  try { localStorage.setItem(PHONE_HISTORY_KEY, JSON.stringify(list)); } catch (e) {}
+}
+function recordPhoneHistoryEntry(c) {
+  const list = loadPhoneHistory();
+  const entry = {
+    raw: c.raw, digits: c.digits, ts: Date.now(),
+    score: c.reading.score, palace: c.reading.palace,
+    lingNum: c.lingNum, lingLv: c.ling[0], hazardHit: c.reading.hazardHit
+  };
+  if (list[0] && list[0].digits === entry.digits) list[0] = entry;
+  else list.unshift(entry);
+  savePhoneHistory(list.slice(0, HISTORY_MAX));
+  renderPhoneHistoryList();
+}
+function renderPhoneHistoryList() {
+  const list = loadPhoneHistory();
+  phoneHistoryEmpty.style.display = list.length ? 'none' : 'block';
+  phoneHistoryList.innerHTML = '';
+  list.forEach(entry => {
+    const dotColor = entry.hazardHit ? 'var(--warn)' : (entry.score >= 60 ? 'var(--good)' : 'var(--blue)');
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'history-row';
+    row.innerHTML = `
+      <span class="history-dot" style="background:${dotColor}"></span>
+      <span class="history-code">${entry.raw}</span>
+      <span class="history-mid">${entry.palace} · 分數${entry.score} · 靈動${entry.lingNum}(${entry.lingLv})${entry.hazardHit ? '・犯忌' : ''}</span>
+      <span class="history-time">${relativeTime(entry.ts)}</span>
+    `;
+    row.addEventListener('click', () => {
+      phoneInput.value = entry.raw;
+      updatePhoneHint();
+      const c = analyzeOne(entry.raw);
+      renderCandidates([c]);
+      phoneEmptyState.style.display = 'none';
+      phoneLegendNote.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    phoneHistoryList.appendChild(row);
+  });
+}
+phoneHistoryClearBtn.addEventListener('click', () => {
+  if (!loadPhoneHistory().length) return;
+  if (confirm('確定要清除所有查詢紀錄嗎？')) { savePhoneHistory([]); renderPhoneHistoryList(); }
+});
+
+function updatePhoneHint() {
+  const n = phoneInput.value.split('\n').map(l => l.trim()).filter(Boolean).length;
+  phoneHint.textContent = n ? `已輸入 ${n} 組候選` : '尚未輸入';
+}
+phoneInput.addEventListener('input', updatePhoneHint);
+
+function analyzeOne(raw) {
+  const digits = raw.replace(/[^0-9]/g, '');
+  if (digits.length < 6) return { raw, invalid: true };
+  const last6 = digits.slice(-6);
+  const reading = computeReading(last6);
+  const lingNum = lingdong(digits);
+  const ling = LINGDONG[lingNum - 1];
+  const pairs = baxingPairs([...digits]);
+  return { raw, digits, last6, reading, lingNum, ling, pairs, invalid: false };
+}
+
+function candidateCardHTML(c, rank) {
+  if (c.invalid) {
+    return `
+      <summary>
+        <span class="rank">—</span>
+        <span class="cnum">${c.raw || '（空白）'}</span>
+        <span class="hazard-mini">碼數不足</span>
+      </summary>
+      <div class="cbody"><div class="csection-label">至少需要 6 位數字才能分析，請確認號碼是否輸入完整。</div></div>
+    `;
+  }
+  const r = c.reading;
+  const lingClass = lingLevelClass(c.ling[0]);
+  return `
+    <summary>
+      <span class="rank">${rank}</span>
+      <span class="cnum">${c.raw}</span>
+      <span class="cscore">${r.score}</span>
+      <div class="cbadges">
+        <span class="ling-badge ${lingClass}">靈動${c.lingNum}・${c.ling[0]}</span>
+        ${r.hazardHit ? '<span class="hazard-mini">⚠犯忌</span>' : ''}
+      </div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="cbody">
+      <div class="ling-line"><b>皇極${c.lingNum}</b><span>${c.ling[0]}・${c.ling[1]}</span></div>
+      <div class="csection-label">數字易經八星（兩兩配對，依號碼順序）</div>
+      <div class="pair-row">
+        ${c.pairs.map(p => `<span class="pair-chip ${STAR_LEVEL[p.displayStar] || 'mixed'}">${pairLabel(p)}</span>`).join('')}
+      </div>
+      <div class="csection-label">末六碼奇門單宮（${r.code}）</div>
+      <div class="mini-grid">
+        <div class="mini-chip"><div class="mk">宮位</div><div class="mv">${r.palace}</div></div>
+        <div class="mini-chip"><div class="mk">八神</div><div class="mv">${r.shen}</div></div>
+        <div class="mini-chip"><div class="mk">九星</div><div class="mv">${r.star}</div></div>
+        <div class="mini-chip"><div class="mk">八門</div><div class="mv">${r.door}</div></div>
+        <div class="mini-chip"><div class="mk">天干</div><div class="mv">${r.gan1}</div></div>
+        <div class="mini-chip"><div class="mk">地干</div><div class="mv">${r.gan2}</div></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderCandidates(list) {
+  candidateList.innerHTML = '';
+  const valid = list.filter(c => !c.invalid);
+  const invalid = list.filter(c => c.invalid);
+  valid.sort((a, b) => b.reading.score - a.reading.score);
+  valid.forEach((c, i) => {
+    const details = document.createElement('details');
+    details.className = 'candidate';
+    if (i === 0) details.open = true;
+    details.innerHTML = candidateCardHTML(c, i + 1);
+    candidateList.appendChild(details);
+  });
+  invalid.forEach(c => {
+    const details = document.createElement('details');
+    details.className = 'candidate';
+    details.innerHTML = candidateCardHTML(c, '—');
+    candidateList.appendChild(details);
+  });
+}
+
+analyzeBtn.addEventListener('click', () => {
+  const lines = phoneInput.value.split('\n').map(l => l.trim()).filter(Boolean);
+  if (!lines.length) return;
+  const results = lines.map(analyzeOne);
+  renderCandidates(results);
+  phoneEmptyState.style.display = 'none';
+  phoneLegendNote.style.display = 'block';
+  results.filter(r => !r.invalid).forEach(recordPhoneHistoryEntry);
+});
+
+renderHistoryList();
+renderPhoneHistoryList();
+
+/* ---------- 數字易經（萬用轉換）分頁 ---------- */
+const STROKE_DATA = '1:一丨丶丿乀乁乙乚乛亅|2:丁丂七丄丅丆丩丷乂乃乄乜九了二亠人亻儿入八冂冖冫几凵刀刁刂力勹匕匚匸十卜卩厂厶又巜讠阝龴|3:万丈三上下丌与个丫丬丸久乆乇么义乊之乞也习乡亇亍于亏亐亡亼亽亾亿兀兦凡凢凣刃刄劜勺卂千卄卪卫叉及口囗土士夂夊夕大夨女子孑孒孓宀寸小尢尸屮山巛川工己已巳巾干幺广廴廾弋弓彐彑彡彳忄扌才氵犭纟艹辶门飞饣马龵|4:不丏丐丑丒专中丮丯丰丹为乌乏乢乣乤乥书予云互亓五井亖亢亣什仁仂仃仄仅仆仇仈仉今介仌仍从仏仐仑仒仓以允兂元內公六兮兯冃冄内円冇冈冗冘凤凶刅分切刈劝办勻勼勽勾勿匀匁匂化匹区卅卆升午卍卐卝卞卬厃厄厅历厷厸厹友双反収圠圡壬夃天太夫夬夭孔尐少尣尤尹尺屯屲巨巴巿帀币幻廿开弌弔引弖心忆戈戶户戸手扎支攴攵文斗斤方无旡日曰月木朩欠止歹殳毋毌比毛氏气水火灬爪爫父爻爿片牙牛牜犬王瓦礻禸罓耂肀艺见计订讣认讥贝车辷邒邓长闩阞队韦风龰龶|5:且丕世丗丘丙业丛东丝丱主丼乍乎乐乧亗仔仕他仗付仙仚仛仜仝仞仟仠仡仢代令仦仧仨仩仪仫们仭仺伋兄兰冉冊冋册冎写冚冬冭冮冯凥処凧凷凸凹出击刉刊刋刌刍功加务劢匃匄包匆匇北匛匜匝匞卉半卌卟占卡卢卭卮卯印厇厈厉厺去厼叏叐发古句另叧叨叩只叫召叭叮可台叱史右叴叵叶号司叹叺叻叼叽叾囘囙囚四囜圢圣圤圥圦圧壭处外夗夘央夯夰失夲夳头奴奵奶孕宁宂它宄对尒尓尔尕尻尼屳屴屵屶屷左巧市布帄帅平幼庀庁庂広廵弁弍弗弘归必忇忉忊戉戊戋戹扏扐扑扒打扔払扖斥旦旧曱未末本札朮术朰正歺母氐民氕氶氷永氹氺氻氾氿汀汁汃汄汅汇汈汉灭犮犯犰玄玉玊玌玍瓜甘生用甩田由甲申甴电疋疒癶白皮皿目矛矢石示礼禾穴立纠罒肊艻艼艽艾艿芀芁节衤讦讧讨让讪讫讬训议讯记讱轧辸边辺辻込辽邔邖邗邘邙邚邛邜邝钅闪阠阡阢阣阤饤饥驭鸟龙龱龷龸|6:丞丟丠両丢乑乒乓乔乨乩乪乫乬乭乮乯买争亘亙亚交亥亦产仮仯仰仱仲仳仴仵件价仸仹任仼份仾仿伀企伂伃伄伅伆伇伈伉伊伌伍伎伏伐休伒伓伔伕伖众优伙会伛伜伝伞伟传伡伢伣伤伥伦伧伨伩伪伫伬似佢佤充兆兇先光兊全共兲关兴再军农冰冱冲决冴凨凩凪凫凼刎刏刐刑划刓刔刕刖列刘则刚创劣劤劥劦劧动匈匟匠匡匢卋华协危厊压厌厍厽厾叒叿吀吁吂吃各吅吆吇合吉吊吋同名后吏吐向吒吓吔吕吖吗吸囝回囟因囡团団在圩圪圫圬圭圮圯地圱圲圳圴圵圶圷圸圹场圾壮夅夙多夛夵夶夷夸夹夺夻夼奷奸她奺奻奼好奾奿妀妁如妃妄妅妆妇妈孖字存孙宅宆宇守安寺寻导尖尗尘尥尧尽屰屸屹屺屻屼屽屾屿岀岁岂岃岋岌州巟巡巩巪帆帇师年幵并庄庅庆延廷异弎式弐弙弚弛弜当彴彵彶忈忋忏忓忔忕忖忙忚忛忣戌戍戎戏成扗托扙扚扛扜扝扞扟扠扡扢扣扤扥扦执扨扩扪扫扬扱攰收攷旨早旪旫旬旭旮旯曲曳有朱朲朳朴朵朶朷朸朹机朻朼朽朾朿杀杁杂权次欢此死毎毕氒氖気氘氼氽汆汊汋汌汍汎汏汐汑汒汓汔汕汗汘汙汚汛汜汝江池污汢汣汤汲汷灮灯灰灱灲灳爷牝牞牟犱犲犳犴犵犷犸玎玏玐玑甪甶百癿礽祁穵竹米糸糹纡红纣纤纥约级纨纩纪纫缶网羊羽老考而耒耳聿肉肋肌肍肎臣自至臼舌舛舟艮色艸芃芄芅芆芇芉芊芋芌芍芎芏芐芑芒芓芕芖芗芝芨虍虫血行衣襾西覀观讲讳讴讵讶讷许讹论讻讼讽设访诀贞负贠赱轨达辿迀迁迂迃迄迅迆过迈迉邞邟邠邡邢那邤邥邦邧邨邩邪邬邷钆钇闫闬闭问闯阥阦阧阨阩阪阫阬阭阮阯阰阱防阳阴阵阶页饦饧驮驯驰齐龹|7:丣两严串丽乕乱乲亊亜亨亩亪伭伮伯估伱伲伳伴伵伶伷伸伹伺伻伽伾伿佀佁佂佃佄佅但佇佈佉佊佋位低住佐佑佒体佔何佖佗佘余佚佛作佝佞佟你佡佣佥佦佧佨克兌免兎兏児兑兕兵冏冝况冶冷冸冹冺冻凬刜初刞刟删刡刢刣判別刦刧刨利刪别刬刭助努劫劬劭劮劯劰励劲劳労匉匣匤匥医卣卤卲即却卵厎厏厐厑县叓吘吙吚君吜吝吞吟吠吡吢吣吤吥否吧吨吩吪含听吭吮启吰吱吲吳吴吵吶吷吹吺吻吼吽吾吿呀呁呂呃呄呅呆呇呈呉告呋呌呍呎呏呐呑呒呓呔呕呖呗员呙呚呛呜咓咞囤囥囦囧囨囩囪囫囬园囮囯困囱囲図围囵圻圼圽圿址坁坂坃坄坅坆均坈坉坊坋坌坍坎坏坐坑坒坓坔坕坖块坘坙坚坛坜坝坞坟坠壯声壱売壳夆夋夽夾夿奀奁奂奆妉妊妋妌妍妎妏妐妑妒妓妔妕妖妗妘妙妚妛妜妝妞妟妠妡妢妣妤妥妦妧妨妩妪妫姂姉姊姒姖孚孛孜孝孞宊宋完宍宎宏宐宑宒寽対寿尦尨尪尫尬尾尿局屁层屃岄岅岆岇岈岉岊岍岎岏岐岑岒岓岔岕岖岗岘岙岚岛岜岠巠巫巵帉帊帋希帍帎帏帐庇庈庉床庋庌庍庎序庐庑庒库应廸廹弃弄弅弝弞弟张弡形彣彤彷彸役彺彻忌忍忎忐忑忒志忘応忟忡忤忦忧忨忪快忬忭忮忯忰忱忲忳忴忶忷忸忹忺忻忼忾怀怃怄怅怆怇我戒戓戺戻戼扭扮扯扰扲扳扴扵扶扷扸批扺扻扼扽找技抁抂抃抄抅抆抇抈抉把抋抌抍抎抏抐抑抒抓抔投抖抗折抙抚抛抜抝択抟抠抡抢抣护报抸拒拟攸改攺攻攼斈斘旰旱旲旳旴旵时旷旸昅更曵杄杅杆杇杈杉杊杋杌杍李杏材村杒杓杔杕杖杗杘杙杚杛杜杝杞束杠条杢杣杤来杦杧杨杩极欤步歼每毐毜毝氙氚求汖汞汥汦汧汨汩汪汫汭汮汯汰汱汳汴汵汶汸汹決汻汼汽汾汿沁沂沃沄沅沆沇沈沉沋沌沍沎沏沐沑沒沔沕沖沘沙沚沛沜沞沟沠没沢沣沤沥沦沧沨沩沪泐泛泤泲洰灴灵灶灷灸灹灺灻灼災灾灿炀牠牡牢牣牤状犹犺犻犼犽犾犿狁狂狃狄狅狆狇狈玒玓玔玕玖玗玘玙玚玛瓧瓨瓩甫甬男甸甹町甼疓疔疕疖疗皀皁皂皃盀盁盯矣矴矵矶社礿祀祂祃禿秀私秂秃究穷竌竍糺系纬纭纮纯纰纱纲纳纴纵纶纷纸纹纺纻纼纽纾罕羌耴肐肑肒肓肔肕肖肗肘肙肚肛肜肝肞肟肠臫良芈芘芙芚芛芜芞芟芠芡芢芣芤芥芦芧芩芪芫芬芭芮芯芰花芲芳芴芵芶芷芸芹芺芼芽芾芿苀苁苂苃苄苅苆苇苈苉苊苋苌苍苎苏苡苣茾虬补見觃角言訁证诂诃评诅识诇诈诉诊诋诌词诎诏诐译诒谷豆豕豸貝贡财赤走足身車轩轪轫辛辰辵迊迋迌迍迎迏运近迒迓返迕迖迗还这迚进远违连迟邑邭邮邯邰邱邲邳邴邵邶邸邹邺邻酉釆里针钉钊钋钌镸闰闱闲闳间闵闶闷阷阸阹阺阻阼阽阾阿陀陁陂陃附际陆陇陈陉韧飏饨饩饪饫饬饭饮驱驲驳驴鸠鸡麦龟鿈鿉鿑鿖|8:並丧丳乖乳乴乵乶乷乸事些亝亞亟享京佌佩佪佫佬佭佮佯佰佱佲佳佴併佶佷佸佹佺佻佼佽佾使侀侁侂侃侄侅來侇侈侉侊例侌侍侎侏侐侑侒侓侔侕侖侗侘侙侚供侜依侞侟侠価侢侣侤侥侦侧侨侩侪侫侬侭侹俢兒兓兔兖兩其具典冐冞冼冽冾冿净凭凮凯函刮刯到刱刲刳刴刵制刷券刹刺刻刼刽刾刿剀剁剂剆劵劶劷劸効劺劻劼劽劾势勆匊匋匌匦匼卑卒卓協单卖卥卦卧卶卷卹卺厒厓厔厕叀叁参叔叕取受变呝呞呟呠呡呢呣呤呥呦呧周呩呪呫呬呭呮呯呱味呴呵呶呷呸呹呺呻呼命呾呿咀咁咂咃咄咅咆咇咈咉咊咋和咍咎咏咐咑咒咔咕咖咗咘咙咚咛咜咝咼哎囶囷囸囹固囻囼国图坡坢坣坤坥坦坧坨坩坪坫坬坭坮坯坰坱坲坳坴坵坶坷坸坹坺坻坼坽坾坿垀垁垂垃垄垅垆垇垈垉垊备夌夜夝奃奄奅奇奈奉奋奌奍奔妬妭妮妯妰妱妲妳妴妵妶妷妸妹妺妻妼妽妾妿姀姁姃姄姅姆姇姈始姌姍姎姏姐姑姓委姗孟孠孡孢季孤孥学孧宓宔宕宖宗官宙定宛宜宝实実宠审尀尙尚尩尭屄居屆屇屈屉届岝岞岟岡岢岣岤岥岦岧岨岩岪岫岬岭岮岯岰岱岲岳岴岵岶岷岸岹岺岻岼岽岾岿峀峁峂峃峄峅巶帑帒帓帔帕帖帗帘帙帚帛帜幷幸底庖店庘庙庚府庝庞废建廻廼弆弢弣弤弥弦弧弨弩弪彔录彼彽彾彿往征徂徃径忝忞忠忢忥忩念忽忿态怂怈怉怊怋怌怍怏怐怑怓怔怕怖怗怙怚怛怜怞怟怡怢怦性怩怪怫怬怭怮怯怰怲怳怴怵怶怺怽怾怿戔戕或戗戽戾房所承抦抧抨抩抪披抬抭抮抯抰抱抲抳抴抵抶抷抹抺抻押抽抾抿拀拁拂拃拄担拆拇拈拉拊拋拌拍拎拐拑拓拔拕拖拗拘拙拚招拝拞拠拡拢拣拤拥拦拧拨择攽放斉斦斧斨斩斺斻於旹旺旻旼旽旾旿昀昁昂昃昄昆昇昈昉昊昋昌昍明昏昐昑昒易昔昕昖昗昘昙昛曶朊朋朌服杪杫杬杭杮杯杰東杲杳杴杵杶杷杸杹杺杻杼杽松板枀枂枃构枅枆枇枈枉枊枋枌枍枎枏析枑枒枓枔枕枖林枘枙枚枛果枝枞枟枠枡枢枣枤枥枦枧枨枩枪枫枬枭柉柜柹欣欥欦欧武歧歨歩歫歽歾歿殀殁殴毑毞毟氓氛氜氝汬沀沊沓沝沫沬沭沮沰沱沲河沴沵沶沷沸油沺治沼沽沾沿泀況泂泃泄泅泆泇泈泊泋泌泍泎泏泑泒泓泔法泖泗泘泙泜泝泞泟泠泡波泣泥泦泧注泩泪泫泬泭泮泯泱泳泷泸泹泺泻泼泽泾浅炁炂炃炄炅炆炇炈炉炊炋炌炍炎炏炐炑炒炓炔炕炖炗炘炙炚炛炜炝炞炬烎爬爭爸牀版牥牦牧牨物牪牫牬狀狉狋狌狍狎狏狐狑狒狓狔狕狖狗狘狙狚狛狜狝狞玜玝玞玟玠玡玢玣玤玥玦玧玨玩玪玫玬玭玮环现玱珁瓝瓪瓫瓬瓭瓮瓯瓰瓲甙画甽甾甿畀畁畂畃畄畅疌疘疙疚疛疜疝疞疟疠疡癷的皯盂盰盱盲盳直盵矤知矷矸矹矺矻矼矽矾矿砀码砐祄祅祆祇祈祉祊祋祌祎秄秅秆秇秈秉秊穸穹空穻竎竏竺竻籴籵籶糼糽糾糿线绀绁绂练组绅细织终绉绊绋绌绍绎经绐缷罔罖罗罙羋者耓耵耶肃肏股肢肣肤肥肦肧肨肩肪肫肬肭肮肯肰肱育肳肴肵肶肷肸肹肺肻肼肽肾肿胀胁胏臤臥臽臾舍舎舏舠艰苐苑苒苓苔苕苖苗苘苙苚苛苜苝苞苟苠苢苤若苦苧苨苩苪苫苬苭苮苯苰英苲苳苴苵苶苷苸苹苺苻苼苽苾苿茀茁茂茄茅茆茇茉茊茋茌茎茏茐茑茓茕茚虎虏虭虮虯虰虱虲衦衧表衩衪衫衬衱规觅视诓诔试诖诗诘诙诚诛诜话诞诟诠诡询诣诤该详诧诨诩豖责贤败账货质贩贪贫贬购贮贯軋转轭轮软轰迠迡迢迣迤迥迦迧迨迩迪迫迬迭迮迯述迱迲迳邼邽邾邿郀郁郂郃郄郅郆郇郈郉郊郋郍郎郏郐郑郓郔郕郘郱采金釒钍钎钏钐钑钒钓钔钕钖钗長門闸闹阜陊陋陌降陎陏限陑陒陓陔陕隶隹雨靑青非靣顶顷飠饯饰饱饲饳饴驵驶驷驸驹驺驻驼驽驾驿骀鱼鸢鸣鸤黾鼡齿龺鿆鿇鿱|9:临举乗乹乺乻乼亭亮亯亰亱亲侮侯侰侱侲侳侴侵侶侷侸侺侻侼侽侾便俀俁係促俄俅俆俇俈俉俊俋俌俍俎俏俐俑俒俓俔俕俖俗俘俙俚俛俜保俞俟俠信俣俤俥俦俧俨俩俪俫俬俭修兗兘兙兪兹养冑冒冟冠凁凂凃凾剃剄剅則剈剉削剋剌前剎剏剐剑勀勁勂勃勄勅勇勈勉勊勋匍匧匨匩匽南単卸卻卼卽厖厗厘厙厚厛叙叚叛叜叝叟呰呲咟咠咡咢咣咤咥咦咧咨咩咪咫咬咭咮咯咰咱咲咳咴咵咶咷咸咹咺咻咽咾咿哀品哂哃哄哅哆哇哈哉哊哋哌响哏哐哑哒哓哔哕哖哗哘哙哚哛哜哝哞哟哪唌囿圀型垌垍垎垏垐垑垒垓垔垕垖垗垘垙垚垛垜垝垞垟垠垡垢垣垤垥垦垧垨垩垪垫垬垭垮垯垰垱垲垳垴垵垹埅城埏埩壴壵夈変复奊奎奏奐契奒奓奕奖姕姘姙姚姛姜姝姞姟姠姡姢姣姤姥姦姧姨姩姪姫姭姮姯姰姱姲姳姴姵姶姷姸姹姺姻姼姽姾姿娀威娂娃娄娅娆娇娈娍娗娜娫娰婙孨孩孪客宣室宥宦宨宩宪宫宬封専将尛尜尝尮尯屋屌屍屎屏峆峇峈峉峊峋峌峍峎峏峐峑峒峓峔峕峖峗峘峙峚峛峜峝峞峟峠峡峢峣峤峥峦峧峫峸巬巭差巷巹巺巻帝帞帟帠帡帢帣帤帥带帧帮幽庛庠庡庢庣庤庥度庭庰廽弇弈弫弭弮弯彖彥彦待徆徇很徉徊律後徍徔怎怒怘思怠怣怤急怨怱怷怸怹总怼恀恂恃恄恅恆恇恈恉恊恌恍恎恑恒恓恔恗恘恛恜恞恟恠恡恢恤恦恨恪恫恬恮恰恱恲恸恹恺恻恼恽恾战扁扂扃拏拜拪拫括拭拮拯拰拱拴拵拶拷拸拹拺拻拼拽拾挀持挂挃挄挅挆指按挊挋挌挍挎挏挑挒挓挔挕挖挗挘挜挝挞挟挠挡挢挣挤挥挦挧挪挷挺挻捓捛攱政敀敁敂敃敄故斪斫施斾斿旀既昚昜昝昞星映昡昢昣昤春昦昧昨昩昪昫昬昭昮是昰昱昲昳昴昵昶昷昸昹昺昻昼昽显昿曷朎朏朐朑枮枯枰枱枲枳枴枵架枷枸枹枺枻枼枾枿柀柁柂柃柄柅柆柇柈柊柋柌柍柎柏某柑柒染柔柕柖柗柘柙柚柛柝柞柟柠柢柣柤查柦柧柨柩柪柫柬柭柮柯柰柱柲柳柵柶柷柸柺査柼柽柾柿栀栁栂栃栄栅栆标栈栉栊栋栌栍栎栏栐树桏桒桞欨欩欪歪殂殃殄殅殆殇残段殶毒毖毗毘毠毡氞氟氠氡氢沗沯泉泚泴泵泶泿洀洁洂洃洄洅洆洇洈洉洊洋洌洎洏洐洑洒洓洔洕洗洘洙洚洛洝洞洟洠洡洢洣洤津洦洧洨洩洪洫洬洭洮洱洲洳洴洵洶洷洸洹洺活洼洽派洿浀浂浃浄浇浈浉浊测浌浍济浏浐浑浒浓浔浕涎涏炟炠炡炢炣炤炥炦炧炨炩炪炫炭炮炯炰炱炲炳炴炵炶炷炸点為炻炼炽炾炿烀烁烂烃爮爯爰爼牁牉牊牭牮牯牰牱牲牳牴牵狊狟狠狡狢狣狤狥狦狧狨狩狪狫独狭狮狯狰狱狲狿玅玲玳玴玵玶玷玸玹玻玽玾玿珀珂珃珄珅珆珇珈珉珊珋珌珍珎珏珐珑瓱瓳瓴瓵甚甠甭甮畆畇畈畉畊畋界畍畎畏畐畑畒畓疢疣疤疥疦疧疨疩疪疫疬疭疮疯疺癸癹発皅皆皇皈皍盃盄盅盆盇盈盶盷相盹盺盻盼盽盾盿眀省眂眃眄眅眆眇眈眉眊看県眍眨矜矦矧矨矩砂砃砄砅砆砇砈砉砊砋砌砍砎砏砑砒砓研砕砖砗砘砙砚砛砜砭祍祏祐祑祒祓祔祕祖祗祙祚祛祜祝神祠祢禹禺秋秌种秎秏秐科秒秓秔秕秖秗秬秭穼穽穾穿窀突窂窃窆竐竑竒竓竔竕竖竗竼竽竾竿笀笁笂笃笈籷籸籹籺类籼籽籾籿粀粁粂紀紁紂紃約紅紆紇紈紉級绑绒结绔绕绖绗绘给绚绛络绝绞统缸罘罚羍美羏羑羗羾羿耇耉耍耎耏耐耑耔耷胂胃胄胅胆胇胈胉胊胋背胍胎胐胑胒胓胕胖胗胘胙胚胛胜胝胞胟胠胡胢胣胤胥胦胧胨胩胪胫脉臿舁舡舢舣舤芔范茈茍茔茖茗茘茙茛茜茞茟茠茡茢茤茥茦茧茨茩茪茫茬茭茮茯茰茱茲茳茴茵茶茷茸茹茺茼茽茿荀荁荂荃荄荅荆荇荈草荊荋荌荍荎荏荐荑荒荓荔荕荖荗荘荙荚荛荜荝荞荟荠荡荢荣荤荨荩荪荫荬荭荮药荿莒莚莛虐虳虴虵虶虷虸虹虺虻虼虽虾虿蚀蚁蚂蚃蚤衁衂衍衎衭衯衲衳衴衵衶衸衹衻衼衽衿袀袂袄袆袇要覌觇览觉觓觔訂訃訄訅訆訇計诪诫诬语诮误诰诱诲诳说诵诶貞貟負贰贱贲贳贴贵贶贷贸费贺贻赲赳赴赵趴軌軍轱轲轳轴轵轶轷轸轹轺轻迴迵迶迷迸迹迺迻迼追迾迿退送适逃逄逅逆逇逈选逊郖郗郙郚郛郜郝郞郟郠郡郢郣郤郥郦郧酊酋重釓釔钘钙钚钛钜钝钞钟钠钡钢钣钤钥钦钧钨钩钪钫钬钭钮钯閁閂闺闻闼闽闾闿阀阁阂陖陗陘陙陛陜陝陞陟陠陡院陣除陥陦陧陨险面革韋韨韭音頁顸项顺须風飐飑飒飛食饵饶饷饸饹饺饻饼首香骁骂骃骄骅骆骇骈骉鬼鳬鸥鸦鸧鸨鸩龪鿍鿒鿗|10:丵乘乽亳俯俰俱俲俳俴俵俶俷俸俹俺俻俼俽俾俿倀倁倂倃倄倅倆倇倈倉倊個倌倍倎倏倐們倒倓倔倕倖倗倘候倚倛倜倝倞借倠倡倢倣値倥倦倧倨倩倪倫倬倭倮倯倰倱倲倳倴倵倶倷倸倹债倻值倽倾倿偀偌偖健党兛兺兼冓冔冡冢冣冤冥冦冧凄凅准凇凈凉凊凋凌凍凎剒剓剔剕剖剗剘剙剚剛剜剝剞剟剠剡剢剣剤剥剦剧剮勌勍勎勏勐勑務匎匪匫匿卨卿厜厝厞原叞哠員哢哣哤哥哦哧哨哩哫哬哭哮哯哰哱哲哳哴哵哶哷哸哹哺哻哼哽哾哿唀唁唂唃唄唅唆唇唈唉唊唋唍唎唏唐唑唒唓唔唕唖唗唘唙唚唛唜唝唞唟唠唡唢唣唤唥唦唧唨唴啊圁圂圃圄圅圆垶垷垸垺垻垼垽垾垿埀埁埂埃埄埆埇埈埉埊埋埌埍埐埑埒埓埔埕埖埗埘埙埚埛堲壶夎夏夞套奘奙奚姬娉娊娋娌娎娏娐娑娒娓娔娕娖娘娙娚娛娝娞娟娠娡娢娣娤娥娦娧娨娩娪娭娮娯娱娲娳娴娿婀婲孫孬孭宧宭宮宯宰宱宲害宴宵家宷宸容宺宻宼宽宾尃射尅屐屑屒屓屔展屖屗屘屙峨峩峪峬峭峮峯峰峱峲峳峴峵島峷峹峺峻峼峽峾峿崀崁崂崃崄崅崋巸巼帨帩帪師帬席帯帰帱座庨庩庪庫庬庮庯弉弬弰弱弲弳彧彨徎徏徐徑徒従徕恁恋恏恐恕恖恙恚恝恣恥恧恩恭息恳恴恵恶恷悀悁悂悃悄悅悇悈悋悌悍悎悏悑悒悓悔悕悖悗悙悚悛悜悝悞悟悢悦悧悩悭悮悯戙扄扅扆扇拲拳拿挈挐挙挚挛挨挩挫挬挭挮振挰挱挳挴挵挶挸挹挼挽挾挿捀捁捂捃捄捅捆捇捈捉捊捋捌捍捎捏捐捑捒捔捕捖捗捘捙捚捜捝捞损捠捡换捣捤揤敆敇效敉敊敋敌敖斊斋料斚旁旂旃旄旅旆旊晀晁時晃晄晅晆晇晈晉晊晋晌晍晎晏晐晑晒晓晔晕晖晟晠書曺曻朒朓朔朕朗枽柡柴栒栓栔栕栖栗栘栙栚栛栜栝栞栟栠校栢栣栤栥栦栧栨栩株栫栬栭栮栯栰栱栲栳栴栵栶样核根栺栻格栽栾栿桀桁桂桃桄桅框桇案桉桊桋桌桍桎桐桑桓桔桕桖桗桘桙桚桛桜桝桟桠桡桢档桤桥桦桧桨桩桪梃梆梛條梠梴棦欬欭欮欯欰欱欴歬歭殈殉殊殷殺毙毢毣毤毥毦毧毨毩毪氣氤氥氦氧氨氩泰洍洖洜洯流浆浖浗浘浙浚浛浜浝浞浟浠浡浢浣浤浥浦浧浨浩浪浫浬浭浮浯浰浱浲浳浴浵浶海浸浹浺浻浼浽浾浿涀涁涂涃涄涅涆涇消涉涊涋涌涍涐涑涒涓涔涕涖涗涘涙涚涛涜涝涞涟涠涡涢涣涤涥润涧涨涩淓淽烄烅烆烇烈烉烊烋烌烍烏烐烑烒烓烔烕烖烗烘烙烚烛烜烝烞烟烠烡烢烣烤烥烦烧烨烩烪烫烬热烮烵烶烻焒爱爹牂牶牷牸特牺狳狴狵狶狷狸狹狺狻狼狽狾猀猁猂猃猐玆玺玼珒珓珔珕珖珗珘珙珚珛珜珝珞珟珠珡珢珣珤珥珦珧珨珩珪珫珬班珮珯珰珱珲珹珽琊琤瓞瓟瓶瓷甡畔畕畖畗畘留畚畛畜畝畞畟畠畢疍疰疱疲疳疴疶疷疸疹疻疼疽疾疿痀痁痂痃痄病痆症痈痉皊皋皌皰皱盉益盋盌盍盎盏盐监眎眏眐眑眒眓眔眕眖眗眘眙眚眛眜眝眞真眠眡眢眣眤眧眩眪眫眬眿矝砝砞砟砠砡砢砣砤砥砧砨砩砪砫砬砮砯砰砱砲砳破砵砶砷砸砹砺砻砼砽砾砿础硁祘祟祣祤祥祧祩祪祫祬祮祯离秘秙秚秛秜秝秞租秠秡秢秣秤秥秦秧秨秩秪秫秮积称窄窅窇窈窉窊窋窌窍窎竘站竚竛竜竝竞笄笅笆笇笉笊笋笌笍笎笏笐笑笒笓笔笕笖笫粃粄粅粆粇粈粉粊粋粌粍粎粏粐粑粔紊紋紌納紎紏紐紑紒紓純紕紖紗紘紙紛紜紝紞紟素紡索紣紤紥紦紧绠绡绢绣绤绥绦继绨缹缺缻缼罛罜罝罞罟罠罡罢羐羒羓羔羖羘羙羞翀翁翂翃翄翅翆耄耆耊耕耖耗耘耙耟耸耹耺耻耼耽耾耿聀聁聂肁肂胭胮胯胰胱胲胳胴胵胶胷胸胹胺胻胼能胿脀脁脂脃脄脅脆脇脈脊脋脌脍脎脏脐脑脒脓脠脡脩臬臭致舀舐舥舦舧舨舩航舫般舭舮舯舰舱艳芻茝茣荥荦荧荰荱荲荳荴荵荶荷荸荹荺荻荼荽荾莀莁莂莃莄莅莆莇莈莉莊莋莌莍莎莏莐莑莓莔莕莖莗莘莙莜莝莞莟莠莡莢莣莤莥莦莧莨莩莪莫莬莭莮莯莰莱莲莳莴莵莶获莸莺莼莽菃菦華虑虒虓虔蚄蚅蚆蚇蚈蚉蚊蚋蚌蚍蚎蚏蚐蚑蚒蚓蚔蚕蚖蚗蚘蚙蚚蚛蚜蚝蚞蚟蚠蚡蚢蚣蚥蚦蚧蚨蚩蚪蚬蚷衃衄衏衐衮衰衷衺衾袁袃袅袉袊袍袎袏袐袑袒袓袔袕袖袗袘袙袚袛袜袝袟袡袢袣袥袦袧袨袩袪被袮袯覂覍覎觊觙訉訊訋訌訍討訏訐訑訒訓訔訕訖託記訙訚訯请诸诹诺读诼诽课诿谀谁谂调谄谅谆谇谈谉谊谸豇豈豗豹豺豻財貢貣貤贼贽贾贿赀赁赂赃资赅赆赶起赸趵趶趷趸趿躬軎軏軐軑軒軓軔軕轼载轾轿辀辁辂较辱逋逌逍逎透逐逑递逓途逕逖逗逘這通逛逜逝逞速造逡逢連逤逥逦逧邕部郩郪郫郬郭郮郯郰郲郳郴郵郷郸都鄀酌配酎酏酐酑酒釕釖釗釘釙釚釛釜針釞釟釠釡釢钰钱钲钳钴钵钶钷钸钹钺钻钼钽钾钿铀铁铂铃铄铅铆铇铈铉铊铋铌铍铎镹閃閄閅阃阄阅阆陚陪陫陬陭陮陯陰陱陲陳陴陵陶陷陸陹険陼隺隻隼隽难顼顽顾顿颀颁颂颃预飢飣飤饽饾饿馀馁馂馬骊骋验骍骎骏骨高髟鬥鬯鬲鱽鸪鸫鸬鸭鸮鸯鸰鸱鸲鸳鸴鸵鸶龀龨鿄鿬鿭|11:乾乿亀偁偂偃偄偅偆假偈偉偊偋偍偎偏偐偑偒偓偔偕偗偘偙做偛停偝偞偟偠偡偢偣偤偦偧偩偪偫偬偭偮偯偰偱偲偳側偵偶偷偸偹偺偻偼偽偾偿傀傁傇傞傦兜兝兞兽冕冨减凐凑凰剨剪剫剬剭副剰剱剳剶勒勓勔動勖勗勘勚匏匐匒匓匘匙匬匭匮匾區卙卾厠厡厢厣厩參叄唩唪唫唬唭售唯唰唱唲唳唵唶唷唸唹唺唻唼唽唾唿啀啁啂啃啄啅商啇啈啉啋啌啍啎問啐啑啒啓啔啕啖啗啘啚啛啜啝啞啟啠啡啢啤啥啦啧啨啩啪啫啬啭啮啯啰啱啲啳啴啵啶啷啸啹喎喏喐喯喵営圇圈圉圊國埜埝埞域埠埡埢埣埤埥埦埧埨埪埫埬埭埮埯埰埱埲埳埴埵埶執埸培基埻埼埽埾埿堀堁堂堃堄堅堆堇堈堉堊堋堌堍堎堏堐堑堒堓堔堕堝堵壷壸够夠奛奜奝奞奟奢娬娵娶娷娸娹娺娻娼娽娾婁婂婃婄婅婆婇婈婉婊婋婌婍婎婏婐婑婒婓婔婕婖婗婘婚婛婜婝婞婟婠婡婢婤婥婦婧婨婩婪婫婬婭婮婯婰婱婳婴婵婶婼媌媎媖媧嫏孮孯孰孲宿寀寁寂寃寄寅密寇寈寉將專尉屚屛屜屝屠崆崇崈崉崊崌崍崎崏崐崑崒崓崔崕崖崗崘崙崚崛崜崝崞崟崠崡崢崣崤崥崦崧崨崩崪崫崬崭崮崯崰巢巣帲帳帴帵帶帷常帹帺帻帼帾庱庲庳庴庵庶康庸庹庺庻庼庾庿廊弴張弶強弸弹彗彩彪彫彬徖得徘徙徛徜徝從徟徠徢徣徤恿悆悉悊悐悘悠悡患悤悥您悪悫悬悰悱悴悵悷悸悺悻悼悽悾悿惀惂惃情惆惇惈惊惋惍惏惐惓惔惕惗惘惙惚惛惜惝惞惟惤惦惧惨惬惭惮惯愥戚戛戜戝扈挲捥捦捧捨捩捪捫捬捭据捯捰捱捲捳捴捵捶捷捸捹捺捻捼捽捾捿掀掁掂掃掄掅掆掇授掉掊掋掍掎掏掐掑排掓掕掖掗掘掙掚掛掜掝掞掟掠採探掤接掦控推掩措掫掬掭掮掯掲掳掴掵掶掷掸掹掺掻掼掽掿描揵揶敍敎敏敐救敒敓敔敕敗敘教敚敛敝敢斍斎斏斛斜斬断旇旈旉旋旌旍旎族旣晗晘晙晚晛晜晝晞晡晢晣晤晥晦晧晨曹曼曽朖朘朙朚望桫桬桭桮桯桰桱桲桳桴桵桶桷桸桹桺桻桼桽桾桿梀梁梂梄梅梇梈梉梊梋梌梍梎梏梐梑梒梓梔梕梖梗梘梙梚梜梞梟梡梢梣梤梥梦梧梨梩梪梫梬梭梮梯械梱梲梳梵梶梷梸梹梺梻梼梽梾梿检棁棂棻椘椛楖欫欲欳欵欶欷欸殌殍殎殏殐殑殒殓殸殹殻毫毬毭毮氪氫涪涫涬涭涮涯涰涱液涳涴涵涶涷涸涹涺涻涼涽涾涿淀淁淂淃淄淅淆淇淈淉淊淋淌淍淎淏淐淑淒淔淕淖淗淘淙淚淛淜淝淞淟淠淡淢淣淤淥淦淧淨淩淪淫淬淭淮淯淰深淲淳淴淶混淸淹淺添淿渀渁渂渃渄清渆渇済渉渊渋渌渍渎渏渐渑渒渓渔渕渖渗渚渠渦渮渵渶湕湴烯烰烱烲烳烴烷烸烹烺烼烽烾烿焀焁焂焃焄焅焆焇焈焉焊焋焌焍焎焏焐焑焓焔焕焖焗焘焫爽牻牼牽牾牿犁猄猅猇猈猉猊猍猎猏猑猓猔猕猖猗猘猙猚猛猜猝猞猟猠猡猧猪猫率玈珳珴珵珶珸珺珻珼現珿琀琁琂球琄琅理琇琈琉琋琌琍琎琏琐琑琒琓琷瓠瓸瓹瓺瓻瓼甛甜產産畡畣畤略畦畧畨畩異疵痊痋痌痍痎痏痐痑痒痓痔痕痖皉皎皏皐皑皲盒盓盔盕盖盗盘盛眥眦眭眮眯眰眱眲眳眴眵眶眷眸眹眺眻眼眽眾着睁矪矫砦硂硃硄硅硆硇硈硉硊硋硌硍硎硏硐硑硒硓硔硕硖硗硘硙硚硛硟硭碀祡祦票祭祰祱祲祳祴祵祶祷祸禼秱秲秳秴秵秶秷秸秹秺移秼秽秾稆窏窐窑窒窓窔窕窚竟章竡竫笗笘笙笚笛笜笝笞笟笠笡笢笣笤笥符笧笨笩笪第笭笮笯笰笱笲笳笴笵笶笷笸笹笺笻笼笽笾筇粒粓粕粖粗粘粙粚粛粜粝粣紨紩紬紭紮累細紱紲紳紴紵紶紷紸紹紺紻紼紽紾紿絀絁終絃組絅絆絇絈絉絊絋経绩绪绫绬续绮绯绰绱绲绳维绵绶绷绸绹绺绻综绽绾绿缀缁缍缽罣羕羚羛羜羝羟翇翈翉翊翋翌翍翎翏翐翑習耈耚耛耜耝耞聃聄聅聆聇聈聉聊聋职聍胬脕脖脗脘脙脚脛脜脝脞脟脢脣脤脥脦脧脨脪脫脬脭脮脯脰脱脲脳脴脵脶脷脸舂舑舲舳舴舵舶舷舸船舺舻艴莹莾莿菀菁菂菄菅菆菇菈菉菊菋菌菍菎菏菑菒菓菔菕菖菗菘菙菚菛菜菝菞菟菠菡菢菣菤菥菧菨菩菪菫菬菭菮菰菱菲菳菴菵菶菷菸菹菺菻菼菽菾菿萀萁萂萃萄萅萆萇萈萉萊萋萌萍萎萏萐萑萒萓萔萕萖萗萘萙萚萛萜萝萞萟萠萡萢萣萤营萧萨萵萸著蒁蓈處虖虗虘虙虚蚫蚭蚮蚯蚰蚱蚲蚳蚴蚵蚶蚸蚹蚺蚻蚼蚽蚾蚿蛀蛁蛂蛃蛄蛅蛆蛇蛈蛉蛊蛋蛌蛍蛎蛏衅衑衒術衔袈袋袌袞袠袤袬袭袰袱袳袴袵袶袷袸袹袺袻袼袽袾袿裀裃裄裆裈裉規覐覑覒覓覔視觋觕觖觗觘訛訜訝訞訟訠訡訢訣訤訥訦訧訨訩訪訫訬設訮訰許訲訳詎谋谌谍谎谏谐谑谒谓谔谕谖谗谘谙谚谛谜谝谞谹谺谻豉豘豙豚豛豜豝象豼豽貥貦貧貨販貪貫責貭貮貶赇赈赉赊赥赦赧赹赺赻赼赽赾赿趀趹趺趻趼趽趾跀跁跂跃跄距躭躮躯軖軗軘軙軚軛軜軝軞軟軠軡転軣辄辅辆逨逩逪逫逬逭逮逯逰週進逳逴逵逶逷逸逹逺逻逽過邫郹郻郼郾郿鄁鄂鄃鄄鄅鄆鄇鄈鄉鄊鄋酓酔酕酖酗酘酙酚酛酜酝酞釈野釣釤釥釦釧釨釩釪釫釬釭釮釯釰釱釲釳釴釵釶釷釸釹釺釻釼鈒铏铐铑铒铓铔铕铖铗铘铙铚铛铜铝铞铟铠铡铢铣铤铥铦铧铨铩铪铫铬铭铮铯铰铱铲铳铴铵银铷镺閆閇閈閉閊阇阈阉阊阋阌阍阎阏阐陻陽陾陿隀隁隂隃隄隅隆隇隈隉隊隋隌隍階随隐隗隿雀雩雪雫雭靪頂頃頄颅领颇颈飡飥飦馃馄馅馆馗骐骑骒骓骔骕骖骩髙魚鱾鳥鸷鸸鸹鸺鸻鸼鸽鸾鸿鹵鹿麥麸麻黄黒龁龚龛龿鿊鿎|12:亁亴亵偨傂傃傄傅傆傈傉傊傋傌傍傎傏傐傑傒傓傔傕傖傗傘備傚傛傜傝傟傠傡傢傣傤傥傧储傩傲僃僆兟兠凒凓凔凕凖凱凲凿剩割剴創勛勜勝勞募匑博厤厥厦厧厨厫叅啙啣啺啻啼啽啾啿喀喁喂喃善喅喆喇喈喉喊喋喌喑喒喓喔喕喖喗喘喙喚喛喜喝喞喟喠喡喢喣喤喥喦喧喨喩喪喫喬喭單喰喱喲喳喴喷喸喹喺喻喼喽喾嗏嗒嗖嗗嗞嗟嗢嗴嘅圌圍圎圏圐堖堗堘堙堚堛堜堞堟堠堡堢堣堤堥堦堧堨堩堪堫堬堭堮堯堰報堳場堶堷堸堹堺堻堼堾堿塀塁塂塃塄塅塆塇塈塊塔塟塠塦塭壹壺壻夡奠奡奣奤奥婣婷婸婹婺婻婽婾婿媀媁媂媃媄媅媆媇媈媉媊媋媍媏媑媒媓媔媕媗媘媙媚媛媜媝媞媟媠媡媢媣媤媥媦媨媩媪媫媬媭媮媯媶媿嫂嫅孱孳寊寋富寍寎寏寐寑寒寓寔寕尊尋尌尞尰就尳属屟屡崱崲崳崴崵崶崷崸崹崺崻崼崽崾崿嵀嵁嵂嵃嵄嵅嵆嵇嵈嵉嵋嵌嵍嵎嵏嵐嵑嵒嵓嵔嵕嵖嵗嵘嵙嵚嵛嵜嵝嵫嵬嵯嵳巯巽帽帿幀幁幂幃幄幅幆幇幈幉幾庽廀廁廂廃廄廆廋廐弑强弻弼弽弾彘彭徚御徥徦徧徨復循徫悲悳悶悹惁惄惉惌惎惑惒惖惠惡惢惣惥惩惪惫惰惱惲惴惵惶惸惹惺惻惼惽惾惿愀愃愄愅愇愉愊愋愌愎愐愑愒愓愔愕愖愘愜愝愞愠愡愢愣愤愦愧愲愺慅慌慨戞戟戠戢扉扊掌掔掣掰掱掾揀揁揂揃揄揆揇揈揉揊揋揌揍揎提揑插揓揔揕揖揗揘揙揚換揜揝揞揟揠握揢揣揥揦揨揩揪揬揭揮揯揰揲揳援揷揸揹揺揻揼揽揾揿搀搁搂搃搄搅搑搓搔搜搥搭搰搽摒摡攲敜敞敟敠敡散敤敥敦敧敨敩敪敬斌斐斑斝斞斮斯斱旐旑旔旤晩晪晫晬晭普景晰晱晲晳晴晵晶晷晹智晻晼晽晾晿暀暁暂暃暎暏暑曾替最朁朂朜朝朞期朠棃棄棅棆棇棈棉棊棋棌棍棎棏棐棑棒棓棔棕棖棗棘棙棚棛棜棝棞棟棠棡棢棣棤棥棧棨棪棫棬棭森棯棰棱棲棳棴棵棶棷棸棹棺棼棽棾棿椀椁椂椃椄椅椆椇椈椉椊椋椌植椎椏椐椑椒椓椔椕椖椗椙椚検椝椞椟椠椡椢椣椤椥椦椧椨椩椪椫椬椭椮椰楇楉楗楛楧楮楰極榔欹欺欻欼欽款欿歄歮歯殔殕殖殗殘殙殚殛殼殽殾毯毰毱毲毳毴毵毶毽氬氭氮氯氰淵淼淾渘渙減渜渝渞渟渡渢渣渤渥渧渨温渪渫測渭港渰渱渲渳渴渷游渹渺渻渼渽渾渿湀湁湂湃湄湅湆湇湈湉湊湋湌湍湎湏湐湑湒湓湔湖湗湘湙湚湛湜湝湞湟湠湡湢湣湤湥湦湧湨湩湪湫湭湮湯湰湱湲湳湵湶湷湸湹湺湻湼湽湾湿満溁溂溃溄溅溆溇溈溉溊溋溌溚溞溠溬溲溾滁滋滑滞焙焚焛焜焝焞焟焠無焢焣焤焥焦焧焨焩焪焬焭焮焯焰焱焲焳焴焵然焷焸焹焺焻焼焽焾焿煀煐煑煚煡煮煱爲爺牋牌牍牚犀犂犃犄犅犆犇犈犉犊犋犍猆猋猌猒猢猣猤猥猦猨猩猬猭猯猰猱猲猳猴猵猶猸猹猾獀獇珷琔琕琖琗琘琙琚琛琜琝琟琠琡琢琣琥琦琨琩琪琫琬琭琮琯琰琱琲琳琴琵琶琸琹琺琻琼琽瑘瑛瑯瓽瓾瓿甀甁甤甥甦甯番畫畬畭畮畯畱畲畳畴疎疏痗痘痙痚痛痜痝痞痟痠痡痢痣痤痥痦痧痨痩痪痫痾登發皒皓皔皕皖皳皴盙盚盜睂睃睄睅睆睇睈睉睊睋睌睍睎睏睐睑矞矟矬短硜硝硞硠硡硢硣硤硥硦硧硨硩硪硫硬确硯硰硱硲硳硴硵硶硷祹祺祻祼祽祾祿禂禃禄禅禆禇禍禽秿稀稁稂稃稄稅稇稈稉稊程稌稍税窖窗窘窙窛窜窝竢竣竤童竦竧笿筀筁筂筃筄筅筆筈等筊筋筌筍筎筏筐筑筒筓答筕策筗筘筙筚筛筜筝筥筬筳筵粞粟粠粡粢粤粥粦粧粨粩粪粫粬粭紪紫絍絎絏結絑絒絓絔絕絖絗絘絙絚絛絜絝絞絟絠絡絢絣絤絥給絧絨絩絪絫絬絭絮絯絰統絲絳絴絵絶絷絽絾綁綎綖缂缃缄缅缆缇缈缉缊缋缌缎缏缐缑缒缓缔缕编缗缘缾缿罀罤罥罦羠羡羢翓翔翕翖翗翘翙翚翛耋耠聎聏聐聑聒聓联聠胔胾脔脹脺脻脼脽脾脿腀腁腂腃腄腅腆腇腈腉腊腋腌腍腎腏腑腒腓腔腕腖腗腘腙腚腡腱腴臦臮臯臰臵臶臷臸臹舃舄舒舜舼舽舾舿艇艵茒茻菐萦萩萪萫萬萭萮萯萰萱萲萳萴萶萷萹萺萻萼落萾萿葀葁葂葃葄葅葆葇葈葉葊葋葌葍葎葏葐葑葒葓葔葕葖葘葙葚葛葜葝葞葟葠葡葢董葤葥葦葧葨葩葪葫葬葭葮葯葰葱葲葳葴葵葶葷葸葹葺葻葼葽葾葿蒀蒂蒃蒄蒅蒆蒇蒈蒉蒋蒌蒍蒎蒏蒐蒢蒫蒾蓃蓇蓚蓱蔇虛虝蛐蛑蛒蛓蛔蛕蛗蛘蛙蛚蛛蛜蛝蛞蛟蛠蛡蛢蛣蛤蛥蛦蛧蛨蛩蛪蛫蛬蛭蛮蛯蛰蛱蛲蛳蛴蜑蜒蜓衆衇衈衉衕衖街袲裁裂装裇裋裌裍裎裐裑裒裓裕裖裗裙補裞裡裢裣裤裥褁覃覄覕覗覘覙覚觌觍觚觛觝觞訴訵訶訷訸訹診註証訽詀詁詂詃詄詅詆詇詈詉詊詋詌詍詏詐詑詒詓詔評詖詗詘詙詚詛詜詝詞詟詠谟谠谡谢谣谤谥谦谧豞豟豠豾豿貀貁貂貃貯貰貱貳貴貵買貸貹貺費貼貽貾貿賀賁赋赌赍赎赏赐赑赒赓赔赕趁趂趃趄超趆趇趈趉越趋跅跆跇跈跉跊跋跌跍跎跏跑跒跓跔跕跖跗跘跙跚跛跜跞践躰軤軥軦軧軨軩軪軫軬軮軯軰軱軲軳軴軵軶軷軸軹軺軻軼軽辇辈辉辊辋辌辍辎辜辝逼逾逿遀遁遂遃遄遅遆遇遈遉遊運遌遍遏遐遑遒道達違遖遗遚鄌鄍鄎鄏鄐鄑鄒鄓鄔鄕鄖鄗鄚酟酠酡酢酣酤酥酦釉释量釽釾釿鈀鈁鈂鈃鈄鈅鈆鈇鈈鈉鈊鈋鈌鈍鈎鈏鈐鈑鈓鈔鈕鈖鈗鈘鈙鈚鈛鈜鈝鈞鈟鈠鈡鈢鈣鈤鈥鈦鈧鈨鈩鈪鈫鈬鉅鉯铸铹铺铻铼铽链铿销锁锂锃锄锅锆锇锈锉锊锋锌锍锎锏锐锑锒锓锔锕镻開閌閍閎閏閐閑閒間閔閕閖閗阑阒阓阔阕隑隒隓隔隕隖隘隙隞雁雂雃雄雅集雇雈雋雬雮雯雰雱雲雳靓靔靟靫靬靭靮靯靰靱靸韌韩韮項順頇須颉颊颋颌颍颎颏颩颪飓飧飨飩飪飫飭飯飰飲馇馈馉馊馋馭馮骗骘骙骚骛骪骫骬骭骮髠鬽鱿鲀鲁鲂鲃鳦鹀鹁鹂鹃鹄鹅鹆鹇鹈黃黍黑黹鼋鼎龂龫鿃鿌鿏鿓鿕鿘鿟鿺鿾|13:亂亃亄亶亷傪傫催傭傮傯傰傱傳傴債傶傷傸傹傺傻傼傽傾傿僀僁僂僄僅僇僈僉僋僌働像僙兡兾兿凗剷剸剹剺剻剼剽剾剿勠勡勢勣勤勦勧勨匯厀厁厪厯叠喍喿嗀嗁嗂嗃嗄嗅嗆嗇嗈嗉嗊嗋嗌嗍嗎嗐嗑嗓嗔嗕嗘嗙嗚嗛嗜嗝嗠嗡嗣嗤嗥嗦嗧嗨嗩嗪嗫嗬嗭嗮嗯嗰嗱嗲嗳嗵嗶嗷嗸嗹嗼嘟嘩圑園圓圔圕堽塉塋塌塍塎塏塐塑塒塓塕塖塗塘塙塚塛塜塝塞塡塢塣塤塥塧塨塩塪填塬塮塯塰塱塳塻墎墓墷壼壾夢奦奧奨媐媰媱媲媳媴媵媷媸媹媺媻媼媽媾嫀嫁嫃嫄嫆嫇嫈嫉嫊嫋嫌嫍嫎嫐嫑嫒嫓嫔嫟嫫嫯嬅孴孶寖寗寘寙寚寛寜寝寞尟尠尲尴嵊嵞嵟嵠嵡嵢嵣嵤嵥嵦嵧嵨嵩嵪嵭嵮嵰嵱嵲嵴嵵嵶嶅幊幋幌幍幎幏幐幕幙幹廅廇廈廉廌廍廒廓廕弒弿彀彁彂彃彙彚彮徬徭微徯徰想惷愁愂愆愈愍意愗愙愚愛感愩愪愫愭愮愯愰愱愴愵愶愷愹愼愽愾慀慃慄慆慈慉慊慍慎慏慑慔慠慥慩戡戣戤戥戦揅揧揫揱搆搇搈搉搊搋搌損搎搏搐搒搕搖搗搘搙搚搛搝搞搟搠搡搢搣搤搦搧搨搩搪搬搮搯搱搲搳搵搶搷搸搹携搼搾摀摁摂摃摄摅摆摇摈摉摊摋摓摙摛摸撶敫敭敮敯数斒斟新旒旓旕晸暄暅暆暇暈暉暊暋暌暍暐暒暓暔暕暖暗暘暙暛會朡棩椯椱椲椳椴椵椶椷椸椹椺椻椼椽椾椿楀楁楂楃楄楅楆楈楊楋楌楍楎楏楐楑楒楓楔楕楘楙楚楜楝楞楟楠楡楢楣楤楥楦楨楩楪楫楬業楯楱楲楳楴楶楷楸楹楺楻楼楽楾楿榀榁概榃榄榅榆榇榈榉榊榋榌榘榙榳榵榾槆槌槎槐槩歀歁歂歃歅歆歇歈歱歲歳殜殟殿毀毁毂毷毸毹毺毻毼氱氲湬溍溎溏源溑溒溓溔溕準溗溘溙溛溜溝溟溡溢溣溤溥溦溧溨溩溪溫溭溮溯溰溱溳溴溵溶溷溸溹溺溻溼溽溿滀滂滃滄滅滆滇滈滉滊滌滍滏滐滒滓滔滖滗滘滙滚滛滜滝滟滠满滢滣滤滥滦滧滨滩滪滫滭滶漓漠漣漨漭漷潃澕煁煂煃煄煅煆煇煈煉煊煋煌煍煎煏煒煓煔煖煗煘煙煜煝煞煟煠煢煣煤煥煦照煨煩煪煫煬煭煯煰煲煳煴煵煶煷煸煺熍牃牎牏牐牑牒犌犎犏犐犑献猷猺猻猼猽猿獁獂獅獆獈獉獊獏獓琞琧琾琿瑀瑁瑂瑃瑄瑅瑆瑇瑈瑉瑊瑋瑌瑍瑎瑏瑐瑑瑒瑓瑔瑕瑖瑗瑙瑚瑜瑝瑞瑟瑥瑰瑳瑵瓡甂甃甄甅甆甝甞畵當畷畸畹畺痬痭痮痯痰痱痲痳痴痵痶痷痸痹痺痻痼痽痿瘀瘁瘂瘃瘄瘅瘆瘏瘐瘑瘔皗皘皙皵盝盞盟睒睓睔睕睖睗睘睙睚睛睜睝睞睟睠睡睢督睤睥睦睧睨睩睪睫睬睭睰睷睹瞄矠矮硸硹硺硻硼硽硾硿碁碂碃碄碅碆碇碈碉碊碋碌碍碎碏碐碑碒碓碔碕碖碗碘碙碚碛碜碢碤碰禀禁禈禉禊禋禌禎福禐禑禒禓禔禕禖禗禘禙稏稐稑稒稓稔稕稖稗稘稙稚稛稜稝稞稟稠稡稢稣稤稥窞窟窠窡窢窣窤窥窦窧窩竨竩竪筞筟筠筡筢筣筤筦筧筨筩筪筫筭筮筯筰筱筲筴筶筷筸筹筺筻筼筽签筿简節粮粯粰粱粲粳粴粵糀絸絹絺絻絼絿綀綂綃綄綅綆綇綈綉綊綋綌綍綏綐綑綒經綔綕綗綘継続綛綤缙缚缛缜缝缞缟缠缡缢缣缤罧罨罩罪罫罬罭置署羣群羥羦羧羨義羪翜翝耡耢聕聖聗聘肄肅肆腛腜腝腞腟腠腢腣腤腥腦腧腨腩腪腫腬腭腮腯腰腲腳腵腶腷腸腹腺腻腼腽腾腿膄膇舅與舝艀艁艂艃艄艅艆艈艉莻蒑蒒蒓蒔蒕蒖蒗蒘蒙蒚蒛蒜蒝蒞蒟蒠蒡蒣蒤蒥蒦蒧蒨蒩蒪蒬蒭蒮蒯蒰蒱蒲蒳蒴蒵蒶蒷蒸蒹蒺蒻蒼蒽蒿蓀蓁蓂蓄蓅蓆蓉蓊蓋蓌蓍蓎蓏蓐蓑蓒蓓蓔蓕蓖蓗蓘蓙蓛蓜蓝蓟蓠蓡蓢蓣蓤蓥蓦蓧蓨蓩蓪蓫蓬蓮蓽蔀蔜蔭蔯蔱虜虞號虡蛖蛵蛶蛷蛸蛹蛺蛻蛼蛽蛾蛿蜀蜁蜂蜃蜄蜅蜆蜇蜈蜉蜊蜋蜌蜍蜎蜏蜐蜔蜕蜖蜗蜣蜹蝆蝍衘衙裊裏裔裘裚裛裝裟裠裧裨裩裪裬裭裮裯裰裱裲裶裷裸裺裼裾裿褀褂褃褄褚覅覛覜觎觜觟觠觡觢解觤觥触觧訾訿詡詢詣詤詥試詧詨詩詪詫詬詭詮詯詰話該詳詴詵詶詷詸詹詺詻詼詽詾詿誀誁誂誃誄誅誆誇誈誉誊誔誕誠諍谨谩谪谫谬谼豊豋豢豣豤豥豦貄貅貆貇貈貉貊貲賂賃賄賅賆資賈賉賊賋賌賍賎赖赗赨赩赪趌趍趎趏趐趑趒趓趔跐跟跠跡跢跣跤跥跦跧跨跩跪跫跬跭跮路跰跱跲跳跴跶跷跸跹跺跻踭躱躲躳軭軾軿輀輁輂較輄輅輆輇輈載輊輋輌辏辐辑辒输辔辞辟辠農遘遙遛遜遝遞遟遠遡遢遣遤遥遨遳郌郒鄘鄙鄛鄜鄝鄞鄟鄠鄡鄢鄣鄤鄥酧酨酩酪酫酬酭酮酯酰酱鈮鈯鈰鈱鈲鈳鈴鈵鈶鈷鈸鈹鈺鈻鈼鈽鈾鈿鉀鉁鉂鉃鉄鉆鉇鉈鉉鉊鉋鉌鉍鉎鉏鉐鉑鉒鉓鉔鉕鉖鉗鉘鉙鉚鉛鉜鉝鉞鉟鉠鉡鉢鉣鉤鉥鉦鉧鉨鉩鉪鉫鉬鉭鉮鉰鉱鉲鉳鉴銏锖锗锘错锚锛锜锝锞锟锠锡锢锣锤锥锦锧锨锩锪锫锬锭键锯锰锱锳閘閙閚閛閜閝閞閟閠阖阗阘阙隚際障隝隟隠隡雉雊雍雎雏雴雵零雷雸雹雺電雼雽雾靕靖靲靳靴靵靶靷靹韪韫韴韵頉頊頋頌頍頎頏預頑頒頓颐频颒颓颔颕颖颫颬飔飕飬飮飱飳飴飵飶飷飹飻飼飽飾飿餀馌馍馎馏馐馚馯馰馱馲馳馴馵馺骜骝骞骟骯骰骱髡髢鬾鬿魀魁魂魛魜魝魞鲄鲅鲆鲇鲈鲉鲊鲋鲌鲍鲎鲏鲐鳧鳨鳩鳪鳫鳭鳮鳯鳰鹉鹊鹋鹌鹍鹎鹏鹐鹑鹒鹓鹔麀麁麂黽鼌鼓鼔鼠龃龄龅龆龯龾鿁鿙鿮鿴鿽|14:僊僎僐僑僒僓僔僕僖僗僘僚僛僜僝僞僟僠僡僢僣僤僥僦僧僨僩僪僫僬僭僮僯僰僱僲僳僴僷儁儆兢冩凘凳凴劀劁劂劃劄勥勩勪勫勬勭勱匰匱匲厬厭厮厰厲叆嗺嗻嗽嗾嗿嘀嘁嘂嘃嘄嘆嘇嘈嘉嘊嘋嘌嘍嘎嘏嘐嘑嘒嘓嘔嘕嘖嘗嘘嘙嘚嘛嘜嘝嘞嘡嘢嘣嘤嘥嘦嘧嘨噉噑圖圗團圙塲塴塵塶塷塸塹塺塼塽塾塿墁墂境墄墅墆墇墈墉墊墋墌墍墏墐墑墒墔墕墖増墘墙墚墛墜墟墬墭墮墴墸壽夀夐夣夤夥奩奪奬嫕嫖嫗嫘嫙嫚嫛嫜嫝嫞嫠嫡嫢嫣嫤嫥嫦嫧嫨嫩嫪嫬嫭嫮嫰嫱嫲嫳嫷嫹孵孷察寠寡寢寣寤寥實寧寨寬對尡屢屣嵷嵸嵺嵻嵼嵽嵾嵿嶀嶁嶂嶃嶄嶆嶇嶈嶉嶊嶋嶌嶍嶎嶐嶑嶞巰幑幒幓幔幖幗幘幚幛幣廎廏廑廔廖廗廘廙廜廣弊彄彅彆彉彯彰徱徳徴徶愨愬愳愸愻愿慁慂慇態慐慒慓慕慖慘慚慛慝慞慟慡慢慣慪慬慯慱慲慳慴慵慷慺慻慽憀憁憆憈憏憜戧戨戩截戫戬搫搴搻搿摌摍摎摏摐摑摔摕摖摗摘摚摜摝摞摟摠摢摣摤摥摦摧摪摫摬摭摮摱摲摳摴摵摶摷摹摺摻摼摽摿撁撂撄撇撖撗撦撯撱撾擆敱敲敳敶斠斡斲旖旗暚暜暝暞暟暠暡暢暣暤暥暦暧暨暮暯暱曄曅朄朅朢榍榎榏榐榑榒榓榕榖榗榚榛榜榝榞榟榠榡榢榣榤榥榦榧榨榩榪榫榬榭榮榯榰榱榲榴榶榷榸榹榺榻榼榽榿槀槁槂槃槄槅槇槈槉槊構槍槏槑槒槓槔槕槖槗様槙槚槛槜槝槞槟槠槡槤槨槰樃樄樆樇樋模樤樥樺歉歊歋歌歍歰歴殝殞殠殡毃毄毓毾氁氳滎滬滮滯滰滱滲滳滴滵滷滸滹滺滻滼滽滾滿漁漂漃漄漅漆漇漈漉漊漋漌漍漎漏漑演漕漖漗漘漙漚漛漜漝漞漟漡漢漤漥漧漩漪漫漬漮漯漰漱漲漳漴漵漶漸漹漺漻漼漾潀潂潄潅潆潇潈潉潊潋潌潍潎潒潢潩潳潴澉澚濄煕煛煹煻煼煽煾煿熀熁熂熃熄熅熆熇熈熉熊熋熌熎熏熐熑熒熓熔熕熖熗熘熙熚熢熥熬燁爳爾牄牓牔犒犓犔犕犖犗獃獄獌獍獐獑獒獔獕獙獚獡瑠瑡瑢瑣瑤瑦瑧瑨瑪瑫瑭瑮瑱瑲瑴瑶瑷瑸瑹璃璈璉璍璓甇甈甉甍甧畻畼畽疐疑瘇瘈瘉瘊瘋瘌瘍瘎瘒瘓瘕瘖瘗瘘瘙瘟瘣瘥瘦瘧瘩皶皷皸皹盠盡盢監睮睯睱睲睳睴睵睶睸睺睻睼睽睾睿瞀瞁瞂瞃瞅瞆瞇瞍碝碞碟碠碡碣碥碦碧碨碩碪碫碬碭碮碯碱碲碳碴碵碶碷碸碹磀磁磆磈磋磓禚禛禝禞禟禠禡禢禣稦稧稨稩稪稫稬稭種稯稰稱稲稳稵穁穊窨窪窫窬窭竬竭竮端竰箁箂箃箄箅箆箇箈箉箊箋箌箍箎箏箐箑箒箓箔箕箖算箘箙箚箛箜箝箞箟箠管箢箣箤箥箦箧箨箩箪箫箬箸粶粷粸粹粺粻粼粽精粿糁綜綝綞綟綠綡綢綣綥綦綧綨綩綪綫綬維綮綯綰綱網綳綴綵綶綷綸綹綺綻綼綽綾綿緀緁緂緃緄緅緆緇緈緉緊緋緌緍緎総緐緑緒緓緔緕緢緺缥缦缧缨缩缪缫罁罂罯罰罱罳罴羫翞翟翠翡翢翣翤翥耣耤耥聙聚聛聜聝聞聟聡聢聣肇肈腐膀膁膂膃膅膆膈膉膊膋膌膍膎膏膑膖膜臧臺舆舓舔舕舞艊艋艌艍蓭蓯蓰蓲蓳蓴蓵蓶蓷蓸蓺蓻蓼蓾蓿蔁蔂蔄蔅蔆蔈蔉蔊蔋蔌蔍蔎蔏蔐蔑蔒蔓蔔蔕蔖蔗蔘蔙蔚蔛蔝蔞蔟蔠蔡蔢蔣蔤蔥蔦蔧蔨蔩蔪蔫蔮蔰蔲蔳蔴蔵蔶蔷蔸蔹蔺蔻蔼蔽蕏蕖蕯薌薖虠蜘蜙蜚蜛蜜蜝蜞蜟蜠蜡蜢蜤蜥蜦蜧蜨蜩蜪蜫蜬蜭蜮蜯蜰蜱蜲蜳蜴蜶蜷蜸蜺蜻蜼蜽蜾蜿蝀蝁蝂蝃蝄蝅蝇蝈蝉蝊蝋蝕蝧蝫蝸螂裦裫裳裴裵裹裻製褅褆複褈褉褊褋褌褍褎褏褐褑褓褔褕褖褗褘褙褛褝褞褡褨褪覝覞覟覠覡觏觨觩觪觫誋誌認誎誏誐誑誒誓誖誗誘誙誚誛誜誝語誟誡誢誣誤誥誦誧誨誩說誫説読誮谭谮谯谰谱谲谽豧豨豩豪貋貌貍賏賐賑賒賓賔賕賖賗賘赘赙赚赛赫趕趖趗趘趙趚跼跽跾跿踀踁踂踃踄踅踆踇踈踉踊踋踌踍踎躴躵輍輎輏輐輑輒輓輔輕辕辖辗辡辢辣遦遧適遪遫遬遭遮遯遰遱鄦鄧鄩鄪鄫鄬鄭鄮鄯鄰鄱鄲酲酳酴酵酶酷酸酹酺酻酼酽酾酿鈭鉵鉶鉷鉸鉹鉺鉻鉼鉽鉾鉿銀銁銂銃銄銅銆銇銈銉銊銋銌銍銎銐銑銒銓銔銕銖銗銘銙銚銛銜銝銞銟銠銡銢銣銤銥銦銧銨銩銪銫銬銭銮銯銰銱鋁鋋鋌鋣鋩鋮錚锲锴锵锶锷锸锹锺锻锼锽锾锿镀镁镂镃镄镅閡関閣閤閥閦閧閨閩閪閭閮閰阚隢隣隤隥隧隨隩隫雌雐雑雒雿需霁霆靗靘静靤靺靻靼靽靾靿鞀鞁鞂鞃鞄鞅鞆韍韎韬韶韷頔頕頖頗領頙頚颗颭颮颯颰颱飖飗飸餁餂餃餄餅餆餇餉養餌餎餏馑馒馛馜馝馶馷馸馹馻馼馽馾馿駀駁駂駃駄駅駆駇駏骠骡骢骲骳骵骶骷髚髣髤髥髦髧髨髩髪鬦魃魄魅魆魟魠魡魢魥鲑鲒鲓鲔鲕鲖鲗鲘鲙鲚鲛鲜鲝鲞鲟鳱鳲鳳鳴鳵鳶鹕鹖鹗鹘鹙鹚鹛鹜麧麼麽鼏鼐鼑鼻齊龇龈鿢鿲鿿|15:僵僶僸價僺僻僼僽僾僿儀儂儃億儅儇儈儉儊儋儌儍儎儏儙儚冪凙凚凛凜劅劆劇劈劉劊劋劌劍劎劏劐勮勯勰勲匔匳厱叇嘠嘪嘫嘬嘭嘮嘰嘱嘲嘳嘵嘶嘷嘸嘹嘺嘻嘼嘽嘾嘿噀噁噂噃噄噅噆噇噈噊噋噌噍噎噏噐噒噓噔噕噖噗噘噙噚噛噜噝噠噢噧噴噵噶圚墀墝增墠墡墢墣墤墥墦墧墨墩墪墫墯墰墱墲墳墵墶墹墺壿夦奫奭嫴嫵嫶嫸嫺嫻嫼嫽嫾嫿嬀嬁嬂嬃嬄嬆嬇嬈嬉嬊嬋嬌嬍嬎嬏嬘嬞審寪寫寭寮寯導尵層履屦屧嵹嶏嶒嶓嶔嶕嶖嶗嶘嶙嶚嶛嶜嶝嶟嶠嶡嶢嶣嶤嶥嶯嶱嶲嶴巤幜幝幞幟幠幡幢幤幥幩廚廛廝廞廟廠廡廢廤彈影徲徵德徸徹徺慗慙慜慤慦慧慫慭慮慰慶慸慹慼慾慿憂憃憄憅憇憉憋憍憎憐憒憓憔憕憘憚憛憞憟憡憢憣憤憦憧憨憪憫憬憭憮憯憰憱憳憽懂懊懏戭戮戯摨摩摯摰摾撀撃撅撆撈撊撋撌撍撎撏撐撑撒撓撔撕撘撙撚撛撜撝撞撟撠撡撢撣撤撥撧撨撩撪撫撬播撮撰撲撳撴撵撷撸撹撺撻擏擑擒擕擖擛敵敷數敹敺敻斢斳暩暪暫暬暭暰暲暳暴暵暶暷暹暼曂曃曏槢槣槥槦槧槪槫槬槭槮槯槱槲槳槴槵槶槷槸槹槺槻槼槽槾槿樀樁樂樅樈樉樊樌樍樎樏樐樑樒樓樔樕樖樗樘標樚樛樜樝樞樟樠樢樣樦樧権横樫樬樭樮樯樰樱橄橗橡橢橥檛歎歏歐歑歒歓歔歵歶殢殣殤殥殦毅毆毿氀氂滕漀漐漒漦漽漿潁潏潐潑潓潔潕潖潗潘潙潛潜潝潟潠潡潣潤潥潦潧潨潪潫潬潭潮潯潰潱潲潵潶潷潸潹潺潻潼潽潾潿澁澂澄澅澆澇澈澊澋澌澍澎澏澐澑澒澓澔澖澗澘澙澛澜澝澫澳澻澾濆濈濍濎濐熛熜熝熞熟熠熡熣熤熦熧熨熩熪熫熭熮熯熰熱熲熳熴熵熼熿爴牅牕牖牗犘犙犚犛獋獎獖獗獘獛獜獝獞獟獠獢獤獦瑩瑬瑺瑻瑼瑽瑾璀璁璂璄璅璆璇璊璋璌璎璖璜璡甊甋甌甎畾畿瘚瘛瘜瘝瘞瘠瘡瘢瘤瘨瘪瘫瘼癊皚皛皜皝皞皣皺盤瞈瞉瞊瞋瞌瞎瞏瞐瞑瞒瞓瞙瞝瞢瞱確碻碼碽碾碿磂磃磄磅磇磉磊磌磍磎磏磐磑磒磔磕磗磘磙磝磤禜禤禥禩稴稶稷稸稹稺稻稼稽稾稿穀穂穃窮窯窰窱窲窳窴箭箮箯箰箱箲箳箴箵箶箷箹箺箻箼箽箾箿篁篂篃範篅篆篇篈篊篋篌篍篎篏篐篑篒篓篨糂糃糄糅糆糇糈糉糊糋糌糍糎糔緖緗緘緙線緛緜緝緞緟締緡緣緤緥緦緧編緩緪緫緬緭緮緯緰緱緲緳練緵緶緷緸緹緼緽緾緿縀縁縂縃縄縅縆縇縋縌縎縒縙缬缭缮缯罵罶罷罸罼羬羭羮羯羰翦翧翨翩翪翫翬翭耦耧聤聥聦聧聨聩聪聫聭膒膓膔膕膗膘膚膛膝膞膟膠膡膢膣膤膵膷膼臱舖舗艎艏艐艑艒艓艔艖艘蒊蓹蔃蔬蔾蔿蕀蕁蕂蕃蕄蕅蕆蕇蕈蕉蕊蕋蕌蕍蕎蕐蕑蕒蕓蕔蕕蕘蕙蕚蕛蕜蕝蕞蕟蕠蕡蕢蕣蕤蕥蕦蕧蕨蕩蕪蕫蕬蕮蕰蕱蕲蕳蕴蕵蕸蕺薁薘薡虢蜵蝌蝎蝏蝐蝑蝒蝓蝔蝖蝗蝘蝙蝚蝛蝜蝝蝞蝟蝠蝡蝢蝣蝤蝥蝦蝨蝩蝪蝬蝭蝮蝯蝰蝱蝲蝳蝴蝵蝶蝷蝹蝺蝻蝼蝽蝾蝿螀螁螆螋螖螝衚衛衜衝褒褜褟褠褢褣褤褥褦褫褬褯褲褳褴褵襅覢覣覤覥覩觐觑觬觭觮觯觰誯誰誱課誳誴誵誶誷誸誹誺誻誼誽誾調諀諁諂諃諄諅諆談諈諉諊請諌諎諏諐諑諒諓諔諕論諗諘諙諚諛諣諩諸諾谳谴谵谾豌豍豎豫豬貎貏貓賙賚賛賜賝賞賟賠賡賢賣賤賥賦賧賨賩質賫賬賭赜赭趛趜趝趞趟趠趡趢趣趤踏踐踑踒踓踔踕踖踗踘踙踚踛踜踝踞踟踠踡踢踣踤踥踦踧踨踩踪踫踬踮踯踷踺踻蹃躶躷躸躹躺躻躼輖輗輘輙輚輛輜輝輞輟輠輡輢輣輤輥輦輧輨輩輪輫輬辘辤辳遲遴遵遶遷選遹遺遻遼邁邆郶鄳鄴鄵鄶鄷鄸醀醁醂醃醄醅醆醇醈醉醊醋醌醏銲銳銴銵銶銷銸銹銺銻銼銽銾銿鋀鋂鋃鋄鋅鋆鋇鋈鋉鋊鋍鋎鋏鋐鋑鋒鋓鋔鋕鋖鋗鋘鋙鋚鋛鋜鋝鋞鋟鋠鋡鋢鋤鋥鋦鋧鋨鋪鋫鋬鋭鋯鋰鋱鋲鋳鋴鋵鋶錒錓錵錺镆镇镈镉镊镋镌镍镎镏镐镑镒镓镔镕镼閫閬閯閱閲閳閴隦險雓霂霃霄霅震霈霉霊靚靠靥鞇鞈鞉鞊鞋鞌鞍鞎鞏鞐鞑鞒鞗韏韐韑韯頛頜頝頞頟頠頡頢頣頦頧頨頩頪頫頬頲题颙颚颛颜额颲颳飘飺餈餋餍餑餒餓餔餕餖餗餘餙餝馓馔駈駉駊駋駌駍駎駐駑駒駓駔駕駖駗駘駙駚駛駜駝駞駟駠骣骴骸骹骺骻骼骿髛髫髬髮髯髰髱髲髳髴鬧魇魣魤魦魧魨魩魪魫魬魭魮魯魰魱魲魳魴魵魶魷魸魹鮔鲠鲡鲢鲣鲤鲥鲦鲧鲨鲩鲪鲫鲬鳷鳸鳹鳺鳻鳼鳽鳾鳿鴀鴁鴂鴃鴄鴅鴆鴇鴈鴉鴋鴌鴍鴎鴔鹝鹞鹟鹠鹡鹢鹣鹤鹶麃麄麨麩麪麫麹麾黅黆黎黓黙鼒齑齒龉龊龦龽鿔鿣鿰鿵鿶|16:亸儐儑儒儓儔儕儖儗儘儛儜儝儞儣儫兣冀凝凞劑劒劓劔勳勵匴厳叡嘯嘴噞噟噡噣噤噥噦器噩噪噫噬噭噮噯噰噱噲噳噷噸噹噺噻噼嚃嚄嚆圛圜墻墼墽墾墿壀壁壂壃壄壅壆壇壈壉壊壋壌壒夁奮奯嬐嬑嬒嬓嬔嬕嬖嬗嬙嬚嬛嬜嬝嬟嬠嬡嬢嬨嬩嬳嬴學孹寰嶦嶧嶨嶩嶪嶫嶬嶭嶮嶰嶳嶵嶶嶼幦幧幨幪幯廥廦廧廨廩廪彇彊彋彛彜徻徼憊憌憑憖憗憙憝憠憥憩憲憴憶憷憸憹憺憻憼憾憿懀懁懄懅懆懈懌懍懎懐懒懓懔懙懜懞戰戱撉撼撽撿擀擁擂擃擄擅擇擈擉擋擌操擎擐擓擔擗擙據擜擝擞擭擳攳整敼敽敾敿斓斴旘旙暸暺暻暽暾暿曀曁曆曇曈曉曊曋曌曍曔朆朣朤朥樨樲樳樴樵樶樷樸樹樻樼樽樾樿橀橁橂橃橅橆橇橈橉橊橋橌橍橎橏橐橑橒橓橔橕橖橘橙橛橜橝橞機橠橣橤橦橧橨橩橪橫橬橭橮橯橰橱橲橳橴橵橶橷橸橹橺橻橼橽檃檇檎檖檙檝檠檤檧檨歕歖歘歙歚歷殧殨殩殪殫毇毈氃氄氅氆氇潚潞澃澞澟澠澡澢澣澤澥澦澧澨澪澬澭澮澯澰澱澲澴澵澶澷澸澹澺澼澽澿激濁濂濃濅濇濉濊濋濏濑濒濓濖濗濛濨濩濭濸瀄熶熷熸熹熺熻熾燀燂燃燄燅燆燇燈燉燊燋燌燍燎燏燐燑燒燓燔燕燖燗燘燙燚燛燜燝燞營燠燤燧燪燵犜犝犞犟獣獥獧獨獩獪獫獬獭獲獴瑿璏璑璒璔璕璘璙璚璝璞璟璠璢璣璤璥璭璲瓢甏甐甑甒疀疁疂瘬瘭瘮瘯瘰瘱瘲瘳瘴瘵瘶瘷瘸瘹瘺瘻瘽瘾瘿癀癃皟皠皡皻盥盦盧瞔瞕瞖瞗瞘瞚瞛瞜瞞瞟瞠瞡瞣瞥瞰磖磚磛磜磞磟磠磡磢磣磥磦磧磨磩磪磫磬磭磮磲磺禧禨禪禫禭穄穅穆穇穈穋穌積穎穏穐穑穒穓穔窵窶窷窸窹窺窻窼窽窿竱築篔篕篖篗篘篙篚篛篜篝篞篟篠篡篢篣篤篥篦篧篩篪篫篬篭篮篯篰篱篳篴篷篹簉簑糏糐糑糒糓糕糖糗糘糙糚糢緻縈縉縊縍縏縐縑縓縔縕縖縗縘縚縛縜縝縞縟縠縡縢縣縤縥縦縧縨縪縫縭縸縺缰缱缲缳缴罃罹罺罻羱羲翮翯翰翱翴耨耩耪聬聮聱膐膙膦膧膨膩膪膫膬膭膮膯膰膱膲膳膴膶膹臇臈臲臻興舉舘艕艗艙蓞蕗蕭蕶蕷蕹蕻蕼蕽蕾蕿薀薂薃薄薅薆薇薈薉薊薋薍薎薏薐薑薒薓薔薕薗薙薚薛薜薝薞薟薠薢薣薤薥薦薧薨薩薪薫薬薭薮薯薳薽藇虣虤虥虦螃螄螅螇螈螉螊螌融螎螏螐螑螒螓螔螕螗螘螙螚螛螜螞螟螠螡螢螣螤螥螦螧螨螩螭螯螴螶蟆蟇蟒衞衟衠衡褧褩褭褮褰褱褶褷褸褹褾褿襀襂襃襐襒襔覦覧覨親觱諜諝諞諟諠諡諢諤諥諦諧諨諪諫諬諭諮諯諰諱諲諳諴諵諶諷諹諺諻諼諽諿謀謁謂謃謉謊謎謏謔豭豮豱貐貑貒賮賯賰賱賲賳賴賵赝赞赟赠赬赮趥趦趧踰踱踲踳踴踵踶踸踹踼踽踾踿蹀蹁蹂蹄蹅蹆蹉躽躾輭輮輯輰輱輲輳輴輵輶輷輸輹輺輻輼辙辚辥辦辧辨辩辪遽遾避邀邂還邅郺鄹鄺醍醎醐醑醒醓醔醕醖醗醙醚醛醜醝鋷鋸鋹鋺鋻鋼鋽鋾鋿錀錁錂錃錄錅錆錇錈錉錊錋錌錍錎錏錐錑錔錕錖錗錘錙錛錜錝錞錟錠錡錢錣錤錥錦錧錨錩錪錫錬錭錮錯錰錱録錳錴錶錷錸錹錻錼錽錾錿鍀鍁鍂鍃鍄鍅鍆鍈鍋鍣鍩鍵鍺鎁鎯镖镗镘镙镚镛镜镝镞镟镠閵閶閷閸閹閺閻閼閽閾閿闁闂闍阛隬隭隮隯隰隱隲隷雔雕霋霌霍霎霏霐霑霒霓霔霕霖霗霙靛靜靦鞓鞔鞕鞖鞘鞙韒韰韸頤頥頭頮頯頰頱頳頴頵頶頷頸頹頺頻頼頽颞颟颠颡颴颵飙飚餐餚餛餜餞餟餠餡餢餣餤餦餧館餩餴馞馟馠駡駢駣駤駥駦駧駨駩駪駫駬駭駮駯駰駱駲駳骽骾髭髵髶髷髸髹髺髻鬇鬨鬳魈魉魺魻魼魽魾魿鮀鮁鮂鮃鮄鮅鮇鮈鮉鮊鮋鮌鮍鮎鮏鮐鮑鮒鮓鮕鮖鮗鮘鮣鲭鲮鲯鲰鲱鲲鲳鲴鲵鲶鲷鲸鲹鲺鲻鴊鴏鴐鴑鴒鴓鴕鴖鴗鴘鴙鴚鴛鴝鴞鴟鴠鴡鴢鴣鴤鴥鴦鴧鴨鴩鴪鴫鴬鴱鵖鹥鹦鹧鹨鹷鹾麅麆麇麈麬麭麮麺黇黈黉黔黕黖黗默黺鼼鼽齓龍龧龬龳鿚鿫鿯|17:償儠儡儢儤儥儦儧儨儩優儬儰儲凟劕勴勶匵噽噾噿嚀嚁嚂嚅嚇嚈嚉嚊嚋嚌嚍嚎嚏嚐嚑嚒嚓嚝嚮壍壎壏壐壑壓壔壕壖壗壙嬣嬤嬥嬦嬧嬪嬫嬬嬭嬮嬯嬰嬱嬲嬵嬶嬷嬺孺孻寱寲尶尷屨嶷嶸嶹嶺嶻嶽嶾嶿巁幫幬幭彌彍徽徾憵懃懇應懋懑懗懚懛懝懠懡懢懤懥懦懧懨懩懭懱戲戴擊擘擟擠擡擢擣擤擦擧擨擩擫擬擮擯擰擱擲擴擿攁攃斀斁斂斃斣斵斶旚曎曐曑曒曓曕曖曗曙曚朦橚橾橿檀檁檂檄檅檆檈檉檊檋檌檍檏檐檑檒檓檔檕檗檘檚檜檞檟檡檢檣檥檦檩檪檬檴櫆櫛櫣歗歛歜歝歟殬殭殮毚氈氉氊氋澀澩濌濔濕濘濙濚濜濝濞濟濠濡濢濣濤濥濦濧濪濫濬濮濯濰濱濲濴濵濶濹濻濿瀁瀇瀎瀞瀡熽燡燢燣燥燦燨燩燫燬燭燮燯燰燱燲燳燴燶燷爵牆犠獮獯獰獱獳獷璐璗璛璦璨璩璪璫璬璮璯環璱璳璴璵瓁瓂甓甔甕疃疄癁療癄癅癆癇癈癉癋癌癍癎癘皢皤皥皼盨盩盪瞤瞦瞧瞨瞩瞪瞫瞬瞭瞮瞯瞲瞳瞴瞵瞶瞷瞸矯矰磯磰磱磳磴磵磶磷磸磹磻磼磽磾磿礀礁礂礃礄礅礇礈礍禦禬禮禯穉穕穖穗穘穙穚穛穜穝穞穟窾竀竁竂竃竲竳竴篲篵篶篸篺篻篼篾篿簀簁簂簃簄簅簆簇簈簊簋簌簍簎簏簐簒簓簔簕簖簗簘簧簻糛糜糝糞糟糠糡縩縬縮縯縰縱縲縳縴縵縶縷縹縻縼總績縿繀繁繂繃繄繅繆繇繈繉繊繋繌繍繤罄罅罆罽罾罿羁翲翳翵翶翼耫耬聯聰聲聳聴膥膸膺膻膽膾膿臀臁臂臃臄臅臆臉臊臌臒臨臩舊艚艛艜艝艱薰薱薲薴薵薶薷薸薹薺薻薼薾薿藀藁藂藃藄藅藆藈藉藊藋藌藍藎藏藐藑藒藓藗藡藬藱虧虨螪螫螬螮螰螱螲螳螵螷螸螹螺螻螼螽螾螿蟀蟁蟂蟃蟄蟅蟈蟉蟊蟋蟌蟍蟎蟏蟐蟑蟓蟝蟞蟥蠁蠎褺褻褼褽襁襄襆襇襈襉襊襋襌襍襎襏襑襓襕襖襚覫覬覭覮覯觲觳謄謅謆謇謈謋謌謍謐謑謒謓謕謖謗謘謙謚講謜謝謞謟謠謡謢謧謨謩謰謷謸譁谿豀豁豏豯豰豲豳貔貕貖貘賶賷賸賹賺賻購賽贅赡赢赯趨蹇蹈蹊蹋蹌蹍蹎蹏蹐蹑蹒蹓蹕蹥輽輾輿轀轁轂轃轄轅轋辫邃邇邈邉鄻鄼鄽鄾鄿醘醞醟醠醡醢醣醤醨鍇鍉鍊鍌鍍鍎鍏鍐鍑鍒鍓鍔鍕鍖鍗鍘鍙鍚鍛鍜鍝鍞鍟鍠鍡鍢鍤鍥鍦鍧鍨鍪鍫鍬鍭鍮鍯鍰鍱鍲鍳鍴鍶鍷鍸鍹鍻鍼鍽鍾鍿鎀鎂鎃鎄鎅鎆鎇鎈鎚鎝鎡鎪鎹鎺鎾镡镢镣镤镥镦镧镨镩镪镫闀闃闄闅闆闇闈闉闊闋闌闎闏隳隸雖雘雚霘霚霛霜霝霞霟霠霡鞚鞛鞜鞝鞞鞟鞠鞡鞬韓韔韕韱韺顀顁顂顃顄顅顆顇顈顉顊颶颷餥餪餫餬餭餯餰餱餲餳餵餶餷餸餽餿饂馘馡馢馣駴駵駶駷駸駹駺駻駼駽駾駿騀騁騂騃骤髀髁髼髽髾髿鬀鬁鬂鬴魊魋魌魍魎魏鮆鮙鮚鮛鮜鮝鮞鮟鮠鮡鮢鮤鮥鮦鮧鮨鮩鮪鮫鮬鮭鮮鮯鮰鮱鮲鮳鮴鮺鯅鯈鯎鲼鲽鲾鲿鳀鳁鳂鳃鳄鳅鳆鳇鳈鳉鳊鳋鴜鴭鴮鴯鴰鴲鴳鴴鴵鴶鴷鴸鴹鴺鴻鴼鴽鴾鴿鵀鵁鵂鵃鵄鵅鵆鵇鵈鵉鵧鹩鹪鹫鹬麉麊麋麯麰麿黊黋黏黚黛黜黝點黻黿鼢鼣鼤鼾鼿齋齔齢龋龌龜龠龩龼鿅鿋鿪鿷|18:儭儮儯儱儵冁叢嚔嚕嚖嚗嚘嚙嚚嚛嚜嚞嚟嚠嚡嚢嚣嚤壘壝夑奰嬸嬻嬼屩屪巀巂幮廫彝彞懕懖懘懟懣懪懫懬懮懰懳懴懵戳擥擪擵擶擷擸擹擺擻擼擽擾攂攄攅攆斔斷旛旞曘曛曜曞曠檫檭檮檯檰檱檲檳檵檶檷檸檹檺檻檼檽檾檿櫀櫁櫂櫃櫄櫅櫇櫈櫉櫊櫎櫒櫔櫗櫙櫚櫡櫭歞歸殯毉濷濺濼濽濾瀀瀂瀃瀅瀆瀈瀉瀊瀋瀌瀍瀏瀐瀑瀒瀓瀔瀢瀦燸燹燺燻燼燽燾燿爀爁爃爄爇爌爗犡獵獶璧璶璸璹璻璼璾璿瓀瓊瓋瓍甖疅癏癐癑癒癓癔癕癖癗癙癚癛癜癝癞癤皦皧皨皽盫盬瞹瞺瞻瞼瞽瞾瞿矀矁矂矆矇矱礆礉礊礋礌礎礏礐礑礒礓礔礕礖礚礜礞礠礡禰禱禲穠穡穢穣穥穫竄竅竆竵篽簙簚簛簜簝簞簟簠簡簢簣簤簥簦簨簩簪簭簮簯簰簱簲簶糣糤糥糦糧糨繎繏繐繑繒繓織繕繖繗繘繙繚繛繜繝繞繟繠繢繣繥繦繧繨繭繱繸罇罈罉羀羂羃羳羴羵翷翸翹翺翻耭耮聵聶職臍臎臏臐臑臓臗舙艞艟艠艥藕藖藘藙藚藛藜藝藞藟藠藢藣藤藥藦藧藨藩藪藫藭藯藰藲藳藴藵藷藸虩蟔蟖蟗蟘蟙蟚蟛蟜蟟蟠蟡蟢蟣蟤蟦蟧蟨蟩蟪蟫蟬蟭蟮蟯蟱蟲蟳蟴蟵蟼蟽蠂蠄蠆蠇襗襘襙襛襜襝襟襠襡襢覆覰覱覲観覷觴觵謣謤謥謦謪謫謬謭謮謯謱謲謳謴謵謶謹謺謻謼謾譀譃譇豂豃豐豴豵貗貙賾賿贀贁贂贃贄趩趪蹔蹖蹗蹘蹙蹚蹛蹜蹝蹞蹟蹠蹡蹢蹣蹤蹦蹧蹩躀躇躿軀軁轆轇轈轉轊轌辬邊邋邌鄨酀酂醥醦醧醩醪醫醬釐鎉鎊鎋鎌鎍鎎鎏鎐鎑鎒鎓鎔鎕鎖鎗鎘鎙鎛鎜鎞鎟鎠鎢鎣鎤鎥鎦鎧鎨鎩鎫鎬鎭鎮鎰鎱鎲鎳鎴鎵鎶鎷鎸鎻鎼鎽鎿鏅鏈鏊鏌鏎鏠鏵镬镭镮镯镰镱闐闑闒闓闔闕闖闗闘隴雗雙雛雜雝雞雟雠離霢霣霤霥霧霩靝鞢鞣鞤鞥鞦鞧鞨鞩鞪鞫鞭鞮鞯鞰鞳韖韗韘韙韚韞韹頾頿顋題額顎顏顐顑顒顓顔顕顝颢颣颸颹颺颼颾餮餹餺餻餼餾饀饁饃饆饈馤馥馧騄騅騆騇騈騉騊騋騌騍騎騏騐騑騒験騝騧髂髃髄髅髊髜鬃鬄鬅鬆鬈鬩鬵鬶鮵鮶鮷鮸鮹鮻鮼鮽鮾鮿鯀鯁鯂鯃鯄鯆鯇鯉鯊鯋鯌鯍鯏鯐鯑鯒鯓鯗鯽鳌鳍鳎鳏鳐鳑鳒鵊鵋鵌鵍鵎鵏鵐鵑鵒鵓鵔鵕鵗鵘鵙鵚鵛鵜鵝鵞鵟鵠鵢鵣鵤鵥鹭鹮鹯鹰鹱鹲麌麍麎麏麐麱麲黟黠黡鼀鼁鼂鼕鼖鼥鼦鼧鼨鼩鼪鼫鼬齀齌齕龎龲鿂鿤鿻鿼|19:儳儴劖勷勸匶厴嚥嚦嚧嚨嚩嚪嚫嚬嚭嚯嚰嚴壚壛壜壞壟壠壡壢夒夓嬹嬽嬾嬿孼孽寳寴寵屫巃巄巅巆巌幰廬廭彟徿懯懲懶懷懻攀攇攈攉攊攋攌攍攎攏攐攑攒攚斄旜旝旟曝曟曡曢櫋櫌櫍櫏櫐櫑櫓櫕櫖櫘櫜櫝櫞櫟櫠櫢櫤櫥櫦櫧櫫櫲櫵歠殰殱氌濳瀕瀖瀗瀘瀙瀚瀛瀜瀝瀟瀠瀣瀤瀥瀧瀨瀩瀫瀬瀭瀮瀯瀳爂爅爆爈爉爊爍爎爑爕牘犢犣犤犥犦獸獹獺璷璽瓃瓄瓅瓆瓇瓈瓉瓣疆疇癟癠癡癢癣皩矃矄矅矈矉矊矋矌矎礗礘礙礛礝礟礢礣礤礦礪穤穦穧穨穩穪穬簫簬簳簴簵簷簸簹簺簼簽簾簿籀籁籂籅籆籈糩糪糫糬糭繡繩繪繫繬繮繯繰繲繳繴繵繶繷繹繺繾纄缵罊罋羄羅羆羶羷羸羹翽翾耯聸聼臋臔臕臘舚艡艢艣艤艧艨艶藮藶藹藺藻藼藽藾藿蘀蘁蘂蘃蘄蘅蘆蘇蘈蘉蘊蘋蘍蘎蘏蘐蘑蘒蘓蘔蘕蘟蘢蘣蘧蟕蟰蟶蟷蟸蟹蟺蟻蟾蟿蠀蠃蠅蠈蠉蠊蠋蠌蠍蠏蠓蠖蠞襞襣襤襥襦襧襪覇覈覴覵覶覸觶觹謽謿譂譄譆譈證譊譋譌譎譏譐譑譒譓譔譕譖譗識譙譚譛譜譢警譪谶豶豷貚贆贇贈贉贊贋贌贎趫趬趭蹨蹪蹫蹬蹭蹮蹯蹰蹱蹲蹳蹴蹵蹶蹷蹸蹹蹺蹻蹼蹽蹾蹿躂躉軂軃軄軅轍轎轏轐轑轒轓轔轕辭辴邍酁酃酄醭醮醯醰醱鏀鏁鏂鏃鏄鏆鏇鏉鏋鏍鏏鏐鏑鏒鏓鏔鏕鏖鏗鏘鏙鏚鏛鏜鏝鏞鏟鏡鏢鏣鏤鏥鏦鏧鏨鏩鏪鏫鏬鏭鏮鏯鏰鏱鏲鐄鐅鐆鐊鐌鐯鐹镲镽闙闚闛關闝闞隵雡難霦霨霪霫霬霭霳靡鞱鞲鞴鞵鞶鞷鞸鞹鞾韛韜韝韟韠韡韲韻韼顖顗願顙顚顛顜類颤颻颽颿飀饄饅饇饉馦騔騕騖騗騘騙騚騛騜騞騟騠騡騢騣騤騥騦騨騩騪騭騲騷骥髆髇髈髉髋髌鬉鬊鬋鬌鬍鬎鬏鬷魐魑魓鯔鯕鯖鯘鯙鯚鯛鯜鯝鯞鯟鯠鯡鯢鯣鯤鯥鯦鯧鯨鯩鯪鯫鯬鯭鯮鯯鯰鯱鯲鯳鯴鯵鯺鰎鰙鳓鳔鳕鳖鳗鳘鳙鳚鳛鵡鵦鵨鵩鵪鵫鵬鵭鵮鵯鵰鵱鵲鵳鵴鵵鵶鵷鵸鵹鵺鵻鵼鵽鵾鵿鶀鶁鶂鶃鶄鶅鶆鶇鶈鶉鶊鶋鶌鶍鶎鶏鶐鶑鶓鶜鶧鹸麑麒麓麔麕麖麗麳麴黀黢黣黼鼃鼄鼗鼭鼮齁齍齖齗齘龏龐龻鿸鿹|20:儶兤匷嚱嚲嚳嚵嚶嚷嚸嚹嚺嚼嚽嚾嚿壣壤壥壦孀孁孂孃孄孅孆孉孾寶巇巈巉巊巍巏幱廮廯廰忀忁懸懹懺懽攓攔攕攖攗攘攙斅斆曣曤曥曦曧曨朧櫨櫩櫪櫬櫮櫯櫰櫱櫳櫴櫶櫸櫹櫽櫿欂瀪瀰瀱瀲瀴瀵瀶瀷瀸瀹瀺瀻瀼瀽瀾瀿灀灁灂灆灌爋爏爐爒爓爔爖爘犧犨獻獼獽獾璺瓌瓎瓏瓐瓑瓒甗疈疉癥癦皪皫皾盭矍矏矒矲礥礧礨礩礫礬穭穮穯竇競竷籃籄籇籉籊籋籌籍籎籏籕糮糯糰糲繻繼繽繿纀纁纂纃纊罌羺翿耀聹聺聻臖臙臚臛臜舋艦艩蘌蘖蘗蘘蘙蘚蘛蘜蘝蘞蘠蘡蘤蘥蘦蘨蘩蘪蘫蘭蘮蘯蘰蘳蘶蠐蠑蠒蠔蠕蠗蠘蠙蠚蠛蠣衊襨襩襫襬襭襮覹覺覻觷觸譍譝譞譟譠譡譣譤譥譧譨譩譫譬譭譮譯議譱譲譴護譽豑贍贏趮躁躃躄躅躆躈軆轖轗轘轙轚轝辮酅酆醲醳醴醵醶醷醸釋鏳鏶鏷鏸鏹鏺鏻鏼鏾鏿鐀鐁鐂鐃鐇鐈鐉鐋鐍鐎鐏鐐鐑鐒鐓鐔鐕鐖鐗鐘鐙鐚鐛鐜鐝鐞鐟鐠鐡鐢鐣鐤鐥鐦鐧鐨鐩鐫鐭鐷鐼鐽镳镴闟闠闡闥霮霯霰霱霴霵鞺鞻韽韾響顟顠顡顢顣颥飁飂飃飄饊饋饌饍饎饏饐饑饒饓饗饙馨騫騬騮騯騰騱騳騴騵騶騸驀驁驆驊骦骧髍髎髏鬐鬑鬒鬓鬔鬕鬪鬸魒魔魖鯶鯷鯸鯹鯻鯼鯾鯿鰀鰁鰂鰃鰄鰅鰆鰇鰈鰉鰊鰋鰌鰍鰏鰐鰑鰒鰓鰔鰕鰖鰗鰘鰚鰛鰠鰦鰰鱀鳜鳝鳞鳟鶒鶔鶕鶖鶗鶘鶙鶚鶛鶝鶞鶟鶠鶡鶢鶣鶤鶥鶦鶨鶩鶪鶫鶻鶿鷀鹹鹺麘麙麚麛麵黁黤黥黦黧黨黩黪鼍鼯鼰齙齚齛齝齞齟齠齡齣龑鿞|21:儷儸儹儺儼劗劘卛嚻囀囁囂囃囄囆囈夔孇孈寷屬巋巐廱忂懼懾攛攜攝攡斕曩朇櫺櫻櫼櫾欀欁欃欄欅權欌欍歡殲灃灄灅灇灈灉灊灋灍灏灐灕爙爚爛爝爟犩瓓瓔瓖瓘癧癨癩癪癫癮皬矐矑矓礭礮礯礰礱礲礳礴禳禴竈竉籐籑籒籓籔籖纅纆纇纈纉纋續纍纎纏纐罍羻羼耰臝臟艪藔蘬蘲蘴蘵蘷蘺蠜蠝蠟蠠蠡蠢蠤蠩蠫襯襰襱覼覽觺觼譅譳譵譶譸譹譺譻譼讁讂贐贑贒贓贔赣趯趰躊躋躌躍躎躏躑軇轛轜轞轟辯邎酇酈醹醺醻鏴鏽鐪鐬鐮鐰鐱鐲鐳鐴鐵鐶鐸鐺鐻鐾鐿鑀鑁鑉鑊鑓鑝镾闢闣闤闦雤露霶霷霸霹霺霻霿靀靧鞼鞽鞿韃韢顤顥顦顧顨颦飅飆飇飈飉飊飜饖饘饚饛馩騹騺騻騼騽騾騿驂驃驄驅驇驉髐髒髓鬖鬗鬘鬫鬹鬺魕鰜鰝鰞鰟鰡鰢鰣鰤鰥鰧鰨鰩鰪鰫鰬鰭鰮鰯鰱鰲鰷鱁鱃鳠鳡鳢鳣鶬鶭鶮鶯鶰鶱鶲鶳鶴鶵鶶鶷鶸鶹鶺鶼鶽鶾鷁鷂鷃鷄鷅鷆鷇鷈鷉鷊鷋鷌鷍鷎鷏鷔鷝鷨鹻麜麝麶黫黬黭黮黯鼅鼙鼚鼛鼱齎齜齤齥齦齧齨齩龒龡龭鿀鿐鿠|22:亹儻囅囇囉囊囋囌囎圝壧奱孊孋孌孍孿巎巑巒巓巔巕巖巗廲彎彲懿戂戵攞攟攠攢攤攦攧櫷欆欇欈欉欋欎氍灑灒灔灖灗灘爜爞爠爡獿玀玁玂瓕瓗瓙瓤疊癬癭皭矔礵礶礷禵穰穱竊竸籗籘籙籚籛籜籝籟籠籡籧糱糴糵纑纒罎罏羇耱耲聽聾臞艫蘱蘸蘹蘻蘼蘽蘾蘿虀蠥蠦蠧蠨蠪蠬蠭蠴襲襳襴襶襷覾覿觻觽譾譿讀讃讄讅讆讉豄贕贖贗贘躐躒躓躔躕躖躗躚轠轡轢邏邐鑂鑃鑄鑅鑆鑇鑈鑋鑌鑍鑎鑏鑐鑑鑒鑔鑖鑛鑧镵镶闧霼霽霾韀韁韂韄韣頀顩顪顫顭飋饔饕驈驋驍驎驏驐驑驒驓驔驕驚髑體髝鬙鬚鬛鬜鬝鬻鰳鰴鰵鰶鰸鰹鰺鰻鰼鰽鰾鰿鱂鱄鱅鱆鱇鱈鱉鱋鱌鱑鱜鳤鷐鷑鷒鷓鷕鷖鷗鷘鷙鷚鷛鷜鷞鷟鷠鷩鷬鷵鹳鹴麞黐黰黱鼘鼜鼲鼳鼴鼵齂齪齫齬龓龔龕龝龢鿜鿥鿳|23:儽劙劚囏囐囒壨奲孏巘巚彏戀戁戃戄攣攥攨攩攪攫曪曫曬曮欏欐欑欒欕毊灓灙灚灛灜灡爢玃瓚癯癰禶禷籞籢籣籤籥籦籨纓纔纕纖罐臢艬虃虅虇蠮蠯蠰蠱蠲蠳蠸襵襺襼覉觾讇讈變讋讌讍讎讏讐讔豅贙贚趱躘躙躛躜躠轣轤醼鑕鑗鑘鑙鑚鑜鑞鑟鑠鑡鑢鑣鑤鑥鑦靁靆靨韅韈韤顬顮顯颧饜馪驌驖驗驘驙驛驜髕髖髞鬞鬟鬠魗魘魙鱊鱍鱎鱏鱒鱓鱔鱕鱖鱗鱘鱙鱚鱛鱝鱪鷡鷢鷣鷤鷥鷦鷧鷪鷭鷮鷯鷰鷱鷲鷳鷴鷶鷷鷸鷻鷼麟黂黲黳黴鼆鼇鼶鼷鼸鼹齃齄齏齭齮齯齰齱鿦|24:儾囍囑囓壩孎屭巙攬攭斖曭欓欔欗灝灞灟灠爣爤瓛瓥癱癲矕矖矗矙礸礹穲穳籩籪籬纗羈羉艭艷虁虂虆虈虉蠵蠶蠷蠹蠺衋衢襸襹襻觀讑讒讓讕讖讙貛贛贜躝躞躟躤軈醽醾醿釀釂鑨鑩鑪鑫鑬鑮雥雦靂靃靄靅靇靈韆韇韥顰饝驝驞驟鬡鬢鬭鱐鱞鱟鱠鱡鱢鱣鱤鱥鱦鱧鱩鱫鱮鱯鱰鷫鷹鷺鷽鷾鷿鸀鸁鸂鸃鸄鸅鸆鸇鸈鸉鸊鸌鸏鸒鹼鹽麠黌鼈鼞齅齆齲齳齴齵齶齷齹鿛|25:囔囕壪廳彠戅戆攮斸曯欖欘欙欚欛欝灢灣爥爦犪矘矡籫籭籮糶纘纙纚纛臠臡蠻襽覊觿讗讘讛豒躡躢躣躥鑭鑯鑰鑱鑲鑳鑵鑶靉韉顱顲饞饟馕髗鬣鬬鱨鱬鱭鱱鱴鱶鸋鸍鸎鸐鸑麡黵鼉鼝鼟齇齸齺齻龣鿧|26:圞欜氎灎灤灦癳矚籯籰糳糷虄虊虪蠼讚讝趲躦躧躪轥釁釃釄釅鑴鑷鑸鑹鑺靊顴飌驠驡驢驣驥鱲鱳鱵鸓鸔黶鼊龤龥|27:灥灧灨犫纜纝虌蠽蠾蠿讜讞豓貜躩軉鑻鑼鑽鑾靋靌靍靎顳飍飝饠饡馫驤驦驧驩鬤鬮鬰鱷鱸鸕鸖鸗黷齈龮鿝鿨|28:囖戇欞欟爧癴豔躨鑿钀钁钂钄雧驨鱹鸘鸙鸚鸛麢黸鼺齼齽龞|29:纞虋讟钃靏韊驪鬱鸜麷鿩|30:厵爨癵籱饢驫鱺鸝鸞麣|31:灩|32:灪籲龖|33:爩鱻麤龗鿡|35:齾|36:齉|39:靐|48:龘';
+function buildStrokeMap(encoded) {
+  const map = {};
+  encoded.split('|').forEach(part => {
+    const idx = part.indexOf(':');
+    const n = parseInt(part.slice(0, idx), 10);
+    const chars = part.slice(idx + 1);
+    for (const ch of chars) map[ch] = n;
+  });
+  return map;
+}
+const STROKE_MAP = buildStrokeMap(STROKE_DATA);
+
+function convertToken(ch) {
+  if (/[0-9]/.test(ch)) return { ch, digits: ch, kind: 'digit' };
+  if (/[A-Za-z]/.test(ch)) {
+    const n = ch.toUpperCase().charCodeAt(0) - 64;
+    return { ch, digits: String(n).padStart(2, '0'), kind: 'letter' };
+  }
+  if (STROKE_MAP[ch] !== undefined) {
+    return { ch, digits: String(STROKE_MAP[ch]), kind: 'hanzi' };
+  }
+  return { ch, digits: '', kind: 'skip' };
+}
+function convertToDigits(raw) {
+  const tokens = [];
+  for (const ch of raw) {
+    if (/\s/.test(ch)) continue;
+    tokens.push(convertToken(ch));
+  }
+  return tokens;
+}
+
+const hanziInput = document.getElementById('hanziInput');
+const hanziHint = document.getElementById('hanziHint');
+const hanziAnalyzeBtn = document.getElementById('hanziAnalyzeBtn');
+const hanziEmptyState = document.getElementById('hanziEmptyState');
+const hanziResult = document.getElementById('hanziResult');
+const tokenRow = document.getElementById('tokenRow');
+const hanziDigits = document.getElementById('hanziDigits');
+const hanziPairRow = document.getElementById('hanziPairRow');
+
+hanziInput.addEventListener('input', () => {
+  const n = [...hanziInput.value.trim()].length;
+  hanziHint.textContent = n ? `已輸入 ${n} 個字元` : '尚未輸入';
+});
+
+hanziAnalyzeBtn.addEventListener('click', () => {
+  const raw = hanziInput.value.trim();
+  if (!raw) return;
+  const tokens = convertToDigits(raw);
+  tokenRow.innerHTML = tokens.map(t => {
+    if (t.kind === 'skip') return `<span class="pair-chip warn">${t.ch}→無法辨識</span>`;
+    return `<span class="pair-chip mixed">${t.ch}→${t.digits}</span>`;
+  }).join('');
+  const digitsStr = tokens.map(t => t.digits).join('');
+  hanziDigits.textContent = digitsStr || '（無可用數字）';
+  if (digitsStr.length >= 2) {
+    const pairs = baxingPairs([...digitsStr]);
+    hanziPairRow.innerHTML = pairs.map(p =>
+      `<span class="pair-chip ${STAR_LEVEL[p.displayStar] || 'mixed'}">${pairLabel(p)}</span>`
+    ).join('');
+  } else {
+    hanziPairRow.innerHTML = '<span class="pair-chip mixed">可用數字太少，無法配對</span>';
+  }
+  hanziEmptyState.style.display = 'none';
+  hanziResult.style.display = 'block';
+});
+
+
+/* ---------- 姓名學（五格剖象）分頁 ---------- */
+const GRID_PALACE = {
+  '天格':'父母宮', '人格':'本命宮（日主）／夫妻宮', '地格':'子女、下屬', '外格':'僕役宮、心緣宮', '總格':'一生總結'
+};
+const STEM_ORDER = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const STEM_ELEMENT = {
+  '甲':'陽木','乙':'陰木','丙':'陽火','丁':'陰火','戊':'陽土',
+  '己':'陰土','庚':'陽金','辛':'陰金','壬':'陽水','癸':'陰水'
+};
+const DIGIT_TO_STEM = {1:'甲',2:'乙',3:'丙',4:'丁',5:'戊',6:'己',7:'庚',8:'辛',9:'壬',0:'癸'};
+function digitToStem(lastDigit) { return DIGIT_TO_STEM[lastDigit]; }
+
+const SHIEN_LIUQIN = {
+  '正官': {male:'女兒、侄女、外婆', female:'老公、姐夫、妹婿'},
+  '七殺': {male:'兒子、姐夫、妹婿／侄兒', female:'情人、兒媳、夫家姐妹'},
+  '正印': {male:'母親、外甥女、孫子', female:'祖父、女婿、孫子'},
+  '偏印': {male:'祖父、外孫、岳母', female:'母親、孫女、外婆'},
+  '比肩': {male:'兄弟、姑丈', female:'姐妹、公公'},
+  '劫財': {male:'姐妹、媳婦、伯叔', female:'兄弟、祖母'},
+  '食神': {male:'女婿、外公、孫子', female:'女兒、夫家姐妹'},
+  '傷官': {male:'祖母、孫女、岳母', female:'兒子、伯叔'},
+  '正財': {male:'妻子、兄嫂、弟媳', female:'父親、伯叔'},
+  '偏財': {male:'父親、情人', female:'婆婆、兄嫂、姑母'}
+};
+const DAYMASTER_TABLE = {
+  '甲': ['比肩','劫財','食神','傷官','偏財','正財','七殺','正官','偏印','正印'],
+  '乙': ['劫財','比肩','傷官','食神','正財','偏財','正官','七殺','正印','偏印'],
+  '丙': ['偏印','正印','比肩','劫財','食神','傷官','偏財','正財','七殺','正官'],
+  '丁': ['正印','偏印','劫財','比肩','傷官','食神','正財','偏財','正官','七殺'],
+  '戊': ['七殺','正官','偏印','正印','比肩','劫財','食神','傷官','偏財','正財'],
+  '己': ['正官','七殺','正印','偏印','劫財','比肩','傷官','食神','正財','偏財'],
+  '庚': ['偏財','正財','七殺','正官','偏印','正印','比肩','劫財','食神','傷官'],
+  '辛': ['正財','偏財','正官','七殺','正印','偏印','劫財','比肩','傷官','食神'],
+  '壬': ['食神','傷官','偏財','正財','七殺','正官','偏印','正印','比肩','劫財'],
+  '癸': ['傷官','食神','正財','偏財','正官','七殺','正印','偏印','劫財','比肩']
+};
+
+function nameStrokeTokens(str) {
+  return [...str].map(ch => ({ ch, strokes: STROKE_MAP[ch] }));
+}
+function computeFiveGrids(sTokens, gTokens) {
+  const sStrokes = sTokens.map(t => t.strokes).filter(n => n !== undefined);
+  const gStrokes = gTokens.map(t => t.strokes).filter(n => n !== undefined);
+  if (!sStrokes.length || !gStrokes.length) return null;
+  const sSum = sStrokes.reduce((a,b) => a+b, 0);
+  const gSum = gStrokes.reduce((a,b) => a+b, 0);
+  const tian = sStrokes.length === 1 ? sStrokes[0] + 1 : sSum;
+  const ren = sStrokes[sStrokes.length-1] + gStrokes[0];
+  const di = gStrokes.length === 1 ? gStrokes[0] + 1 : gSum;
+  const zong = sSum + gSum;
+  const wai = zong - ren + 1;
+  return { 天格:tian, 人格:ren, 地格:di, 外格:wai, 總格:zong };
+}
+function stemInfo(n) {
+  const stem = digitToStem(n % 10);
+  return { stem, element: STEM_ELEMENT[stem] };
+}
+
+const surnameInput = document.getElementById('surnameInput');
+const givenInput = document.getElementById('givenInput');
+const dayMasterSelect = document.getElementById('dayMasterSelect');
+const genderSelect = document.getElementById('genderSelect');
+const nameHint = document.getElementById('nameHint');
+const nameAnalyzeBtn = document.getElementById('nameAnalyzeBtn');
+const nameEmptyState = document.getElementById('nameEmptyState');
+const nameResult = document.getElementById('nameResult');
+const nameTokenRow = document.getElementById('nameTokenRow');
+const nameGridSummary = document.getElementById('nameGridSummary');
+const nameCardGrid = document.getElementById('nameCardGrid');
+
+function updateNameHint() {
+  const s = surnameInput.value.trim(), g = givenInput.value.trim();
+  nameHint.textContent = (s || g) ? `姓 ${s.length} 字・名 ${g.length} 字` : '尚未輸入';
+}
+surnameInput.addEventListener('input', updateNameHint);
+givenInput.addEventListener('input', updateNameHint);
+
+nameAnalyzeBtn.addEventListener('click', () => {
+  const s = surnameInput.value.trim();
+  const g = givenInput.value.trim();
+  if (!s || !g) return;
+
+  const sTokens = nameStrokeTokens(s);
+  const gTokens = nameStrokeTokens(g);
+  const allTokens = [...sTokens, ...gTokens];
+  nameTokenRow.innerHTML = allTokens.map(t =>
+    t.strokes === undefined
+      ? `<span class="pair-chip warn">${t.ch}→無法辨識</span>`
+      : `<span class="pair-chip mixed">${t.ch}→${t.strokes}畫</span>`
+  ).join('');
+
+  const grids = computeFiveGrids(sTokens, gTokens);
+  if (!grids) {
+    nameGridSummary.innerHTML = '';
+    nameCardGrid.innerHTML = '<div class="empty-state">姓或名裡沒有可辨識筆畫數的字，無法計算五格。</div>';
+    nameEmptyState.style.display = 'none';
+    nameResult.style.display = 'block';
+    return;
+  }
+
+  const dayMaster = dayMasterSelect.value;
+  const gender = genderSelect.value;
+
+  nameGridSummary.innerHTML = Object.entries(grids).map(([label, n]) => {
+    const info = stemInfo(n);
+    return `<div class="mini-chip"><div class="mk">${label}</div><div class="mv">${n}（${info.element}）</div></div>`;
+  }).join('');
+
+  nameCardGrid.innerHTML = '';
+  Object.entries(grids).forEach(([label, n]) => {
+    const info = stemInfo(n);
+    let shishenLine = '';
+    if (dayMaster) {
+      const idx = STEM_ORDER.indexOf(info.stem);
+      const shishen = DAYMASTER_TABLE[dayMaster][idx];
+      const liuqin = SHIEN_LIUQIN[shishen];
+      shishenLine = `<br>十神：${shishen}${liuqin ? `（${gender === 'male' ? '男命' : '女命'}六親：${liuqin[gender]}）` : ''}`;
+    }
+    const details = document.createElement('details');
+    details.className = 'card';
+    details.innerHTML = `
+      <summary>
+        <span class="tag">${label}</span>
+        <span class="headline">
+          <span class="val">${n}</span>
+          <span class="digit">${info.stem}・${info.element}</span>
+        </span>
+        <span class="chev">›</span>
+      </summary>
+      <div class="desc">六親宮位：${GRID_PALACE[label]}${shishenLine}</div>
+    `;
+    nameCardGrid.appendChild(details);
+  });
+
+  nameEmptyState.style.display = 'none';
+  nameResult.style.display = 'block';
+});
+
+
+/* ---------- 身分證生命歷程分頁（依「東方靈數」演算法：0 承接前一碼、5 使前後兩碼往返顯性放大） ---------- */
+const MINGGE_ALIAS = {
+  '天醫':'財富','生氣':'貴人','延年':'責任','伏位':'固執',
+  '絕命':'波動','禍害':'衝擊','五鬼':'詭異','六煞':'矛盾'
+};
+const AGE_LABELS = ['0–10歲','11–15歲','16–20歲','21–25歲','26–30歲','31–35歲','36–40歲','41–45歲','46–50歲','51–70歲'];
+
+// 依東方靈數規則展開序列：0→承接前一碼（若在最前面則承接後一碼）；
+// 5→若前後都有碼，展開成「後一碼、前一碼」（形成來回放大）；若只有一邊，就承接那一邊
+function expandEasternSequence(seq) {
+  const out = [];
+  const n = seq.length;
+  for (let i = 0; i < n; i++) {
+    const d = seq[i];
+    const prev = i > 0 ? seq[i-1] : null;
+    const next = i < n-1 ? seq[i+1] : null;
+    if (d === '0') {
+      out.push(prev !== null ? prev : (next !== null ? next : d));
+    } else if (d === '5') {
+      if (prev !== null && next !== null) out.push(next, prev);
+      else out.push(prev !== null ? prev : (next !== null ? next : d));
+    } else {
+      out.push(d);
+    }
+  }
+  return out;
+}
+function rawSegments(seq) {
+  const expanded = expandEasternSequence(seq);
+  const segs = [];
+  for (let i = 0; i < expanded.length - 1; i++) {
+    const a = expanded[i], b = expanded[i+1];
+    segs.push({ a, b, star: a === b ? '伏位' : (lookupStar(a, b) || '伏位') });
+  }
+  return segs;
+}
+// 類型統計要用「伏位承接前一個顯示星」的版本（人生大運表則維持原始字面星）
+function withInheritance(segs) {
+  let last = null;
+  return segs.map(s => {
+    const display = (s.star === '伏位' && last !== null) ? last : s.star;
+    last = display;
+    return { ...s, display };
+  });
+}
+
+const idcardInput = document.getElementById('idcardInput');
+const idcardHint = document.getElementById('idcardHint');
+const idcardAnalyzeBtn = document.getElementById('idcardAnalyzeBtn');
+const idcardEmptyState = document.getElementById('idcardEmptyState');
+const idcardResult = document.getElementById('idcardResult');
+const idcardStageList = document.getElementById('idcardStageList');
+const idcardMostLabel = document.getElementById('idcardMostLabel');
+const idcardMostSub = document.getElementById('idcardMostSub');
+
+idcardInput.addEventListener('input', () => {
+  const v = idcardInput.value.trim();
+  idcardHint.textContent = v ? `已輸入 ${v.length} 個字元` : '尚未輸入';
+});
+
+function parseIdCard(raw) {
+  const v = raw.trim().toUpperCase();
+  if (!/^[A-Z][0-9]{9}$/.test(v)) return null;
+  const letterNum = v.charCodeAt(0) - 64;
+  const letterDigits = String(letterNum).padStart(2, '0');
+  return (letterDigits + v.slice(1)).split('');
+}
+
+idcardAnalyzeBtn.addEventListener('click', () => {
+  const raw = idcardInput.value.trim();
+  if (!raw) return;
+  const seq = parseIdCard(raw);
+  if (!seq) {
+    idcardStageList.innerHTML = '<div class="empty-state">格式需為 1 個英文字母加 9 個數字（例如 L123464910）。</div>';
+    idcardMostLabel.textContent = '';
+    idcardMostSub.textContent = '';
+    idcardEmptyState.style.display = 'none';
+    idcardResult.style.display = 'block';
+    return;
+  }
+
+  // 人生大運：用完整11碼序列（含開頭字母換算出的碼）
+  const ageSegs = rawSegments(seq);
+
+  // 類型統計：字母換算後如果開頭是0，這裡不看，直接去掉
+  const tallySeqRaw = (seq[0] === '0') ? seq.slice(1) : seq;
+  const tallySegs = withInheritance(rawSegments(tallySeqRaw));
+
+  idcardStageList.innerHTML = '';
+  ageSegs.forEach((seg, i) => {
+    const ageLabel = AGE_LABELS[i] || `第${i+1}段（超出已知年齡對照，僅列順序）`;
+    const alias = MINGGE_ALIAS[seg.star] || seg.star;
+    const cls = STAR_LEVEL[seg.star] || 'mixed';
+    const details = document.createElement('details');
+    details.className = 'candidate';
+    details.innerHTML = `
+      <summary>
+        <span class="rank">${i+1}</span>
+        <span class="cnum">${seg.a}${seg.b}</span>
+        <span class="cscore" style="font-size:14px;">${ageLabel}</span>
+        <div class="cbadges">
+          <span class="ling-badge ${cls}">${seg.star}（${alias}）</span>
+        </div>
+        <span class="chev">›</span>
+      </summary>
+      <div class="cbody">
+        <div class="csection-label">第 ${i+1} 段</div>
+        <div style="color:var(--ink-soft);font-size:13.5px;line-height:1.75;">
+          雙碼 ${seg.a}${seg.b}，命格為「${seg.star}」（別名：${alias}）。此為人生大運表的字面星，不做伏位承接處理。
+        </div>
+      </div>
+    `;
+    idcardStageList.appendChild(details);
+  });
+
+  const tally = {};
+  tallySegs.forEach(s => { tally[s.display] = (tally[s.display] || 0) + 1; });
+  const sorted = Object.entries(tally).sort((a,b) => b[1] - a[1]);
+  if (sorted.length) {
+    const [topStar, topCount] = sorted[0];
+    const pct = ((topCount / tallySegs.length) * 100).toFixed(1);
+    const alias = MINGGE_ALIAS[topStar] || topStar;
+    idcardMostLabel.textContent = `您為「${topStar}」型的人（${alias}）`;
+    idcardMostSub.textContent = `類型統計（伏位已承接前一個星，開頭0已略過）：${sorted.map(([s,c]) => `${s} ${c}次(${((c/tallySegs.length)*100).toFixed(1)}%)`).join('、')}，共 ${topCount} 次（${pct}%）最明顯`;
+  }
+
+  idcardEmptyState.style.display = 'none';
+  idcardResult.style.display = 'block';
+});
+
+
+/* ---------- 手機號碼分頁：雙人配對 ---------- */
+const PALACE_ELEMENT = {};
+PALACE.forEach(p => {
+  const m = p.match(/（(.)）/);
+  if (m) PALACE_ELEMENT[p] = m[1];
+});
+const SHENG = {'木':'火','火':'土','土':'金','金':'水','水':'木'};
+const KE = {'木':'土','火':'金','土':'水','金':'木','水':'火'};
+function elementRelation(e1, e2) {
+  if (e1 === e2) return '比肩';
+  if (SHENG[e1] === e2 || SHENG[e2] === e1) return '相生';
+  if (KE[e1] === e2 || KE[e2] === e1) return '相剋';
+  return '—';
+}
+const RELATION_CLASS = { '相生':'good', '比肩':'mixed', '相剋':'warn', '—':'mixed' };
+
+const pairAInput = document.getElementById('pairAInput');
+const pairBInput = document.getElementById('pairBInput');
+const pairHint = document.getElementById('pairHint');
+const pairAnalyzeBtn = document.getElementById('pairAnalyzeBtn');
+const pairEmptyState = document.getElementById('pairEmptyState');
+const pairResult = document.getElementById('pairResult');
+const pairSummary = document.getElementById('pairSummary');
+const pairElementLine = document.getElementById('pairElementLine');
+const pairHeshiLine = document.getElementById('pairHeshiLine');
+const pairStarLine = document.getElementById('pairStarLine');
+
+function updatePairHint() {
+  const a = pairAInput.value.trim(), b = pairBInput.value.trim();
+  pairHint.textContent = (a || b) ? '已輸入兩組號碼' : '尚未輸入';
+}
+pairAInput.addEventListener('input', updatePairHint);
+pairBInput.addEventListener('input', updatePairHint);
+
+pairAnalyzeBtn.addEventListener('click', () => {
+  const rawA = pairAInput.value.trim();
+  const rawB = pairBInput.value.trim();
+  if (!rawA || !rawB) return;
+  const digitsA = rawA.replace(/[^0-9]/g, '');
+  const digitsB = rawB.replace(/[^0-9]/g, '');
+  if (digitsA.length < 6 || digitsB.length < 6) {
+    pairSummary.innerHTML = '';
+    pairElementLine.innerHTML = '<span>兩組號碼都需要至少 6 位數字才能比對。</span>';
+    pairHeshiLine.innerHTML = '';
+    pairStarLine.innerHTML = '';
+    pairEmptyState.style.display = 'none';
+    pairResult.style.display = 'block';
+    return;
+  }
+  const rA = computeReading(digitsA.slice(-6));
+  const rB = computeReading(digitsB.slice(-6));
+
+  pairSummary.innerHTML = `
+    <div class="mini-chip"><div class="mk">甲方宮位</div><div class="mv">${rA.palace}</div></div>
+    <div class="mini-chip"><div class="mk">乙方宮位</div><div class="mv">${rB.palace}</div></div>
+  `;
+
+  const eA = PALACE_ELEMENT[rA.palace], eB = PALACE_ELEMENT[rB.palace];
+  const rel = elementRelation(eA, eB);
+  pairElementLine.innerHTML = `<b>宮位五行：${eA} vs ${eB}</b><span class="ling-badge ${RELATION_CLASS[rel]}" style="margin-left:8px;">${rel}</span>`;
+
+  const digA = digitsA.slice(-6)[0], digB = digitsB.slice(-6)[0];
+  const sum = Number(digA) + Number(digB);
+  const heshi = sum === 10;
+  pairHeshiLine.innerHTML = `<b>合十格：宮位定位數字 ${digA} + ${digB} = ${sum}</b><span class="ling-badge ${heshi ? 'good' : 'mixed'}" style="margin-left:8px;">${heshi ? '合十' : '未合十'}</span>`;
+
+  const pairStar = digA === digB ? '伏位' : (lookupStar(digA, digB) || '伏位');
+  const isTaboo = pairStar === '五鬼' || pairStar === '延年';
+  pairStarLine.innerHTML = `<b>門迫直配：${digA}${digB} → ${pairStar}</b><span class="ling-badge ${isTaboo ? 'warn' : 'good'}" style="margin-left:8px;">${isTaboo ? '犯最忌組合' : '未犯五鬼延年'}</span>`;
+
+  pairEmptyState.style.display = 'none';
+  pairResult.style.display = 'block';
+});
+
+</script>
