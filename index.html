@@ -1,3 +1,6 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, noarchive">
 <title>奇門遁甲六碼占卜</title>
 <style>
 :root{
@@ -88,10 +91,27 @@ body{
 
 .tabbar{
   display:flex;
+  align-items:center;
   gap:20px;
   margin-bottom:28px;
   border-bottom:1px solid var(--line);
 }
+.support-jump{
+  margin-left:auto;
+  flex:none;
+  align-self:center;
+  font-family:var(--sans);
+  font-size:11.5px;
+  color:var(--ink-soft);
+  text-decoration:none;
+  white-space:nowrap;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  transition:color .15s,border-color .15s;
+}
+.support-jump:hover{color:var(--accent);border-color:var(--accent);}
+.support-jump:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 .tab-btn{
   appearance:none;
   border:none;
@@ -648,18 +668,243 @@ body{
 .pair-chip.good{background:var(--good-soft);color:var(--good);}
 .pair-chip.warn{background:var(--warn-soft);color:var(--warn);}
 .pair-chip.mixed{background:var(--blue-soft);color:var(--blue);}
+
+/* ── 支持這個工具（贊助 / 匯款） ───────────────────────── */
+.support{
+  margin-top:44px;
+  padding-top:4px;
+}
+.support-card{
+  background:var(--bg-elev);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.support-card summary{
+  list-style:none;
+  cursor:pointer;
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--ink);
+  user-select:none;
+}
+.support-card summary::-webkit-details-marker{display:none;}
+.support-card summary .s-sub{
+  font-weight:400;
+  font-size:12.5px;
+  color:var(--ink-soft);
+  margin-left:auto;
+  text-align:right;
+}
+.support-card summary .s-caret{
+  flex:none;color:var(--ink-soft);font-size:11px;transition:transform .15s;
+}
+.support-card[open] summary .s-caret{transform:rotate(90deg);}
+.support-card summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+.support-body{
+  padding:4px 20px 22px;
+  border-top:1px solid var(--line);
+}
+.support-intro{
+  font-size:13px;
+  color:var(--ink-soft);
+  line-height:1.75;
+  margin:16px 0 20px;
+}
+
+.pay-grid{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  gap:20px;
+  align-items:center;
+  margin-bottom:2px;
+}
+
+.pay-qr{
+  margin:0;
+  text-align:center;
+  flex:none;
+}
+.pay-qr .qr-img{
+  width:158px;
+  height:158px;
+  background:#fff;
+  border-radius:10px;
+  padding:9px;
+  box-sizing:border-box;
+  display:block;
+}
+.pay-qr .qr-img svg{width:100%;height:100%;display:block;}
+.qr-cap{
+  font-size:11.5px;
+  font-weight:600;
+  color:var(--blue);
+  letter-spacing:0.04em;
+  margin-top:9px;
+}
+.pay-detail{min-width:0;}
+.qr-note{
+  font-size:11.5px;
+  color:var(--ink-soft);
+  line-height:1.65;
+  margin:10px 0 0;
+}
+
+
+
+.bank-table{
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+}
+.bank-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 14px;
+  border-bottom:1px solid var(--line);
+}
+.bank-row:last-child{border-bottom:none;}
+.bank-row .bk{
+  font-size:12px;
+  color:var(--ink-soft);
+  letter-spacing:0.04em;
+  flex:none;
+  width:58px;
+}
+.bank-row .bv{
+  font-size:14px;
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:0.03em;
+  color:var(--ink);
+  flex:1;
+  min-width:0;
+  word-break:break-all;
+}
+.bank-row[hidden]{display:none;}
+.reveal-btn{
+  flex:1;
+  text-align:left;
+  border:1px dashed var(--line);
+  background:transparent;
+  color:var(--ink-soft);
+  font-family:var(--sans);
+  font-size:12.5px;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:border-color .15s,color .15s;
+}
+.reveal-btn:hover{border-color:var(--accent);color:var(--accent);}
+.reveal-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.copy-btn{
+  flex:none;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink-soft);
+  font-family:var(--sans);
+  font-size:11.5px;
+  padding:5px 10px;
+  border-radius:7px;
+  cursor:pointer;
+  transition:border-color .15s,color .15s;
+}
+.copy-btn:hover{border-color:var(--blue);color:var(--blue);}
+.copy-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.copy-btn.copied{border-color:var(--good);color:var(--good);}
+
+.support-foot{
+  font-size:11.5px;
+  color:var(--ink-soft);
+  line-height:1.7;
+  margin-top:16px;
+}
+@media (max-width:560px){
+  /* 窄螢幕：分頁列改成可換行，標籤本身不斷字 */
+  .tabbar{flex-wrap:wrap;gap:6px 16px;}
+  .tab-btn{white-space:nowrap;font-size:14px;padding:8px 2px 10px;}
+  .support-jump{margin-left:auto;font-size:11px;padding:4px 8px;}
+
+  /* 窄螢幕仍維持並排：QR 縮小，銀行資料改成標籤在上、數值在下 */
+  .pay-grid{gap:12px;}
+  .pay-qr .qr-img{width:116px;height:116px;padding:7px;border-radius:8px;}
+  .qr-cap{font-size:10.5px;margin-top:7px;}
+  .bank-row{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"k btn" "v v";
+    column-gap:8px;
+    row-gap:2px;
+    padding:9px 11px;
+  }
+  .bank-row .bk{grid-area:k;width:auto;font-size:10px;align-self:center;}
+  /* 數值獨佔整行，且不從英文單字中間切斷 */
+  .bank-row .bv{grid-area:v;font-size:13.5px;word-break:normal;overflow-wrap:break-word;}
+  .bank-row .copy-btn{grid-area:btn;justify-self:end;font-size:10.5px;padding:3px 8px;}
+  .qr-note{font-size:11px;}
+}
 </style>
 
 <div class="wrap">
   <div class="tabbar" role="tablist">
-    <button class="tab-btn active" data-tab="divination" type="button" role="tab" aria-selected="true">奇門遁甲占卜</button>
+    <button class="tab-btn active" data-tab="hanzi" type="button" role="tab" aria-selected="true">數字易經</button>
+    <button class="tab-btn" data-tab="divination" type="button" role="tab" aria-selected="false">奇門遁甲占卜</button>
     <button class="tab-btn" data-tab="phone" type="button" role="tab" aria-selected="false">手機號碼</button>
-    <button class="tab-btn" data-tab="hanzi" type="button" role="tab" aria-selected="false">數字易經</button>
     <button class="tab-btn" data-tab="name" type="button" role="tab" aria-selected="false">姓名學</button>
     <button class="tab-btn" data-tab="idcard" type="button" role="tab" aria-selected="false">身分證歷程</button>
+    <a class="support-jump" href="#supportCard">☕ 支持</a>
   </div>
 
-  <section id="panel-divination" class="tab-panel active">
+  <section id="panel-hanzi" class="tab-panel active">
+    <div class="masthead">
+      <div class="eyebrow">數字易經 · 萬用轉換</div>
+      <h1>萬物皆數</h1>
+      <p>輸入姓名、文字、地址或數字，自動換算成數字後，用兩兩配對的數字易經八星來看；最多可同時輸入 3 組互相比較</p>
+    </div>
+
+    <div class="mode-toggle" id="hanziModeToggle">
+      <button class="mode-btn active" data-mode="address" type="button">地址門牌（只抓數字）</button>
+      <button class="mode-btn" data-mode="text" type="button">萬用文字（含英文／中文筆畫）</button>
+    </div>
+
+    <div class="phone-input-card">
+      <div class="hanzi-slots" id="hanziSlots">
+        <div class="hanzi-slot" data-slot="0">
+          <label>第 1 組</label>
+          <input type="text" class="hanzi-slot-input" placeholder="輸入電話號碼或地址，例如：台北市松山區復興北路193號" autocomplete="off" />
+        </div>
+      </div>
+      <div class="phone-input-actions">
+        <button class="hanzi-add-slot" id="hanziAddSlotBtn" type="button">＋ 新增比較（最多3組）</button>
+        <button class="analyze-btn" id="hanziAnalyzeBtn" type="button">轉換比較</button>
+      </div>
+    </div>
+
+    <div class="empty-state" id="hanziEmptyState">輸入內容並按「轉換比較」，結果會顯示在這裡</div>
+
+    <div class="candidate-list" id="hanziResultList"></div>
+
+    <div class="legend-note" id="hanziLegendNote" style="display:none;">
+      萬用文字模式：英文字母採字母序（A=01、B=02…Z=26，跟身分證換算同一套）；中文字採 Unicode／教育部標準筆畫數，少數部首（如氵、扌、忄）在傳統姓名學裡有時會以本字（水、手、心）的筆畫數計算，可能差一畫左右，僅供參考。地址門牌模式：只擷取半形阿拉伯數字，英文字、中文字、標點都會被忽略不計入配對。
+    </div>
+
+    <div class="history-section" id="hanziHistorySection">
+      <div class="history-head">
+        <h2>歷史紀錄</h2>
+        <button class="history-clear" id="hanziHistoryClearBtn" type="button">清除紀錄</button>
+      </div>
+      <div class="history-empty" id="hanziHistoryEmpty">尚無查詢紀錄</div>
+      <div class="history-list" id="hanziHistoryList"></div>
+    </div>
+  </section>
+
+  <section id="panel-divination" class="tab-panel">
     <div class="masthead">
       <div class="eyebrow">奇門遁甲 · 測數起局</div>
       <h1>六碼占卜</h1>
@@ -788,49 +1033,6 @@ body{
     </div>
   </section>
 
-  <section id="panel-hanzi" class="tab-panel">
-    <div class="masthead">
-      <div class="eyebrow">數字易經 · 萬用轉換</div>
-      <h1>文字轉數字</h1>
-      <p>輸入姓名、文字、地址或數字，自動換算成數字後，用兩兩配對的數字易經八星來看；最多可同時輸入 3 組互相比較</p>
-    </div>
-
-    <div class="mode-toggle" id="hanziModeToggle">
-      <button class="mode-btn active" data-mode="address" type="button">地址門牌（只抓數字）</button>
-      <button class="mode-btn" data-mode="text" type="button">萬用文字（含英文／中文筆畫）</button>
-    </div>
-
-    <div class="phone-input-card">
-      <div class="hanzi-slots" id="hanziSlots">
-        <div class="hanzi-slot" data-slot="0">
-          <label>第 1 組</label>
-          <input type="text" class="hanzi-slot-input" placeholder="輸入電話號碼或地址，例如：台北市松山區復興北路193號" autocomplete="off" />
-        </div>
-      </div>
-      <div class="phone-input-actions">
-        <button class="hanzi-add-slot" id="hanziAddSlotBtn" type="button">＋ 新增比較（最多3組）</button>
-        <button class="analyze-btn" id="hanziAnalyzeBtn" type="button">轉換比較</button>
-      </div>
-    </div>
-
-    <div class="empty-state" id="hanziEmptyState">輸入內容並按「轉換比較」，結果會顯示在這裡</div>
-
-    <div class="candidate-list" id="hanziResultList"></div>
-
-    <div class="legend-note" id="hanziLegendNote" style="display:none;">
-      萬用文字模式：英文字母採字母序（A=01、B=02…Z=26，跟身分證換算同一套）；中文字採 Unicode／教育部標準筆畫數，少數部首（如氵、扌、忄）在傳統姓名學裡有時會以本字（水、手、心）的筆畫數計算，可能差一畫左右，僅供參考。地址門牌模式：只擷取半形阿拉伯數字，英文字、中文字、標點都會被忽略不計入配對。
-    </div>
-
-    <div class="history-section" id="hanziHistorySection">
-      <div class="history-head">
-        <h2>歷史紀錄</h2>
-        <button class="history-clear" id="hanziHistoryClearBtn" type="button">清除紀錄</button>
-      </div>
-      <div class="history-empty" id="hanziHistoryEmpty">尚無查詢紀錄</div>
-      <div class="history-list" id="hanziHistoryList"></div>
-    </div>
-  </section>
-
   <section id="panel-name" class="tab-panel">
     <div class="masthead">
       <div class="eyebrow">姓名學 · 五格剖象</div>
@@ -913,6 +1115,58 @@ body{
       </div>
     </div>
   </section>
+
+<footer class="support">
+  <details class="support-card" id="supportCard" open>
+    <summary>
+      <span class="s-caret">▶</span>
+      <span>支持這個工具</span>
+      <span class="s-sub">請我喝杯咖啡 · 掃碼或轉帳</span>
+    </summary>
+    <div class="support-body">
+      <p class="support-intro">
+        這個工具是免費的，也不會蒐集你輸入的任何資料（所有紀錄都只存在你自己的瀏覽器裡）。
+        如果它幫上了忙，歡迎小額贊助，讓它能繼續維護跟更新。金額隨意，心意收到就很開心了。
+      </p>
+
+      <div class="pay-grid">
+        <figure class="pay-qr">
+          <div class="qr-img" id="bankQrBox" role="img" aria-label="銀行 App 掃描捐款 QR code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h37v37H0z"/><path stroke="#000000" d="M0 0.5h7m1 0h1m1 0h3m1 0h1m1 0h1m2 0h2m1 0h5m3 0h7M0 1.5h1m5 0h1m4 0h1m5 0h2m1 0h1m1 0h2m6 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h3m1 0h4m1 0h1m1 0h5m2 0h1m1 0h1m1 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m8 0h3m2 0h6m2 0h1m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m2 0h1m1 0h1m6 0h4m1 0h2m1 0h3m1 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h2m2 0h1m1 0h1m2 0h2m1 0h1m3 0h1m2 0h2m1 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M11 7.5h5m1 0h1m1 0h2m2 0h1m1 0h1m2 0h1M0 8.5h1m1 0h1m3 0h2m1 0h1m3 0h1m3 0h1m1 0h8m1 0h1m2 0h1m2 0h1m1 0h1M3 9.5h1m4 0h1m1 0h5m2 0h1m2 0h2m1 0h3m1 0h2m1 0h1m2 0h1m1 0h1M0 10.5h2m2 0h1m1 0h4m1 0h2m2 0h1m1 0h1m2 0h1m3 0h1m1 0h2m1 0h4m3 0h1M0 11.5h2m1 0h1m1 0h1m3 0h1m8 0h3m1 0h2m4 0h2m1 0h1m1 0h1m1 0h1M1 12.5h6m1 0h4m3 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h1m1 0h3M0 13.5h5m9 0h3m3 0h3m1 0h1m1 0h2m2 0h1m3 0h2M0 14.5h1m2 0h2m1 0h1m2 0h1m4 0h5m1 0h1m5 0h1m5 0h1M1 15.5h2m1 0h1m2 0h3m2 0h2m2 0h1m1 0h1m1 0h2m1 0h1m5 0h1m2 0h1M0 16.5h3m1 0h1m1 0h1m1 0h1m2 0h3m1 0h5m1 0h1m3 0h3m2 0h1m1 0h2m2 0h1M0 17.5h1m3 0h2m1 0h1m1 0h1m6 0h1m1 0h1m4 0h1m1 0h1m1 0h2m3 0h4M1 18.5h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h4m1 0h1m1 0h2m1 0h1m1 0h1m1 0h3m1 0h2M0 19.5h3m1 0h1m2 0h2m1 0h4m1 0h3m3 0h3m1 0h1m2 0h3m1 0h2m1 0h2M0 20.5h1m1 0h1m1 0h4m1 0h1m8 0h3m1 0h1m1 0h2m1 0h1m2 0h1m1 0h2m1 0h2M0 21.5h2m1 0h1m1 0h1m1 0h2m7 0h2m1 0h2m1 0h3m1 0h1m1 0h2m1 0h1m3 0h2M1 22.5h2m3 0h1m1 0h1m2 0h1m3 0h2m3 0h3m1 0h3m1 0h6m1 0h2M0 23.5h1m3 0h2m2 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m1 0h1m2 0h1m1 0h2m2 0h2M2 24.5h5m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m2 0h3m1 0h5m1 0h1m2 0h4M2 25.5h4m8 0h1m2 0h1m2 0h1m1 0h2m3 0h1m2 0h1m4 0h1M0 26.5h2m2 0h4m2 0h1m1 0h1m1 0h2m1 0h2m1 0h5m2 0h2m2 0h3M4 27.5h1m2 0h2m3 0h2m4 0h6m2 0h1m3 0h1m1 0h1m1 0h1m1 0h1M0 28.5h2m1 0h1m1 0h2m2 0h4m1 0h2m1 0h2m3 0h2m2 0h8m1 0h1M8 29.5h1m2 0h3m1 0h1m3 0h6m2 0h2m3 0h2M0 30.5h7m1 0h2m2 0h1m3 0h4m4 0h3m1 0h1m1 0h1m1 0h5M0 31.5h1m5 0h1m2 0h1m1 0h1m1 0h1m1 0h2m1 0h4m5 0h2m3 0h1m1 0h1m1 0h1M0 32.5h1m1 0h3m1 0h1m2 0h1m2 0h3m1 0h3m2 0h1m1 0h1m1 0h12M0 33.5h1m1 0h3m1 0h1m3 0h2m1 0h2m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m4 0h4m1 0h1M0 34.5h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h1m1 0h1m2 0h1m2 0h3m2 0h2m1 0h2m1 0h4M0 35.5h1m5 0h1m2 0h2m1 0h1m2 0h2m1 0h1m3 0h7m1 0h1m1 0h1m3 0h1M0 36.5h7m1 0h3m1 0h1m3 0h2m1 0h3m1 0h2m1 0h5m2 0h4"/></svg></div>
+          <figcaption class="qr-cap">銀行 App 掃描捐款</figcaption>
+        </figure>
+
+        <div class="pay-detail">
+          <div class="bank-table">
+            <div class="bank-row">
+              <span class="bk">銀行</span>
+              <span class="bv" id="bankName">連線商業銀行 LINE Bank</span>
+            </div>
+            <div class="bank-row" id="bankCodeRow" hidden>
+              <span class="bk">代碼</span>
+              <span class="bv" id="bankCode"></span>
+              <button class="copy-btn" type="button" data-copy-target="bankCode">複製</button>
+            </div>
+            <div class="bank-row" id="bankAcctRow" hidden>
+              <span class="bk">帳號</span>
+              <span class="bv" id="bankAccount"></span>
+              <button class="copy-btn" type="button" data-copy-target="bankAccount">複製</button>
+            </div>
+            <div class="bank-row" id="revealRow">
+              <span class="bk">帳號</span>
+              <button class="reveal-btn" id="revealBtn" type="button">點此顯示</button>
+            </div>
+          </div>
+          <p class="qr-note">用 LINE Bank、台灣Pay 或其他支援的網銀 App 掃描，會自動帶入銀行代碼與帳號。不方便掃碼的話，手動輸入也可以。</p>
+        </div>
+      </div>
+
+      <p class="support-foot">
+        贊助純屬自願，跟工具能不能使用完全無關，所有功能都是免費且完整開放的。
+        本工具僅供參考與自我探索，不構成醫療、法律、投資或任何專業建議。
+      </p>
+    </div>
+  </details>
+</footer>
 </div>
 
 <script>
@@ -2128,4 +2382,76 @@ pairAnalyzeBtn.addEventListener('click', () => {
 });
 
 renderHanziHistoryList();
+
+/* ── 收款帳號 ───────────────────────────────────────────
+   帳號刻意不以明文字串寫在原始碼裡，改用字元碼保存。
+   目的是避免被 GitHub 程式碼搜尋、搜尋引擎與文字爬蟲「順手」大量收割。
+   注意：這只擋自動掃描，不是安全機制 —— 任何人點下「顯示」或
+   打開開發者工具一樣拿得到。真正限制損害的是「用專用帳戶收款」。 */
+const PAYEE = {
+  code: [56,50,52],
+  acct: [49,49,49,48,48,51,51,55,56,54,49,57]
+};
+const payeeText = a => a.map(c => String.fromCharCode(c)).join('');
+
+document.getElementById('revealBtn').addEventListener('click', () => {
+  document.getElementById('bankCode').textContent = payeeText(PAYEE.code);
+  document.getElementById('bankAccount').textContent = payeeText(PAYEE.acct);
+  document.getElementById('bankCodeRow').hidden = false;
+  document.getElementById('bankAcctRow').hidden = false;
+  document.getElementById('revealRow').hidden = true;
+});
+
+/* 分頁列的「支持」連結：展開贊助區塊並捲過去 */
+document.querySelector('.support-jump').addEventListener('click', e => {
+  e.preventDefault();
+  const card = document.getElementById('supportCard');
+  card.open = true;
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+/* ── 支持這個工具：一鍵複製 ───────────────────────── */
+document.querySelectorAll('.copy-btn[data-copy-target]').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const el = document.getElementById(btn.dataset.copyTarget);
+    if (!el) return;
+    const text = el.textContent.trim();
+    const original = btn.textContent;
+    let ok = false;
+    try {
+      // clipboard API 只在 https / localhost 下可用，失敗時退回 execCommand
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:-1000px;opacity:0;';
+        document.body.appendChild(ta);
+        ta.select();
+        ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+    } catch (err) {
+      ok = false;
+    }
+    if (ok) {
+      btn.textContent = '已複製';
+      btn.classList.add('copied');
+    } else {
+      // 不要吞掉失敗：告訴使用者為什麼，並把文字選起來讓他自己複製
+      btn.textContent = '請手動複製';
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1800);
+  });
+});
 </script>
