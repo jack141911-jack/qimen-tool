@@ -660,6 +660,39 @@ body{
 .mini-chip .mk{font-size:10px;color:var(--blue);letter-spacing:0.06em;margin-bottom:2px;}
 .mini-chip .mv{font-family:var(--serif);font-weight:700;font-size:14px;}
 
+.verdict-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:16px;
+}
+.verdict{
+  display:grid;
+  grid-template-columns:96px auto minmax(0,1fr);
+  align-items:center;
+  gap:10px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px 12px;
+}
+@media (max-width:520px){
+  .verdict{grid-template-columns:1fr auto;grid-template-areas:"k v" "w w";row-gap:4px;}
+  .verdict .vk{grid-area:k;} .verdict .vv{grid-area:v;} .verdict .vwhy{grid-area:w;}
+}
+.verdict .vk{
+  font-size:11.5px;color:var(--ink-soft);letter-spacing:0.04em;
+}
+.verdict .vv{
+  font-family:var(--serif);font-weight:700;font-size:14px;white-space:nowrap;
+}
+.verdict .vv.good{color:var(--good);}
+.verdict .vv.warn{color:var(--warn);}
+.verdict .vv.mixed{color:var(--blue);}
+.verdict .vwhy{
+  font-size:11px;color:var(--ink-soft);text-align:right;
+}
+@media (max-width:520px){.verdict .vwhy{text-align:left;}}
+
 .pair-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
 .pair-chip{
   font-size:11px;font-variant-numeric:tabular-nums;font-weight:600;
@@ -1393,6 +1426,69 @@ function baxingPairs(digits) {
   return pairs;
 }
 
+// ── 末位吉凶 + 場所適配判定 ──────────────────────────────
+// 「伏位承接前一組的星與級數」已經在 baxingPairs 裡處理完，
+// 所以這裡只要看最後一組的 displayStar / displayLevel 就是「劇本結局」。
+// 能量級數 1 級最強、4 級最弱（見 PAIR_ENERGY_LEVEL 註解）。
+const LUCK_TIER_GOOD = ['大吉', '第二吉', '小吉', '小小吉'];
+const LUCK_TIER_BAD  = ['大凶', '第二凶', '小凶', '小小凶'];
+
+function endingVerdict(pairs) {
+  if (!pairs.length) return null;
+  const last = pairs[pairs.length - 1];
+  const star = last.displayStar;
+  const lvl = last.displayLevel;
+  const good = STAR_LEVEL[star] === 'good';
+  const tier = lvl ? (good ? LUCK_TIER_GOOD : LUCK_TIER_BAD)[lvl - 1] : null;
+  return {
+    star, level: lvl, good,
+    inherited: !!last.inherited,
+    code: last.boundary ? null : last.a + last.b,
+    tier,
+    label: tier ? `末位${tier}：${star}` : `末位${good ? '吉' : '凶'}數：${star}`,
+    cls: good ? 'good' : 'warn'
+  };
+}
+
+function venueVerdicts(pairs) {
+  const ev = endingVerdict(pairs);
+  if (!ev) return null;
+  const stars = pairs.map(p => p.displayStar);
+  const has = s => stars.includes(s);
+  const allGood = stars.every(s => STAR_LEVEL[s] === 'good');
+  const is4334 = ev.code === '43' || ev.code === '34';
+  // 六煞+天醫只看「尾數」：最後兩組必須是六煞接天醫（天醫在後才是化解）
+  const healedEnding = pairs.length >= 2
+    && pairs[pairs.length - 2].displayStar === '六煞'
+    && ev.star === '天醫';
+
+  // 健身房 / Spa
+  let gym;
+  if (healedEnding) {
+    gym = { cls:'good', text:'可看房', why:'尾數六煞接天醫，得化解' };
+  } else if (is4334) {
+    gym = { cls:'warn', text:'要注意，可詢問劉天師', why:`結尾 ${ev.code} 為特例` };
+  } else if (!ev.good) {
+    gym = { cls:'warn', text:'要注意，可詢問劉天師', why:`結尾${ev.star}為凶數` };
+  } else if (ev.level === 4) {
+    gym = { cls:'mixed', text:'可考慮看房', why:'結尾為小小吉數' };
+  } else {
+    gym = { cls:'good', text:'可看房', why: allGood ? '全吉數' : `結尾${ev.star}為吉數` };
+  }
+
+  // 住家
+  let home;
+  if (allGood && !has('延年')) {
+    home = { cls:'good', text:'直接買房', why:'全吉數且無延年' };
+  } else {
+    const rs = [];
+    if (has('延年')) rs.push('有延年');
+    if (!allGood) rs.push('有凶數');
+    home = { cls:'warn', text:'親！要注意', why: rs.join('、') };
+  }
+  return { gym, home, ending: ev };
+}
+
 function pairLabel(p) {
   const lvl = p.displayLevel;
   if (p.boundary) {
@@ -1929,19 +2025,20 @@ function analyzeHanziEntry(raw, mode) {
   pairs.forEach(p => { tally[p.displayStar] = (tally[p.displayStar] || 0) + 1; });
   const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]);
   const dominant = sorted.length ? sorted[0][0] : null;
-  return { raw, mode, digits, tokens, pairs, dominant };
+  const verdicts = venueVerdicts(pairs);
+  return { raw, mode, digits, tokens, pairs, dominant, verdicts };
 }
 
 function hanziEntryCardHTML(r, rank) {
   const modeLabel = r.mode === 'address' ? '地址門牌' : '萬用文字';
-  const cls = r.dominant ? (STAR_LEVEL[r.dominant] || 'mixed') : 'mixed';
+  const ev = r.verdicts ? r.verdicts.ending : null;
   return `
     <summary>
       <span class="rank">${rank}</span>
       <span class="cnum">${r.raw}</span>
       <div class="cbadges">
         <span class="ling-badge mixed">${modeLabel}</span>
-        ${r.dominant ? `<span class="ling-badge ${cls}">最明顯：${r.dominant}</span>` : ''}
+        ${ev ? `<span class="ling-badge ${ev.cls}">${ev.label}</span>` : ''}
       </div>
       <span class="chev">›</span>
     </summary>
@@ -1957,6 +2054,21 @@ function hanziEntryCardHTML(r, rank) {
       <div class="pair-row">${r.pairs.length ? r.pairs.map(p =>
         `<span class="pair-chip ${STAR_LEVEL[p.displayStar] || 'mixed'}">${pairLabel(p)}</span>`
       ).join('') : '<span class="pair-chip mixed">可用數字太少，無法配對</span>'}</div>
+      ${r.verdicts ? `
+        <div class="csection-label">場所適配</div>
+        <div class="verdict-list">
+          <div class="verdict">
+            <span class="vk">健身房 / Spa</span>
+            <span class="vv ${r.verdicts.gym.cls}">${r.verdicts.gym.text}</span>
+            <span class="vwhy">${r.verdicts.gym.why}</span>
+          </div>
+          <div class="verdict">
+            <span class="vk">住家</span>
+            <span class="vv ${r.verdicts.home.cls}">${r.verdicts.home.text}</span>
+            <span class="vwhy">${r.verdicts.home.why}</span>
+          </div>
+        </div>
+      ` : ''}
     </div>
   `;
 }
@@ -1984,7 +2096,10 @@ function saveHanziHistory(list) {
 }
 function recordHanziHistoryEntry(r) {
   const list = loadHanziHistory();
-  const entry = { raw: r.raw, mode: r.mode, digits: r.digits, dominant: r.dominant, ts: Date.now() };
+  const ev = r.verdicts ? r.verdicts.ending : null;
+  const entry = { raw: r.raw, mode: r.mode, digits: r.digits,
+                  ending: ev ? { label: ev.label, cls: ev.cls } : null,
+                  dominant: r.dominant, ts: Date.now() };
   if (list[0] && list[0].raw === entry.raw && list[0].mode === entry.mode) list[0] = entry;
   else list.unshift(entry);
   saveHanziHistory(list.slice(0, HISTORY_MAX));
@@ -1995,14 +2110,17 @@ function renderHanziHistoryList() {
   hanziHistoryEmpty.style.display = list.length ? 'none' : 'block';
   hanziHistoryList.innerHTML = '';
   list.forEach(entry => {
-    const dotColor = CLASS_TO_VAR[entry.dominant ? (STAR_LEVEL[entry.dominant] || 'mixed') : 'mixed'];
+    // 舊紀錄沒有 ending 欄位，退回用 dominant 上色，避免既有紀錄壞掉
+    const cls = entry.ending ? entry.ending.cls
+              : (entry.dominant ? (STAR_LEVEL[entry.dominant] || 'mixed') : 'mixed');
+    const dotColor = CLASS_TO_VAR[cls];
     const row = document.createElement('button');
     row.type = 'button';
     row.className = 'history-row';
     row.innerHTML = `
       <span class="history-dot" style="background:${dotColor}"></span>
       <span class="history-code">${entry.raw}</span>
-      <span class="history-mid">${entry.mode === 'address' ? '地址門牌' : '萬用文字'} · 數字${entry.digits || '—'}${entry.dominant ? ` · 最明顯${entry.dominant}` : ''}</span>
+      <span class="history-mid">${entry.mode === 'address' ? '地址門牌' : '萬用文字'} · 數字${entry.digits || '—'}${entry.ending ? ` · ${entry.ending.label}` : (entry.dominant ? ` · 最明顯${entry.dominant}` : '')}</span>
       <span class="history-time">${relativeTime(entry.ts)}</span>
     `;
     row.addEventListener('click', () => {
