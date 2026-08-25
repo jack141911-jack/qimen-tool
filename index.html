@@ -1438,14 +1438,22 @@ function endingVerdict(pairs) {
   const last = pairs[pairs.length - 1];
   const star = last.displayStar;
   const lvl = last.displayLevel;
-  const good = STAR_LEVEL[star] === 'good';
+  let good = STAR_LEVEL[star] === 'good';
   const tier = lvl ? (good ? LUCK_TIER_GOOD : LUCK_TIER_BAD)[lvl - 1] : null;
+
+  // 整串裡只要出現過 43／34，且末位落在「小吉」，結局視為吉轉兇
+  const has4334 = pairs.some(p => !p.boundary && (p.a + p.b === '43' || p.a + p.b === '34'));
+  const turnedBad = has4334 && good && tier === '小吉';
+  if (turnedBad) good = false;
+
   return {
-    star, level: lvl, good,
+    star, level: lvl, good, turnedBad,
     inherited: !!last.inherited,
     code: last.boundary ? null : last.a + last.b,
     tier,
-    label: tier ? `末位${tier}：${star}` : `末位${good ? '吉' : '凶'}數：${star}`,
+    label: turnedBad
+      ? `末位吉轉兇：${star}`
+      : (tier ? `末位${tier}：${star}` : `末位${good ? '吉' : '凶'}數：${star}`),
     cls: good ? 'good' : 'warn'
   };
 }
@@ -1456,20 +1464,32 @@ function venueVerdicts(pairs) {
   const stars = pairs.map(p => p.displayStar);
   const has = s => stars.includes(s);
   const allGood = stars.every(s => STAR_LEVEL[s] === 'good');
-  const is4334 = ev.code === '43' || ev.code === '34';
-  // 六煞+天醫只看「尾數」：最後兩組必須是六煞接天醫（天醫在後才是化解）
+  // 43／34 不管出現在結尾還是中間，健身房一律不推
+  const has4334 = pairs.some(p => !p.boundary && (p.a + p.b === '43' || p.a + p.b === '34'));
+  const badCount = pairs.filter(p => STAR_LEVEL[p.displayStar] === 'warn').length;
+  const goodCount = pairs.length - badCount;
+  // 六煞+天醫只看尾數：最後兩組必須是六煞接天醫（天醫在後才是化解）
   const healedEnding = pairs.length >= 2
     && pairs[pairs.length - 2].displayStar === '六煞'
     && ev.star === '天醫';
 
   // 健身房 / Spa
+  // 化解特例要排在「凶多於吉」之前，否則 1668 這種六煞接天醫的會被凶數比例攔掉
   let gym;
-  if (healedEnding) {
+  if (has4334) {
+    gym = { cls:'warn', text:'要注意，可詢問劉天師', why:'含 43／34' };
+  } else if (healedEnding) {
     gym = { cls:'good', text:'可看房', why:'尾數六煞接天醫，得化解' };
-  } else if (is4334) {
-    gym = { cls:'warn', text:'要注意，可詢問劉天師', why:`結尾 ${ev.code} 為特例` };
   } else if (!ev.good) {
     gym = { cls:'warn', text:'要注意，可詢問劉天師', why:`結尾${ev.star}為凶數` };
+  } else if (badCount > goodCount) {
+    gym = { cls:'warn', text:'要注意，可詢問劉天師', why:`凶數 ${badCount} 組多於吉數 ${goodCount} 組` };
+  } else if (badCount === goodCount && badCount > 0) {
+    // 凶吉平手：不到「不推」的程度，但要把是哪幾顆凶星點出來
+    const badStars = [...new Set(pairs
+      .filter(p => STAR_LEVEL[p.displayStar] === 'warn')
+      .map(p => p.displayStar))];
+    gym = { cls:'mixed', text:'可考慮看房', why:`凶吉各 ${badCount} 組，注意${badStars.join('、')}` };
   } else if (ev.level === 4) {
     gym = { cls:'mixed', text:'可考慮看房', why:'結尾為小小吉數' };
   } else {
