@@ -796,15 +796,15 @@ body{
     </div>
 
     <div class="mode-toggle" id="hanziModeToggle">
-      <button class="mode-btn active" data-mode="text" type="button">萬用文字（含英文／中文筆畫）</button>
-      <button class="mode-btn" data-mode="address" type="button">地址門牌（只抓數字）</button>
+      <button class="mode-btn active" data-mode="address" type="button">地址門牌（只抓數字）</button>
+      <button class="mode-btn" data-mode="text" type="button">萬用文字（含英文／中文筆畫）</button>
     </div>
 
     <div class="phone-input-card">
       <div class="hanzi-slots" id="hanziSlots">
         <div class="hanzi-slot" data-slot="0">
           <label>第 1 組</label>
-          <input type="text" class="hanzi-slot-input" placeholder="例如：王小明、0912345678、保健路106號6弄13號1樓" autocomplete="off" />
+          <input type="text" class="hanzi-slot-input" placeholder="輸入電話號碼或地址，例如：保健路106號6弄13號1樓" autocomplete="off" />
         </div>
       </div>
       <div class="phone-input-actions">
@@ -1601,9 +1601,13 @@ function convertToDigits(raw) {
   return tokens;
 }
 
-let hanziMode = 'text';
+let hanziMode = 'address';
 const CLASS_TO_VAR = { good: 'var(--good)', warn: 'var(--warn)', mixed: 'var(--blue)' };
 const HANZI_HISTORY_KEY = 'qimen_hanzi_history_v1';
+const HANZI_PLACEHOLDERS = {
+  address: '輸入電話號碼或地址，例如：保健路106號6弄13號1樓',
+  text: '例如：王小明、ABC123'
+};
 
 const hanziModeToggle = document.getElementById('hanziModeToggle');
 const hanziSlots = document.getElementById('hanziSlots');
@@ -1616,10 +1620,15 @@ const hanziHistoryEmpty = document.getElementById('hanziHistoryEmpty');
 const hanziHistoryList = document.getElementById('hanziHistoryList');
 const hanziHistoryClearBtn = document.getElementById('hanziHistoryClearBtn');
 
+function updateHanziPlaceholders() {
+  const ph = HANZI_PLACEHOLDERS[hanziMode] || '輸入內容';
+  hanziSlots.querySelectorAll('.hanzi-slot-input').forEach(inp => { inp.placeholder = ph; });
+}
 hanziModeToggle.querySelectorAll('.mode-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     hanziMode = btn.dataset.mode;
     hanziModeToggle.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+    updateHanziPlaceholders();
   });
 });
 
@@ -1637,7 +1646,7 @@ function addHanziSlot() {
   row.innerHTML = `
     <label></label>
     <div class="hanzi-slot-row">
-      <input type="text" class="hanzi-slot-input" placeholder="輸入內容" autocomplete="off" />
+      <input type="text" class="hanzi-slot-input" placeholder="${HANZI_PLACEHOLDERS[hanziMode] || '輸入內容'}" autocomplete="off" />
       <button class="hanzi-slot-remove" type="button" title="移除這組">×</button>
     </div>
   `;
@@ -1745,6 +1754,7 @@ function renderHanziHistoryList() {
     row.addEventListener('click', () => {
       hanziMode = entry.mode;
       hanziModeToggle.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === entry.mode));
+      updateHanziPlaceholders();
       hanziSlots.querySelector('.hanzi-slot-input').value = entry.raw;
       const r = analyzeHanziEntry(entry.raw, entry.mode);
       renderHanziResults([r]);
