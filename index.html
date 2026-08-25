@@ -463,7 +463,7 @@ body{
   outline:none;
 }
 #phoneInput:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
-#hanziInput, #surnameInput, #givenInput{
+.hanzi-slot-input, #surnameInput, #givenInput{
   width:100%;
   font-family:var(--sans);
   font-size:15px;
@@ -473,10 +473,59 @@ body{
   background:var(--bg);
   color:var(--ink);
   outline:none;
+  min-width:0;
 }
-#hanziInput:focus-visible, #surnameInput:focus-visible, #givenInput:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+.hanzi-slot-input:focus-visible, #surnameInput:focus-visible, #givenInput:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
 .name-input-row{display:flex;gap:10px;}
 .name-input-row #surnameInput{flex:1;}
+
+.mode-toggle{display:flex;gap:8px;margin-bottom:16px;}
+.mode-btn{
+  flex:1;
+  border:1px solid var(--line);
+  background:var(--bg-elev);
+  color:var(--ink-soft);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:var(--sans);
+  transition:border-color .15s, color .15s, background .15s;
+}
+.mode-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+.mode-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+.hanzi-slots{display:flex;flex-direction:column;gap:12px;margin-bottom:14px;}
+.hanzi-slot label{font-size:11px;color:var(--ink-soft);display:block;margin-bottom:6px;letter-spacing:0.04em;}
+.hanzi-slot-row{display:flex;gap:8px;align-items:center;}
+.hanzi-slot-remove{
+  flex:none;
+  width:36px;height:36px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--ink-soft);
+  border-radius:8px;
+  cursor:pointer;
+  font-size:16px;
+  line-height:1;
+  font-family:var(--sans);
+}
+.hanzi-slot-remove:hover{border-color:var(--warn);color:var(--warn);}
+.hanzi-add-slot{
+  border:1px dashed var(--line);
+  background:transparent;
+  color:var(--ink-soft);
+  border-radius:10px;
+  padding:9px 14px;
+  font-size:12.5px;
+  cursor:pointer;
+  font-family:var(--sans);
+  flex:none;
+}
+.hanzi-add-slot:hover{border-color:var(--accent);color:var(--accent);}
+.hanzi-add-slot:disabled{opacity:0.4;cursor:default;}
+.hanzi-add-slot:disabled:hover{border-color:var(--line);color:var(--ink-soft);}
 .name-input-row #givenInput{flex:2;}
 .name-extra-row{
   display:flex;
@@ -743,32 +792,42 @@ body{
     <div class="masthead">
       <div class="eyebrow">數字易經 · 萬用轉換</div>
       <h1>文字轉數字</h1>
-      <p>輸入姓名、文字、數字或英文字母，自動換算成數字後，用兩兩配對的數字易經八星來看</p>
+      <p>輸入姓名、文字、地址或數字，自動換算成數字後，用兩兩配對的數字易經八星來看；最多可同時輸入 3 組互相比較</p>
+    </div>
+
+    <div class="mode-toggle" id="hanziModeToggle">
+      <button class="mode-btn active" data-mode="text" type="button">萬用文字（含英文／中文筆畫）</button>
+      <button class="mode-btn" data-mode="address" type="button">地址門牌（只抓數字）</button>
     </div>
 
     <div class="phone-input-card">
-      <label for="hanziInput">輸入內容</label>
-      <input id="hanziInput" type="text" placeholder="例如：王小明、0912345678、ABC" autocomplete="off" />
+      <div class="hanzi-slots" id="hanziSlots">
+        <div class="hanzi-slot" data-slot="0">
+          <label>第 1 組</label>
+          <input type="text" class="hanzi-slot-input" placeholder="例如：王小明、0912345678、保健路106號6弄13號1樓" autocomplete="off" />
+        </div>
+      </div>
       <div class="phone-input-actions">
-        <span class="phone-hint" id="hanziHint">尚未輸入</span>
-        <button class="analyze-btn" id="hanziAnalyzeBtn" type="button">轉換</button>
+        <button class="hanzi-add-slot" id="hanziAddSlotBtn" type="button">＋ 新增比較（最多3組）</button>
+        <button class="analyze-btn" id="hanziAnalyzeBtn" type="button">轉換比較</button>
       </div>
     </div>
 
-    <div class="empty-state" id="hanziEmptyState">輸入內容並按「轉換」，結果會顯示在這裡</div>
+    <div class="empty-state" id="hanziEmptyState">輸入內容並按「轉換比較」，結果會顯示在這裡</div>
 
-    <div id="hanziResult" style="display:none;">
-      <div class="csection-label">轉換過程</div>
-      <div class="pair-row" id="tokenRow"></div>
+    <div class="candidate-list" id="hanziResultList"></div>
 
-      <div class="ling-line"><b id="hanziDigits"></b><span>依序兩兩配對</span></div>
+    <div class="legend-note" id="hanziLegendNote" style="display:none;">
+      萬用文字模式：英文字母採字母序（A=01、B=02…Z=26，跟身分證換算同一套）；中文字採 Unicode／教育部標準筆畫數，少數部首（如氵、扌、忄）在傳統姓名學裡有時會以本字（水、手、心）的筆畫數計算，可能差一畫左右，僅供參考。地址門牌模式：只擷取半形阿拉伯數字，英文字、中文字、標點都會被忽略不計入配對。
+    </div>
 
-      <div class="csection-label">數字易經八星（兩兩配對）</div>
-      <div class="pair-row" id="hanziPairRow"></div>
-
-      <div class="legend-note">
-        英文字母採字母序（A=01、B=02…Z=26，跟身分證換算同一套）；中文字採 Unicode／教育部標準筆畫數。少數部首（如氵、扌、忄）在傳統姓名學裡有時會以本字（水、手、心）的筆畫數計算，跟這裡的字面筆畫可能會差一畫左右，僅供參考。無法辨識的符號會被跳過、不計入配對。
+    <div class="history-section" id="hanziHistorySection">
+      <div class="history-head">
+        <h2>歷史紀錄</h2>
+        <button class="history-clear" id="hanziHistoryClearBtn" type="button">清除紀錄</button>
       </div>
+      <div class="history-empty" id="hanziHistoryEmpty">尚無查詢紀錄</div>
+      <div class="history-list" id="hanziHistoryList"></div>
     </div>
   </section>
 
@@ -1542,40 +1601,175 @@ function convertToDigits(raw) {
   return tokens;
 }
 
-const hanziInput = document.getElementById('hanziInput');
-const hanziHint = document.getElementById('hanziHint');
+let hanziMode = 'text';
+const CLASS_TO_VAR = { good: 'var(--good)', warn: 'var(--warn)', mixed: 'var(--blue)' };
+const HANZI_HISTORY_KEY = 'qimen_hanzi_history_v1';
+
+const hanziModeToggle = document.getElementById('hanziModeToggle');
+const hanziSlots = document.getElementById('hanziSlots');
+const hanziAddSlotBtn = document.getElementById('hanziAddSlotBtn');
 const hanziAnalyzeBtn = document.getElementById('hanziAnalyzeBtn');
 const hanziEmptyState = document.getElementById('hanziEmptyState');
-const hanziResult = document.getElementById('hanziResult');
-const tokenRow = document.getElementById('tokenRow');
-const hanziDigits = document.getElementById('hanziDigits');
-const hanziPairRow = document.getElementById('hanziPairRow');
+const hanziResultList = document.getElementById('hanziResultList');
+const hanziLegendNote = document.getElementById('hanziLegendNote');
+const hanziHistoryEmpty = document.getElementById('hanziHistoryEmpty');
+const hanziHistoryList = document.getElementById('hanziHistoryList');
+const hanziHistoryClearBtn = document.getElementById('hanziHistoryClearBtn');
 
-hanziInput.addEventListener('input', () => {
-  const n = [...hanziInput.value.trim()].length;
-  hanziHint.textContent = n ? `已輸入 ${n} 個字元` : '尚未輸入';
+hanziModeToggle.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    hanziMode = btn.dataset.mode;
+    hanziModeToggle.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+  });
+});
+
+function renumberHanziSlots() {
+  [...hanziSlots.children].forEach((row, i) => {
+    row.dataset.slot = i;
+    row.querySelector('label').textContent = `第 ${i + 1} 組`;
+  });
+  hanziAddSlotBtn.disabled = hanziSlots.children.length >= 3;
+}
+function addHanziSlot() {
+  if (hanziSlots.children.length >= 3) return;
+  const row = document.createElement('div');
+  row.className = 'hanzi-slot';
+  row.innerHTML = `
+    <label></label>
+    <div class="hanzi-slot-row">
+      <input type="text" class="hanzi-slot-input" placeholder="輸入內容" autocomplete="off" />
+      <button class="hanzi-slot-remove" type="button" title="移除這組">×</button>
+    </div>
+  `;
+  row.querySelector('.hanzi-slot-remove').addEventListener('click', () => {
+    row.remove();
+    renumberHanziSlots();
+  });
+  hanziSlots.appendChild(row);
+  renumberHanziSlots();
+}
+hanziAddSlotBtn.addEventListener('click', addHanziSlot);
+
+function extractAddressDigits(raw) {
+  return raw.replace(/[^0-9]/g, '');
+}
+function analyzeHanziEntry(raw, mode) {
+  let digits, tokens = null;
+  if (mode === 'address') {
+    digits = extractAddressDigits(raw);
+  } else {
+    tokens = convertToDigits(raw);
+    digits = tokens.map(t => t.digits).join('');
+  }
+  const pairs = digits.length >= 2 ? baxingPairs([...digits]) : [];
+  const tally = {};
+  pairs.forEach(p => { tally[p.displayStar] = (tally[p.displayStar] || 0) + 1; });
+  const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]);
+  const dominant = sorted.length ? sorted[0][0] : null;
+  return { raw, mode, digits, tokens, pairs, dominant };
+}
+
+function hanziEntryCardHTML(r, rank) {
+  const modeLabel = r.mode === 'address' ? '地址門牌' : '萬用文字';
+  const cls = r.dominant ? (STAR_LEVEL[r.dominant] || 'mixed') : 'mixed';
+  return `
+    <summary>
+      <span class="rank">${rank}</span>
+      <span class="cnum">${r.raw}</span>
+      <div class="cbadges">
+        <span class="ling-badge mixed">${modeLabel}</span>
+        ${r.dominant ? `<span class="ling-badge ${cls}">最明顯：${r.dominant}</span>` : ''}
+      </div>
+      <span class="chev">›</span>
+    </summary>
+    <div class="cbody">
+      ${r.tokens ? `
+        <div class="csection-label">轉換過程</div>
+        <div class="pair-row">${r.tokens.map(t =>
+          t.kind === 'skip' ? `<span class="pair-chip warn">${t.ch}→無法辨識</span>` : `<span class="pair-chip mixed">${t.ch}→${t.digits}</span>`
+        ).join('')}</div>
+      ` : ''}
+      <div class="ling-line"><b>${r.digits || '（無可用數字）'}</b><span>依序兩兩配對</span></div>
+      <div class="csection-label">數字易經八星（兩兩配對）</div>
+      <div class="pair-row">${r.pairs.length ? r.pairs.map(p =>
+        `<span class="pair-chip ${STAR_LEVEL[p.displayStar] || 'mixed'}">${pairLabel(p)}</span>`
+      ).join('') : '<span class="pair-chip mixed">可用數字太少，無法配對</span>'}</div>
+    </div>
+  `;
+}
+function renderHanziResults(results) {
+  hanziResultList.innerHTML = '';
+  results.forEach((r, i) => {
+    const details = document.createElement('details');
+    details.className = 'candidate';
+    if (i === 0) details.open = true;
+    details.innerHTML = hanziEntryCardHTML(r, i + 1);
+    hanziResultList.appendChild(details);
+  });
+}
+
+function loadHanziHistory() {
+  try {
+    const raw = localStorage.getItem(HANZI_HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+function saveHanziHistory(list) {
+  try { localStorage.setItem(HANZI_HISTORY_KEY, JSON.stringify(list)); } catch (e) {}
+}
+function recordHanziHistoryEntry(r) {
+  const list = loadHanziHistory();
+  const entry = { raw: r.raw, mode: r.mode, digits: r.digits, dominant: r.dominant, ts: Date.now() };
+  if (list[0] && list[0].raw === entry.raw && list[0].mode === entry.mode) list[0] = entry;
+  else list.unshift(entry);
+  saveHanziHistory(list.slice(0, HISTORY_MAX));
+  renderHanziHistoryList();
+}
+function renderHanziHistoryList() {
+  const list = loadHanziHistory();
+  hanziHistoryEmpty.style.display = list.length ? 'none' : 'block';
+  hanziHistoryList.innerHTML = '';
+  list.forEach(entry => {
+    const dotColor = CLASS_TO_VAR[entry.dominant ? (STAR_LEVEL[entry.dominant] || 'mixed') : 'mixed'];
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'history-row';
+    row.innerHTML = `
+      <span class="history-dot" style="background:${dotColor}"></span>
+      <span class="history-code">${entry.raw}</span>
+      <span class="history-mid">${entry.mode === 'address' ? '地址門牌' : '萬用文字'} · 數字${entry.digits || '—'}${entry.dominant ? ` · 最明顯${entry.dominant}` : ''}</span>
+      <span class="history-time">${relativeTime(entry.ts)}</span>
+    `;
+    row.addEventListener('click', () => {
+      hanziMode = entry.mode;
+      hanziModeToggle.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === entry.mode));
+      hanziSlots.querySelector('.hanzi-slot-input').value = entry.raw;
+      const r = analyzeHanziEntry(entry.raw, entry.mode);
+      renderHanziResults([r]);
+      hanziEmptyState.style.display = 'none';
+      hanziLegendNote.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    hanziHistoryList.appendChild(row);
+  });
+}
+hanziHistoryClearBtn.addEventListener('click', () => {
+  if (!loadHanziHistory().length) return;
+  if (confirm('確定要清除所有查詢紀錄嗎？')) { saveHanziHistory([]); renderHanziHistoryList(); }
 });
 
 hanziAnalyzeBtn.addEventListener('click', () => {
-  const raw = hanziInput.value.trim();
-  if (!raw) return;
-  const tokens = convertToDigits(raw);
-  tokenRow.innerHTML = tokens.map(t => {
-    if (t.kind === 'skip') return `<span class="pair-chip warn">${t.ch}→無法辨識</span>`;
-    return `<span class="pair-chip mixed">${t.ch}→${t.digits}</span>`;
-  }).join('');
-  const digitsStr = tokens.map(t => t.digits).join('');
-  hanziDigits.textContent = digitsStr || '（無可用數字）';
-  if (digitsStr.length >= 2) {
-    const pairs = baxingPairs([...digitsStr]);
-    hanziPairRow.innerHTML = pairs.map(p =>
-      `<span class="pair-chip ${STAR_LEVEL[p.displayStar] || 'mixed'}">${pairLabel(p)}</span>`
-    ).join('');
-  } else {
-    hanziPairRow.innerHTML = '<span class="pair-chip mixed">可用數字太少，無法配對</span>';
-  }
+  const entries = [...hanziSlots.querySelectorAll('.hanzi-slot-input')]
+    .map(inp => inp.value.trim())
+    .filter(Boolean);
+  if (!entries.length) return;
+  const results = entries.map(raw => analyzeHanziEntry(raw, hanziMode));
+  renderHanziResults(results);
+  results.forEach(recordHanziHistoryEntry);
   hanziEmptyState.style.display = 'none';
-  hanziResult.style.display = 'block';
+  hanziLegendNote.style.display = 'block';
 });
 
 
@@ -1923,4 +2117,5 @@ pairAnalyzeBtn.addEventListener('click', () => {
   pairResult.style.display = 'block';
 });
 
+renderHanziHistoryList();
 </script>
