@@ -660,6 +660,15 @@ body{
 .mini-chip .mk{font-size:10px;color:var(--blue);letter-spacing:0.06em;margin-bottom:2px;}
 .mini-chip .mv{font-family:var(--serif);font-weight:700;font-size:14px;}
 
+.addr-notice{
+  font-size:11.5px;
+  line-height:1.6;
+  color:var(--blue);
+  background:var(--blue-soft);
+  border-radius:8px;
+  padding:8px 11px;
+  margin-bottom:12px;
+}
 .verdict-list{
   display:flex;
   flex-direction:column;
@@ -924,7 +933,7 @@ body{
     <div class="candidate-list" id="hanziResultList"></div>
 
     <div class="legend-note" id="hanziLegendNote" style="display:none;">
-      萬用文字模式：英文字母採字母序（A=01、B=02…Z=26，跟身分證換算同一套）；中文字採 Unicode／教育部標準筆畫數，少數部首（如氵、扌、忄）在傳統姓名學裡有時會以本字（水、手、心）的筆畫數計算，可能差一畫左右，僅供參考。地址門牌模式：只擷取半形阿拉伯數字，英文字、中文字、標點都會被忽略不計入配對。
+      萬用文字模式：英文字母採字母序（A=1、B=2…Z=26，不補零，跟地址門牌同一套；身分證分頁另有一套 A=01 補零）；中文字採 Unicode／教育部標準筆畫數，少數部首（如氵、扌、忄）在傳統姓名學裡有時會以本字（水、手、心）的筆畫數計算，可能差一畫左右，僅供參考。地址門牌模式：擷取半形阿拉伯數字，英文字母依字母序換算成數字（A=1、B=2…Z=26，不補零，例如 B1 → 21）；中文字與標點忽略不計。（身分證分頁是獨立的一套，用 A=01 補零。）
     </div>
 
     <div class="history-section" id="hanziHistorySection">
@@ -1954,8 +1963,10 @@ const STROKE_MAP = buildStrokeMap(STROKE_DATA);
 function convertToken(ch) {
   if (/[0-9]/.test(ch)) return { ch, digits: ch, kind: 'digit' };
   if (/[A-Za-z]/.test(ch)) {
+    // A=1、B=2…Z=26，不補零（與地址門牌模式一致）。
+    // 身分證歷程分頁是獨立的一套，仍維持 A=01 補零，不要跟著改。
     const n = ch.toUpperCase().charCodeAt(0) - 64;
-    return { ch, digits: String(n).padStart(2, '0'), kind: 'letter' };
+    return { ch, digits: String(n), kind: 'letter' };
   }
   if (STROKE_MAP[ch] !== undefined) {
     return { ch, digits: String(STROKE_MAP[ch]), kind: 'hanzi' };
@@ -2030,12 +2041,26 @@ function addHanziSlot() {
 hanziAddSlotBtn.addEventListener('click', addHanziSlot);
 
 function extractAddressDigits(raw) {
-  return raw.replace(/[^0-9]/g, '');
+  // 英文字母依字母序換算成數字：A=1、B=2…Z=26（不補零，例如 B1 → 21）。
+  // 與「萬用文字」模式一致。身分證歷程分頁是獨立的一套，仍用 A=01 補零。
+  return [...raw].map(ch => {
+    if (ch >= '0' && ch <= '9') return ch;
+    if (/[A-Za-z]/.test(ch)) return String(ch.toUpperCase().charCodeAt(0) - 64);
+    return '';
+  }).join('');
+}
+// 有換算到字母時明講換算結果，不要讓使用者以為地址只是被抓數字
+function addressNotice(raw) {
+  const letters = [...new Set((raw.match(/[A-Za-z]/g) || []).map(c => c.toUpperCase()))];
+  if (!letters.length) return null;
+  const shown = letters.map(c => `${c}→${c.charCodeAt(0) - 64}`).join('、');
+  return `英文字母已依字母序換算（A=1、B=2…Z=26）：${shown}`;
 }
 function analyzeHanziEntry(raw, mode) {
-  let digits, tokens = null;
+  let digits, tokens = null, notice = null;
   if (mode === 'address') {
     digits = extractAddressDigits(raw);
+    notice = addressNotice(raw);
   } else {
     tokens = convertToDigits(raw);
     digits = tokens.map(t => t.digits).join('');
@@ -2046,7 +2071,7 @@ function analyzeHanziEntry(raw, mode) {
   const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]);
   const dominant = sorted.length ? sorted[0][0] : null;
   const verdicts = venueVerdicts(pairs);
-  return { raw, mode, digits, tokens, pairs, dominant, verdicts };
+  return { raw, mode, digits, tokens, pairs, dominant, verdicts, notice };
 }
 
 function hanziEntryCardHTML(r, rank) {
@@ -2069,6 +2094,7 @@ function hanziEntryCardHTML(r, rank) {
           t.kind === 'skip' ? `<span class="pair-chip warn">${t.ch}→無法辨識</span>` : `<span class="pair-chip mixed">${t.ch}→${t.digits}</span>`
         ).join('')}</div>
       ` : ''}
+      ${r.notice ? `<div class="addr-notice">${r.notice}</div>` : ''}
       <div class="ling-line"><b>${r.digits || '（無可用數字）'}</b><span>依序兩兩配對</span></div>
       <div class="csection-label">數字易經八星（兩兩配對）</div>
       <div class="pair-row">${r.pairs.length ? r.pairs.map(p =>
@@ -2130,9 +2156,21 @@ function renderHanziHistoryList() {
   hanziHistoryEmpty.style.display = list.length ? 'none' : 'block';
   hanziHistoryList.innerHTML = '';
   list.forEach(entry => {
-    // 舊紀錄沒有 ending 欄位，退回用 dominant 上色，避免既有紀錄壞掉
-    const cls = entry.ending ? entry.ending.cls
-              : (entry.dominant ? (STAR_LEVEL[entry.dominant] || 'mixed') : 'mixed');
+    // 唯一可信的是使用者當初輸入的原文（entry.raw），數字與吉凶都是衍生資料。
+    // 換算規則改過（例如字母 A=01 改成 A=1），存起來的舊數字就會過期，
+    // 而點下去時本來就是用 raw 重算的 —— 列表若沿用舊值會跟點開的結果對不起來。
+    // 所以這裡一律即時重算，不讀存檔裡的 digits / ending。
+    let digits = entry.digits, cls = 'mixed', tail = '';
+    try {
+      const r = analyzeHanziEntry(entry.raw, entry.mode);
+      digits = r.digits;
+      const ev = r.verdicts ? r.verdicts.ending : null;
+      if (ev) { cls = ev.cls; tail = ` · ${ev.label}`; }
+    } catch (err) {
+      // 重算失敗就照實說，不要拿可能過期的舊值假裝正常
+      tail = ' · 無法重算';
+      cls = 'mixed';
+    }
     const dotColor = CLASS_TO_VAR[cls];
     const row = document.createElement('button');
     row.type = 'button';
@@ -2140,7 +2178,7 @@ function renderHanziHistoryList() {
     row.innerHTML = `
       <span class="history-dot" style="background:${dotColor}"></span>
       <span class="history-code">${entry.raw}</span>
-      <span class="history-mid">${entry.mode === 'address' ? '地址門牌' : '萬用文字'} · 數字${entry.digits || '—'}${entry.ending ? ` · ${entry.ending.label}` : (entry.dominant ? ` · 最明顯${entry.dominant}` : '')}</span>
+      <span class="history-mid">${entry.mode === 'address' ? '地址門牌' : '萬用文字'} · 數字${digits || '—'}${tail}</span>
       <span class="history-time">${relativeTime(entry.ts)}</span>
     `;
     row.addEventListener('click', () => {
